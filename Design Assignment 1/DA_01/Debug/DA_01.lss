@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.6  C:\Users\oit\Documents\Atmel Studio\7.0\DA_02\DA_02\main.asm Sat Feb 04 20:23:50 2017
+AVRASM ver. 2.2.6  c:\Users\oit\Documents\Atmel Studio\7.0\DA_01\DA_01\main.asm Sat Feb 04 21:29:04 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
                                  
-                                 ;;
+                                 ;
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -985,7 +985,7 @@ AVRASM ver. 2.2.6  C:\Users\oit\Documents\Atmel Studio\7.0\DA_02\DA_02\main.asm 
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; Design Assignment 2
+                                 ; Design Assignment 1
                                  ; CPE 301
                                  ; Sarrah Harris
                                  ; 
@@ -993,89 +993,92 @@ AVRASM ver. 2.2.6  C:\Users\oit\Documents\Atmel Studio\7.0\DA_02\DA_02\main.asm 
                                  ; Author : Anthony Pallone
                                  ;
                                  
-                                 
+                                 start:
 000000 e139                      	LDI R19, 25				;counter of numbers we entered
 000001 e020                      	LDI R18, 0				;constant 0
 000002 e003                      	LDI R16, 3				;constant 3
 000003 e017                      	LDI R17, 7				;constant 7
 000004 e040                      	LDI R20, 0				;running sum for 7
-000005 e050                      	LDI R21, 0
+000005 e050                      	LDI R21, 0				;upper part of running sum
 000006 e070                      	LDI R23, 0				;running sum for 3
-000007 e080                      	LDI R24, 0
-000008 e090                      	ldi R25, 0
-000009 e0f0                      	LDI R31,0
-00000a e7ef                      	LDI ZL, LOW(RAMEND/2)
-00000b e0f4                      	LDI ZH, HIGH(RAMEND/2)	;Have to set Z to point to RAMEND/2
+000007 e080                      	LDI R24, 0				;upper part of running sum
+000008 e090                      	ldi R25, 0				; just set it to 0 so when it was Or-d later it would be 0
+000009 e0f0                      	LDI R31,0				; same as above
+00000a b925                      	OUT PORTB, R18			; would set port B to 0 which turns it off
+00000b e7ef                      	LDI ZL, LOW(RAMEND/2)
+00000c e0f4                      	LDI ZH, HIGH(RAMEND/2)	;Have to set Z to point to RAMEND/2
                                  
                                  loopOne:
-00000c 2e9e                      	MOV  R9, ZL
-00000d 9291                      	ST  Z+, R9
-00000e 953a                      	DEC R19
-00000f 1732                      	CP R19, R18
-000010 f7d9                      	BRNE loopOne
+00000d 2e9e                      	MOV  R9, ZL				;Since we want to store the lower part of RAMEND/2 into Z we move it into R9
+00000e 9291                      	ST  Z+, R9				;then go right on ahead and store it
+00000f 953a                      	DEC R19					;decriment counter
+000010 1732                      	CP R19, R18				;compare to 0
+000011 f7d9                      	BRNE loopOne			;if not 0 we havent done 25 loops and wrote to 25 memory locations
                                  
-000011 e7ef                      	LDI ZL, LOW(RAMEND/2)
-000012 e0f4                      	LDI ZH, HIGH(RAMEND/2)	;Have to set Z to point to RAMEND/2
-000013 e139                      	LDI R19, 25				;counter of numbers we entered
+000012 e7ef                      	LDI ZL, LOW(RAMEND/2)
+000013 e0f4                      	LDI ZH, HIGH(RAMEND/2)	;Have to set Z to point to RAMEND/2 again
+000014 e139                      	LDI R19, 25				;counter of numbers we entered
                                  
                                  loopTwo:
-000014 9091                      	LD R9, Z+
-000015 2c89                      	MOV R8, R9
-000016 1682                      	CP R8, R18
-000017 f119                      	BREQ threeSkip	;if its R8 == 0 we dont have to do any of the next calculations its just a tiny time skip
-000018 1681                      	CP R8, R17
-000019 f018                      	BRLO sevenDone
+000015 9091                      	LD R9, Z+				; we load from Z and then we increment Z
+000016 2c89                      	MOV R8, R9				; we copy r9 to keep r9 from being changed
+000017 1682                      	CP R8, R18			
+000018 f119                      	BREQ threeSkip		;if R8 = 0 we dont have to do any of the next calculations its just a tiny time skip
+000019 1681                      	CP R8, R17			;we also see if r8 < r17 at the start in which case the next loop wouldnt work so we check beforehand
+00001a f018                      	BRLO sevenDone
                                  
                                  sevenLoop:
-00001a 1a81                      	SUB R8, R17
-00001b 1681                      	CP R8, R17
-00001c f7e8                      	BRSH sevenLoop
+00001b 1a81                      	SUB R8, R17		;since we cant divide we subtract 7 until its less than 7
+00001c 1681                      	CP R8, R17		;we check if its < 7
+00001d f7e8                      	BRSH sevenLoop  ;if so go to seven loop
                                  
                                  sevenDone:
-00001d 1682                      	CP R8, R18
-00001e f451                      	BRNE sevenSkip
-00001f 0d49                      	ADD R20, R9
-000020 f010                      	brlo overflowSeven
-000021 940c 0029                 	jmp sevenSkip
+00001e 1682                      	CP R8, R18		;we see if r8 = 0 if its not we skip the next couple of lines
+00001f f451                      	BRNE sevenSkip
+000020 0d49                      	ADD R20, R9		;add r9 into our running some
+000021 f010                      	brlo overflowSeven	;we check if theres an overflow if there is we jump
+000022 940c 002a                 	jmp sevenSkip		;if not we skip the next line of code
                                  
                                  overflowSeven:
-000023 9553                      	inc R21
-000024 e1f0                      	ldi r31, 0b00010000
-000025 2bf9                      	or	r31, r25
-000026 2e7f                      	mov r7, r31
-000027 b9f4                      	out DDRB, r31
-000028 b9f5                      	out PORTB, r31
+000024 9553                      	inc R21		;we increment the top part of the running some
+000025 e1c0                      	ldi r28, 0b00010000	; load up 0x10 so we can open portb.4 and ddrb.4
+000026 2bc9                      	or	r28, r25		;in case theres the other one
+000027 2e7c                      	mov r7, r28			; set r7.4
+000028 b9c4                      	out DDRB, r28		;out ddrb.4
+000029 b9c5                      	out PORTB, r28		;out portb.4
+                                 
                                  			
                                  sevenSkip:
-000029 2c89                      	MOV R8, R9
-00002a 1681                      	CP R8, R17
-00002b f018                      	BRLO threeDone
+00002a 2c89                      	MOV R8, R9		;copy r8 so r9 is untouched 
+00002b 1681                      	CP R8, R17		;see if r8 is less than 3 if so were done
+00002c f018                      	BRLO threeDone
                                  
                                  threeLoop:
-00002c 1a80                      	SUB R8, R16
-00002d 1680                      	CP R8, R16
-00002e f7e8                      	BRSH threeLoop
+00002d 1a80                      	SUB R8, R16	;subtract 3
+00002e 1680                      	CP R8, R16	;see if its less than 3 and untiol it is we repeatedly subtract
+00002f f7e8                      	BRSH threeLoop
                                  
                                  threeDone:
-00002f 1682                      	CP R8, R18
-000030 f451                      	BRNE threeSkip
-000031 0d79                      	ADD R23, R9'
-000032 f010                      	brlo overflowThree
-000033 940c 003b                 	jmp threeSkip
+000030 1682                      	CP R8, R18 ;we see if its = 0 if not we skip the next lines of code
+000031 f451                      	BRNE threeSkip
+000032 0d79                      	ADD R23, R9 ;add it to our running sum
+000033 f010                      	brlo overflowThree	;if theres overflow do the next couple lines of code
+000034 940c 003c                 	jmp threeSkip	;otherwise skip em
                                  
                                  overflowThree:
-000035 9583                      	inc r24
-000036 e098                      	ldi r25, 0b00001000
-000037 2b9f                      	or	r25, r31
-000038 2e79                      	mov r7, r25
-000039 b994                      	out DDRB, r25
-00003a b995                      	out PORTB, r25 
+000036 9583                      	inc r24			;increment top register
+000037 e098                      	ldi r25, 0b00001000	;set 0x08 so it portb.3 and ddrb.3
+000038 2b9c                      	or	r25, r28		;see if we got the other one to overflow
+000039 2e79                      	mov r7, r25        ; set 7.3
+00003a b994                      	out DDRB, r25		;out ddrb.3
+00003b b995                      	out PORTB, r25		;out portb.3
+                                 
                                  
                                  threeSkip:
-00003b 953a                      	DEC R19
-00003c 1732                      	CP  R19, R18
-00003d f6b1                      	BRNE loopTwo
-                                 
+00003c 953a                      	DEC R19
+00003d 1732                      	CP  R19, R18
+00003e f6b1                      	BRNE loopTwo
+00003f 940c 0041                 	jmp done
                                  done:
 
 
@@ -1096,10 +1099,10 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   2 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   2 r8 :  11 r9 :   7 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   3 r17:   5 r18:   6 r19:   6 r20:   2 
-r21:   2 r22:   0 r23:   2 r24:   2 r25:   7 r26:   0 r27:   0 r28:   0 
-r29:   0 r30:   3 r31:   9 
-Registers used: 15 out of 35 (42.9%)
+r13:   0 r14:   0 r15:   0 r16:   3 r17:   5 r18:   7 r19:   6 r20:   2 
+r21:   2 r22:   0 r23:   2 r24:   2 r25:   7 r26:   0 r27:   0 r28:   6 
+r29:   0 r30:   3 r31:   3 
+Registers used: 16 out of 35 (45.7%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   2 adiw  :   0 and   :   0 
@@ -1111,10 +1114,10 @@ brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   9 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   2 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   2 jmp   :   3 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   2 jmp   :   4 
 ld    :   1 ldd   :   0 ldi   :  17 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   5 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   2 ori   :   0 out   :   4 pop   :   0 
+neg   :   0 nop   :   0 or    :   2 ori   :   0 out   :   5 pop   :   0 
 push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :   0 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
@@ -1126,7 +1129,7 @@ Instructions used: 16 out of 113 (14.2%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000080    128      0    128   32768   0.4%
+[.cseg] 0x000000 0x000086    134      0    134   32768   0.4%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
