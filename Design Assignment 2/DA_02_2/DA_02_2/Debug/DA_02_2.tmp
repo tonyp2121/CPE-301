@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.6</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\Debug\DA_02_2.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>DA_02_2.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>DA_02_2.map</FILE>
+  <FILE>DA_02_2.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <Start><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>14</LINE></Start>
+  <TIM0_OVF><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>41</LINE></TIM0_OVF>
+  <Begin><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>30</LINE></Begin>
+  <Loop><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>38</LINE></Loop>
+  <Finish><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>64</LINE></Finish>
+  <Skip1><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>54</LINE></Skip1>
+  <Skip2><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm</FILE><LINE>59</LINE></Skip2>
+ </LABELS>
+</ASSEMBLER_INFO>

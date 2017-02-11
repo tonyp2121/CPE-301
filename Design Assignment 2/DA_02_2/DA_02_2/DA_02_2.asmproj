@@ -11,9 +11,9 @@
     <OutputFileExtension>.obj</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
     <Language>ASSEMBLY</Language>
-    <AssemblyName>DA_02_1</AssemblyName>
-    <Name>DA_02_1</Name>
-    <RootNamespace>DA_02_1</RootNamespace>
+    <AssemblyName>DA_02_2</AssemblyName>
+    <Name>DA_02_2</Name>
+    <RootNamespace>DA_02_2</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <EntryFile>$(MSBuildProjectDirectory)\main.asm</EntryFile>
     <KeepTimersRunning>true</KeepTimersRunning>

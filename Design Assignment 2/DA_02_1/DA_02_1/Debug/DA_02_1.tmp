@@ -24,9 +24,9 @@
  <LABELS>
   <start><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>10</LINE></start>
   <Begin><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>26</LINE></Begin>
-  <Loop><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>31</LINE></Loop>
-  <Toggle><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>40</LINE></Toggle>
-  <Skip2><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>54</LINE></Skip2>
-  <Skip1><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>49</LINE></Skip1>
+  <Loop><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>32</LINE></Loop>
+  <Toggle><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>42</LINE></Toggle>
+  <Skip2><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>56</LINE></Skip2>
+  <Skip1><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>51</LINE></Skip1>
  </LABELS>
 </ASSEMBLER_INFO>

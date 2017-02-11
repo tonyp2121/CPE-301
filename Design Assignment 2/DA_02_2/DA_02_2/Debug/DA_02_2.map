@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm Fri Feb 10 15:02:17 2017
+AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm Fri Feb 10 16:50:38 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -695,9 +695,10 @@ EQU  ACIaddr      0000002e
 EQU  TWIaddr      00000030
 EQU  SPMRaddr     00000032
 EQU  INT_VECTORS_SIZE 00000034
-CSEG start        00000000
-CSEG Begin        0000000f
-CSEG Loop         00000014
-CSEG Toggle       0000001d
-CSEG Skip2        0000002a
-CSEG Skip1        00000026
+CSEG Start        00000022
+CSEG TIM0_OVF     00000039
+CSEG Begin        00000031
+CSEG Loop         00000038
+CSEG Finish       0000004b
+CSEG Skip1        00000044
+CSEG Skip2        00000048
