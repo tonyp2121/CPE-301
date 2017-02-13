@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm Fri Feb 10 16:50:38 2017
+AVRASM ver. 2.2.6  C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_2\DA_02_2\main.asm Mon Feb 13 13:55:37 2017
 
 
 EQU  SIGNATURE_000 0000001e
@@ -699,6 +699,6 @@ CSEG Start        00000022
 CSEG TIM0_OVF     00000039
 CSEG Begin        00000031
 CSEG Loop         00000038
-CSEG Finish       0000004b
-CSEG Skip1        00000044
-CSEG Skip2        00000048
+CSEG Skip2        0000004c
+CSEG Skip1        00000048
+CSEG Finish       0000004e

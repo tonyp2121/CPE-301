@@ -1,18 +1,18 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.6</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\Debug</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\Debug\DA_02_1.obj</FILE>
+  <FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\Debug\DA_02_1.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>DA_02_1.hex</FILE>
@@ -22,11 +22,11 @@
   <FILE>DA_02_1.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <start><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>10</LINE></start>
-  <Begin><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>26</LINE></Begin>
-  <Loop><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>32</LINE></Loop>
-  <Toggle><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>42</LINE></Toggle>
-  <Skip2><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>56</LINE></Skip2>
-  <Skip1><FILE>c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm</FILE><LINE>51</LINE></Skip1>
+  <start><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>10</LINE></start>
+  <Begin><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>26</LINE></Begin>
+  <Loop><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>31</LINE></Loop>
+  <Toggle><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>40</LINE></Toggle>
+  <Skip2><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>54</LINE></Skip2>
+  <Skip1><FILE>C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm</FILE><LINE>49</LINE></Skip1>
  </LABELS>
 </ASSEMBLER_INFO>

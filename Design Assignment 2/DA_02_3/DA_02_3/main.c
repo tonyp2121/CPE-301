@@ -12,7 +12,7 @@ int main(void)
 
 	DDRB = 0xFF;		// set DDRB to ouput all
 	PORTB = 0;			// make sure there are no outputs
-	DDRC = 0x61;		// set DDRC to ouput only 0, 4, and 5
+	DDRC = 0x31;		// set DDRC to ouput only 0, 4, and 5
 	PORTC = 0;			// make sure there are no outputs
 	while(1)
 	{
@@ -36,12 +36,12 @@ int main(void)
 				if(fiveCount == 5)
 				{
 					fiveCount = 0;		// reset counter
-					PORTC ^= 0x40;		// toggle PortC.5
+					PORTC ^= 0x20;		// toggle PortC.5
 				}
 				if(tenCount == 10)
 				{
 					tenCount = 0;		// reset counter
-					PORTC ^= 0x20;		// toggle PortC.4
+					PORTC ^= 0x10;		// toggle PortC.4
 				}
 			}
 		}

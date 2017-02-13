@@ -24,12 +24,12 @@ ISR (TIMER0_OVF_vect) {
 			if(fiveCount == 5)
 			{
 				fiveCount = 0;      // reset five counter
-				PORTC ^= 0x40;      // toggle PC.5
+				PORTC ^= 0x20;      // toggle PC.5
 			}
 			if(tenCount == 10)
 			{
 				tenCount = 0;       //reset ten counter
-				PORTC ^= 0x20;      // toggle PC.4
+				PORTC ^= 0x10;      // toggle PC.4
 			}
 		}
 	}
@@ -43,7 +43,7 @@ int main(void)
 {
 	DDRB = 0xFF;       // set DDRB for all ouputs
 	PORTB = 0;         // make sure theres nothing coming out of PortB
-	DDRC = 0x61;       // set DDRB to only output at 4,5, and 0 pins
+	DDRC = 0x31;       // set DDRB to only output at 4,5, and 0 pins
 	PORTC = 0;         // make sure theres nothing coming out of PortC
 	TCCR0A = 0;        // initialize clock, normal
 	TCCR0B |= (1 << CS02);  // clock/256

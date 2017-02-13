@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\main.asm Fri Feb 10 15:02:17 2017
+AVRASM ver. 2.2.6  C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_1\DA_02_1\main.asm Mon Feb 13 13:53:17 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
@@ -989,60 +989,59 @@ AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_1\DA_02_1\ma
                                  ; Author : Anthony Pallone
                                  ; Sarah Harris
                                  ; CPE 301L
+                                 ; Design Assignment 2_1
                                  ;
                                  
                                  
-                                 ; Replace with your application code
                                  start:
-000000 e601                      	LDI		R16, 0x61
+000000 e301                      	LDI		R16, 0x31		; I set PinC 0, 4, and 5
 000001 b907                      	OUT		DDRC, R16
-000002 ef0f                      	LDI		R16, 0xFF
+000002 ef0f                      	LDI		R16, 0xFF		; I set ever Pin on PinB
 000003 b904                      	OUT		DDRB, R16
-000004 e200                      	LDI		R16, 0x20
-000005 e410                      	LDI		R17, 0x40
-000006 e061                      	LDI		R22, 0x01
-000007 e020                      	LDI		R18, 0x00
+000004 e100                      	LDI		R16, 0x10		; this is a constant of PC.4 toggle
+000005 e210                      	LDI		R17, 0x20		; this is a constant of PC.5 toggle
+000006 e061                      	LDI		R22, 0x01		; this is a constand of PC.0 toggle
+000007 e020                      	LDI		R18, 0x00		; this is a constant 0
 000008 2e82                      	MOV		R8, R18			; keeps track of what needs to be toggled
 000009 2e92                      	MOV		R9, R18			; counter of rising edges
-00000a b925                      	OUT		PORTB, R18
-00000b b928                      	OUT		PORTC, R18
-00000c e035                      	LDI		R19, 0x05
-00000d e04a                      	LDI		R20, 0x0A
-00000e e17e                      	LDI		R23, 0x1E		;30 our counter
+00000a b925                      	OUT		PORTB, R18		; make sure there are nothing being outputted currently on PortB
+00000b b928                      	OUT		PORTC, R18		; make sure there is nothing being outputted on PortC
+00000c e035                      	LDI		R19, 0x05		; counter to see when it gets to every 5 pulses
+00000d e04a                      	LDI		R20, 0x0A		; counter to see when it gets to ever 10 pulses
+00000e e17e                      	LDI		R23, 0x1E		; 30 our main counter
                                  Begin:
-00000f e0b0                      	LDI		R27, 0x0
-000010 bdb6                      	OUT		TCNT0, R27
-000011 bd24                      	OUT		TCCR0A,R18
-000012 e084                      	LDI		R24, (1<<CS02)
-000013 bd85                      	OUT		TCCR0B, R24
+00000f bd26                      	OUT		TCNT0, R18		; load Timer0 = 0
+000010 bd24                      	OUT		TCCR0A,R18		; Timer0: normal mode, internal clock
+000011 e084                      	LDI		R24, (1<<CS02)	; Clock/256
+000012 bd85                      	OUT		TCCR0B, R24
                                  Loop:
-000014 b295                      	IN		R9, TIFR0
-000015 fe90                      	SBRS	R9, 0
-000016 cffd                      	RJMP	Loop
-000017 e0a0                      	LDI		R26, 0x0
-000018 bda5                      	OUT		TCCR0B, R26
-000019 e091                      	LDI		R25, (1<<TOV0)
-00001a bb95                      	OUT		TIFR0,R25
-00001b 957a                      	DEC		R23
-00001c f791                      	BRNE	begin
+000013 b3e5                      	IN		R30, TIFR0		; read Timer0 flags register
+000014 ffe0                      	SBRS	R30, 0			; if overflow (TOV0) is set skip next instruction
+000015 cffd                      	RJMP	Loop
+000016 bd25                      	OUT		TCCR0B, R18		; stop/disable Timer0
+000017 e091                      	LDI		R25, (1<<TOV0)	;clear Timer0 overflow flag (TOV0)
+000018 bb95                      	OUT		TIFR0,R25
+000019 957a                      	DEC		R23				; counter --
+00001a f7a1                      	BRNE	Begin			; if counter =! 0 start over again
                                  Toggle:
-00001d 2686                      	EOR		R8, R22
-00001e fe80                      	SBRS	R8, 0
-00001f 940c 002a                 	JMP		Skip2
-000021 9493                      	INC		R9
-000022 953a                      	DEC		R19
-000023 f411                      	BRNE	Skip1
-000024 2680                      	EOR		R8, R16
-000025 e035                      	LDI		R19, 0x05
+00001b 2686                      	EOR		R8, R22			; toggle PC.0
+00001c fe80                      	SBRS	R8, 0			; if R8.0 == 1 skip next line
+00001d 940c 0028                 	JMP		Skip2			; else were done and dont need to do the rest
+00001f 9493                      	INC		R9				; increment counter of rising edges
+000020 953a                      	DEC		R19				; decriment 5 counter
+000021 f411                      	BRNE	Skip1			; if =! 0 skip
+000022 2681                      	EOR		R8, R17			; toggle PC.5
+000023 e035                      	LDI		R19, 0x05		; restart counter
                                  Skip1:
-000026 954a                      	DEC		R20
-000027 f411                      	BRNE	Skip2
-000028 2681                      	EOR		R8, R17
-000029 e04a                      	LDI		R20, 0X0A
+000024 954a                      	DEC		R20				; decriment 10 counter
+000025 f411                      	BRNE	Skip2			; if =! 0 skip
+000026 2680                      	EOR		R8, R16			; toggle PC.4
+000027 e04a                      	LDI		R20, 0X0A		; restart counter
                                  Skip2:
-00002a b895                      	OUT		PORTB, R9
-00002b b888                      	OUT		PORTC, R8
-00002c e17e                      	LDI		R23, 0x1E
+000028 b895                      	OUT		PORTB, R9		; Output counter to portB
+000029 b888                      	OUT		PORTC, R8		; Output R8 to PortC
+00002a e17e                      	LDI		R23, 0x1E		; Restart counter
+00002b 940c 000f                 	Jmp		Begin			; Begin again
 
 
 RESOURCE USE INFORMATION
@@ -1061,11 +1060,11 @@ counted separately from r26..r31 here.
 
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
-r5 :   0 r6 :   0 r7 :   0 r8 :   6 r9 :   5 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:   6 r17:   2 r18:   6 r19:   3 r20:   3 
-r21:   0 r22:   2 r23:   3 r24:   2 r25:   2 r26:   2 r27:   2 r28:   0 
-r29:   0 r30:   0 r31:   0 
-Registers used: 13 out of 35 (37.1%)
+r5 :   0 r6 :   0 r7 :   0 r8 :   6 r9 :   3 r10:   0 r11:   0 r12:   0 
+r13:   0 r14:   0 r15:   0 r16:   6 r17:   2 r18:   8 r19:   3 r20:   3 
+r21:   0 r22:   2 r23:   3 r24:   2 r25:   2 r26:   0 r27:   0 r28:   0 
+r29:   0 r30:   2 r31:   0 
+Registers used: 12 out of 35 (34.3%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
@@ -1078,7 +1077,7 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   3 eor   :   3 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   1 jmp   :   2 
-ld    :   0 ldd   :   0 ldi   :  16 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   0 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  11 pop   :   0 
 push  :   0 rcall :   0 ret   :   0 reti  :   0 rjmp  :   1 rol   :   0 
@@ -1092,7 +1091,7 @@ Instructions used: 11 out of 113 (9.7%)
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00005e     94      0     94   32768   0.3%
+[.cseg] 0x000000 0x00005a     90      0     90   32768   0.3%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 

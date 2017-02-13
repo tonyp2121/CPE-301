@@ -13,12 +13,12 @@
 
 
 Start:
-	LDI		R16, 0x61		; I set PinC 0, 4, and 5
+	LDI		R16, 0x31		; I set PinC 0, 4, and 5
 	OUT		DDRC, R16
 	LDI		R16, 0xFF		; I set ever Pin on PinB
 	OUT		DDRB, R16
-	LDI		R16, 0x20		; toggle for Port C.4
-	LDI		R17, 0x40		; toggle for Port C.5
+	LDI		R16, 0x10		; toggle for Port C.4
+	LDI		R17, 0x20		; toggle for Port C.5
 	LDI		R22, 0x01		; toggle for Port C.0
 	LDI		R18, 0x00		; this is a constant 0
 	MOV		R8, R18			; keeps track of what needs to be toggled
@@ -44,7 +44,7 @@ TIM0_OVF:
 	LDI		R26, (1<<TOV0)	; clear Timer0 overflow flag (TOV0)
 	OUT		TIFR0, R26
 	DEC		R23				; counter --
-	BRNE	Finish			; if counter =! 0 jump to finish
+	BRNE	Skip2			; if counter =! 0 jump to finish
 
 	LDI		R23, 30			; restart counter
 	EOR		R8, R22			; toggle PortC.0

@@ -8,12 +8,12 @@
 
 
 start:
-	LDI		R16, 0x61		; I set PinC 0, 4, and 5
+	LDI		R16, 0x31		; I set PinC 0, 4, and 5
 	OUT		DDRC, R16
 	LDI		R16, 0xFF		; I set ever Pin on PinB
 	OUT		DDRB, R16
-	LDI		R16, 0x20		; this is a constant of PC.4 toggle
-	LDI		R17, 0x40		; this is a constant of PC.5 toggle
+	LDI		R16, 0x10		; this is a constant of PC.4 toggle
+	LDI		R17, 0x20		; this is a constant of PC.5 toggle
 	LDI		R22, 0x01		; this is a constand of PC.0 toggle
 	LDI		R18, 0x00		; this is a constant 0
 	MOV		R8, R18			; keeps track of what needs to be toggled
@@ -29,8 +29,8 @@ Begin:
 	LDI		R24, (1<<CS02)	; Clock/256
 	OUT		TCCR0B, R24
 Loop:
-	IN		R9, TIFR0		; read Timer0 flags register
-	SBRS	R9, 0			; if overflow (TOV0) is set skip next instruction
+	IN		R30, TIFR0		; read Timer0 flags register
+	SBRS	R30, 0			; if overflow (TOV0) is set skip next instruction
 	RJMP	Loop
 	OUT		TCCR0B, R18		; stop/disable Timer0
 	LDI		R25, (1<<TOV0)	;clear Timer0 overflow flag (TOV0)

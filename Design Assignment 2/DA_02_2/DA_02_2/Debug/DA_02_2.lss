@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\main.asm Fri Feb 10 16:50:38 2017
+AVRASM ver. 2.2.6  C:\Users\oit\Documents\GitHub\CPE-301\Design Assignment 2\DA_02_2\DA_02_2\main.asm Mon Feb 13 13:55:37 2017
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.1.130\avrasm\inc\m328pdef.inc'
@@ -991,6 +991,7 @@ AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\ma
                                  ; CPE 301L
                                  ; Design Assignment 2_2
                                  ;
+                                 
                                  .org 0
 000000 940c 0022                 	jmp  Start
                                  .org 0x20
@@ -998,60 +999,63 @@ AVRASM ver. 2.2.6  c:\users\patron\Documents\Atmel Studio\7.0\DA_02_2\DA_02_2\ma
                                  
                                  
                                  Start:
-000022 e601                      	LDI		R16, 0x61
+000022 e301                      	LDI		R16, 0x31		; I set PinC 0, 4, and 5
 000023 b907                      	OUT		DDRC, R16
-000024 ef0f                      	LDI		R16, 0xFF
+000024 ef0f                      	LDI		R16, 0xFF		; I set ever Pin on PinB
 000025 b904                      	OUT		DDRB, R16
-000026 e200                      	LDI		R16, 0x20		; toggle for Port C.4
-000027 e410                      	LDI		R17, 0x40		; toggle for Port C.5
+000026 e100                      	LDI		R16, 0x10		; toggle for Port C.4
+000027 e210                      	LDI		R17, 0x20		; toggle for Port C.5
 000028 e061                      	LDI		R22, 0x01		; toggle for Port C.0
-000029 e020                      	LDI		R18, 0x00
+000029 e020                      	LDI		R18, 0x00		; this is a constant 0
 00002a 2e82                      	MOV		R8, R18			; keeps track of what needs to be toggled
 00002b 2e92                      	MOV		R9, R18			; counter of rising edges
-00002c b925                      	OUT		PORTB, R18
-00002d b928                      	OUT		PORTC, R18
+00002c b925                      	OUT		PORTB, R18		; make sure there are nothing being outputted currently on PortB
+00002d b928                      	OUT		PORTC, R18		; make sure there is nothing being outputted on PortC
 00002e e035                      	LDI		R19, 0x05		; 5 counter
 00002f e04a                      	LDI		R20, 0x0A		;10 counter
 000030 e17e                      	LDI		R23, 0x1E		;30 our counter
                                  Begin:
 000031 bd26                      	OUT		TCNT0, R18
-000032 bd24                      	OUT		TCCR0A,R18
+000032 bd24                      	OUT		TCCR0A,R18		; Timer0: normal mode, internal clock
 000033 e084                      	LDI		R24, (1<<CS02)	; put clock /256
-000034 bd85                      	OUT		TCCR0B, R24
+000034 bd85                      	OUT		TCCR0B, R24		;enable overflow interrupt
 000035 9360 006e                 	STS		TIMSK0, R22
-000037 9478                      	SEI
+000037 9478                      	SEI						; set global interrupts
                                  
                                  Loop:
-000038 cfff                      	RJMP	LOOP
+000038 cfff                      	RJMP	LOOP			; infinite loop
                                  
                                  TIM0_OVF:
-000039 bd25                      	OUT		TCCR0B, R18
-00003a e0a1                      	LDI		R26, (1<<TOV0)
+000039 bd25                      	OUT		TCCR0B, R18		; stop/disable Timer0
+00003a e0a1                      	LDI		R26, (1<<TOV0)	; clear Timer0 overflow flag (TOV0)
 00003b bba5                      	OUT		TIFR0, R26
-00003c 957a                      	DEC		R23
-00003d f469                      	BRNE	Finish
+00003c 957a                      	DEC		R23				; counter --
+00003d f471                      	BRNE	Skip2			; if counter =! 0 jump to finish
                                  
-00003e e17e                      	LDI		R23, 30
-00003f 2686                      	EOR		R8, R22
-000040 953a                      	DEC		R19
-000041 f411                      	BRNE	Skip1
-000042 e035                      	LDI		R19, 0x05
-000043 2680                      	EOR		R8, R16
+00003e e17e                      	LDI		R23, 30			; restart counter
+00003f 2686                      	EOR		R8, R22			; toggle PortC.0
+000040 fe80                      	SBRS	R8, 0			; if R8.0 == 1 skip next line
+000041 940c 004c                 	JMP		Skip2
+000043 9493                      	INC		R9				; increment counter
+000044 953a                      	DEC		R19				; decriment the 5 counter
+000045 f411                      	BRNE	Skip1			; if its =! 0 skip
+000046 e035                      	LDI		R19, 0x05		; restart 5 counter
+000047 2681                      	EOR		R8, R17			; toggle PC.5
                                  Skip1:
-000044 954a                      	DEC		R20
-000045 f411                      	BRNE	Skip2
-000046 e04a                      	LDI		R20, 0x0A
-000047 2681                      	EOR		R8, R17
+000048 954a                      	DEC		R20				; decriment 10 counter
+000049 f411                      	BRNE	Skip2			; if =! 0 skip
+00004a e04a                      	LDI		R20, 0x0A		; restart the 10 counter
+00004b 2680                      	EOR		R8, R16			; toggle PC.4
                                  Skip2:
-000048 9493                      	INC		R9
-000049 b895                      	OUT		PORTB, R9
-00004a b888                      	OUT		PORTC, R8
+00004c b895                      	OUT		PORTB, R9		; output counter
+00004d b888                      	OUT		PORTC, R8		; output changes
                                  
                                  Finish:
-00004b bd26                      	OUT		TCNT0, R18
-00004c bd24                      	OUT		TCCR0A,R18
-00004d e084                      	LDI		R24, (1<<CS02)	; put clock /256
-00004e bd85                      	OUT		TCCR0B, R24
+00004e bd26                      	OUT		TCNT0, R18		;load Timer0 = 0
+00004f bd24                      	OUT		TCCR0A,R18		;Timer0: enabled
+000050 e084                      	LDI		R24, (1<<CS02)	; put clock /256
+000051 bd85                      	OUT		TCCR0B, R24
+000052 9518                      	RETI					;return from interrupt
 
 
 RESOURCE USE INFORMATION
@@ -1070,7 +1074,7 @@ counted separately from r26..r31 here.
 
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
-r5 :   0 r6 :   0 r7 :   0 r8 :   5 r9 :   3 r10:   0 r11:   0 r12:   0 
+r5 :   0 r6 :   0 r7 :   0 r8 :   6 r9 :   3 r10:   0 r11:   0 r12:   0 
 r13:   0 r14:   0 r15:   0 r16:   6 r17:   2 r18:  10 r19:   3 r20:   3 
 r21:   0 r22:   3 r23:   3 r24:   4 r25:   0 r26:   2 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
@@ -1086,22 +1090,22 @@ brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   0 cpse  :   0 dec   :   3 eor   :   3 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   2 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   3 
 ld    :   0 ldd   :   0 ldi   :  15 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   2 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
 neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :  14 pop   :   0 
 push  :   0 rcall :   0 ret   :   0 reti  :   1 rjmp  :   1 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
+sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   1 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
 sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :   1 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 12 out of 113 (10.6%)
+Instructions used: 13 out of 113 (11.5%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000a0    100      0    100   32768   0.3%
+[.cseg] 0x000000 0x0000a6    106      0    106   32768   0.3%
 [.dseg] 0x000100 0x000100      0      0      0    2048   0.0%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
