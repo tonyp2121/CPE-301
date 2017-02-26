@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>DA_04</AssemblyName>
-    <Name>DA_04</Name>
-    <RootNamespace>DA_04</RootNamespace>
+    <AssemblyName>DA_04_1</AssemblyName>
+    <Name>DA_04_1</Name>
+    <RootNamespace>DA_04_1</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
