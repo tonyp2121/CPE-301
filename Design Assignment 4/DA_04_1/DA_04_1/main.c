@@ -31,7 +31,7 @@ int main(void)
 		{
 			view = ADC/512*255;
 			PORTB = 0x02;
-			OCR0A = 255-ADC/4;
+			OCR0A = ADC/4;
 			
 		}
 		else //backward
