@@ -63,6 +63,13 @@ void lcd_print(char * str) {
 	
 	while (str[i]!=0)  {   
 		lcdData(str[i]); i++;  
+		if (i == 8)
+		{
+			lcd_gotoxy(1,2);
+			_delay_us(100); 
+		}
+		if (i==16)
+		break;
 	}
 } 
 
@@ -82,16 +89,17 @@ int main(void) {
 	_delay_ms(500);
 
 	// clear the LCD and print some more text
-	lcdCommand(0x01);   //clear LCD
-	lcdCommand(0x02);   // return home: returns the cursor to the home position
+	//lcdCommand(0x01);   //clear LCD
+	//lcdCommand(0x02);   // return home: returns the cursor to the home position
+	lcd_gotoxy(1,1);
 	lcd_print("Here is some more text that overruns a single line...");		// print text that overruns a single line
 	_delay_ms(500);
 
 	// print text at a specific location on LCD (1st line, then 2nd line)
-	lcd_gotoxy(1,1);  
-	lcd_print("Text for line 1.");  
-	lcd_gotoxy(1,2);  
-	lcd_print("Text for line 2.");   
+	//lcd_gotoxy(1,1);  
+	//lcd_print("Text for line 1.");  
+	//lcd_gotoxy(1,2);  
+	//lcd_print("Text for line 2.");    
 	
 	while(1);    //stay here forever  
 	return 0; 
