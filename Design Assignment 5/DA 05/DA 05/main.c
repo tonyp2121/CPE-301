@@ -22,7 +22,11 @@
 #define LCD_RS  0      //LCD RS   (PC.0)
 #define LCD_RW  1      //LCD RW   (PC.1)
 #define LCD_EN  2      //LCD EN   (PC.2)
+#define KEY_PRT PORTD  //Keyboard PORT
+#define KEY_DDR DDRD   //Keyboard DDR
+#define KEY_PIN PIND   //Keyboard PIN
 
+int counter = 0; 
 
 //**************************************************************** 
 void lcdCommand (unsigned char cmd) {  
@@ -36,6 +40,16 @@ void lcdCommand (unsigned char cmd) {
 } 
  
 void lcdData(unsigned char data) {  
+	if (counter == 8)
+	{
+		lcd_gotoxy(1,2);
+	}
+	if (counter == 16)
+	{
+		lcdCommand(0x01);
+		lcd_gotoxy(1,1);
+		counter = 0;
+	}
 	LCD_DPRT = data;				//send data to data port  
 	LCD_CPRT |= (1<<LCD_RS);		//RS = 1 for data  
 	LCD_CPRT &= ~(1<<LCD_RW);   //RW = 0 for write   
@@ -43,6 +57,7 @@ void lcdData(unsigned char data) {
 	_delay_us(1);					//wait to make enable wide  
 	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse  
 	_delay_us(100);				//wait to make enable wide  
+	counter ++;
 } 
 
 void lcd_init() {  
@@ -58,25 +73,25 @@ void lcd_init() {
 	lcdCommand(0x06);   //shift cursor right 
 } 
  
-void lcd_print(char * str) {  
-	unsigned char i = 0;  
+void lcd_print(char * str) {
+	unsigned char i = 0;
 	
-	while (str[i]!=0)  {   
-		lcdData(str[i]); i++;  
-		if (i == 8)
-		{
-			lcd_gotoxy(1,2);
-			_delay_us(100); 
-		}
-		if (i==16)
-		break;
+	while (str[i]!=0)  {
+		lcdData(str[i]); i++;
 	}
-} 
+}
 
 // go to specific LCD locations
 void lcd_gotoxy(unsigned char x, unsigned char y) {  
 	unsigned char firstCharAdr[] = {0x80, 0xC0};   // locations of the first character of each line
-	
+	if (x == 1, y == 1)
+	{
+		counter = 0;
+	}
+	if (x == 1, y == 2)
+	{
+		counter = 8;
+	}
 	lcdCommand(firstCharAdr[y-1] + x-1);  
 	_delay_us(100); 
 } 
@@ -84,23 +99,113 @@ void lcd_gotoxy(unsigned char x, unsigned char y) {
 
 int main(void) {  
 	// initialize LCD
-	lcd_init();			  
-	lcd_print("Demo code");		// print some sample code on LCD
-	_delay_ms(500);
-
-	// clear the LCD and print some more text
-	//lcdCommand(0x01);   //clear LCD
-	//lcdCommand(0x02);   // return home: returns the cursor to the home position
-	lcd_gotoxy(1,1);
-	lcd_print("Here is some more text that overruns a single line...");		// print text that overruns a single line
-	_delay_ms(500);
-
-	// print text at a specific location on LCD (1st line, then 2nd line)
-	//lcd_gotoxy(1,1);  
-	//lcd_print("Text for line 1.");  
-	//lcd_gotoxy(1,2);  
-	//lcd_print("Text for line 2.");    
+	char colloc, rowloc, printCharacter, password, count;
+	char keypad[4][3] = {'1','2','3',
+						 '4','5','6',
+						 '7','8','9',
+						 '*','0','#'};
+	lcd_init();		//initialization
+	KEY_DDR = 0x0F;
+	KEY_PRT = 0x7F;
+	while (1){
+	 do
+	{	
+		KEY_PRT &= 0x70;			// make sure no buttons are being pressed yet
+		colloc = (KEY_PIN & 0x70);
+	}while (colloc != 0x70);
 	
-	while(1);    //stay here forever  
+	do 
+	{
+		do 
+		{
+			_delay_ms(20);
+			colloc = (KEY_PIN & 0x70);
+		} while (colloc == 0x70);
+		_delay_ms(20);
+		colloc = (KEY_PIN & 0x70);
+	} while (colloc == 0x70);
+	
+	while(1){
+		KEY_PRT = 0x7E;
+		_delay_ms(1);
+		colloc = (KEY_PIN & 0x70);
+		if (colloc != 0x70){
+			rowloc = 0;
+			break;
+		} 
+		KEY_PRT = 0x7D;
+		_delay_ms(10);
+		colloc = (KEY_PIN & 0x70);
+		if (colloc != 0x70){
+			rowloc = 1;
+			break;
+		}
+		KEY_PRT = 0x7B;
+		_delay_ms(10);
+		colloc = (KEY_PIN & 0x70);
+		if (colloc != 0x70){
+			rowloc = 2;
+			break;
+		}
+		KEY_PRT = 0x77;
+		_delay_ms(10);
+		colloc = (KEY_PIN & 0x70);
+		rowloc = 3;
+		break;
+		}
+		if (colloc == 0x60)
+		{
+			printCharacter = keypad[rowloc][0];
+			lcdData(printCharacter);
+		}
+		else if (colloc == 0x50)
+		{
+			printCharacter = keypad[rowloc][1];
+			lcdData(printCharacter);
+		}
+		else if (colloc == 0x30)
+		{
+			printCharacter = keypad[rowloc][2];
+			lcdData(printCharacter);
+		}
+		if ((printCharacter == '5') && (password == 0))
+		{
+			password ++;
+		}
+		else if ((printCharacter == '3') && (password == 1))
+		{
+			password ++;
+		}
+		else if ((printCharacter == '7') && (password == 2))
+		{
+			password ++;
+		}
+		else
+		{
+			password = 0;
+		}
+		count++;
+		if (count == 3)
+		{	
+			_delay_ms(100);
+			count = 0;
+			if (password == 3)
+			{
+				lcd_gotoxy(1,1);
+				lcd_print("Correct");
+			}
+			else
+			{
+				lcd_gotoxy(1,1);
+				lcd_print("Incorrect");
+				
+			}
+			_delay_ms(300);
+			lcdCommand(0x01);
+			lcd_gotoxy(1,1);
+			password = 0;
+		}
+		
+	}
 	return 0; 
 }   
