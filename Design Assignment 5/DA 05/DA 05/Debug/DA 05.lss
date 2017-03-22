@@ -3,31 +3,31 @@ DA 05.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000001e  00800100  0000043a  000004ce  2**0
+  0 .data         0000001e  00800100  00000442  000004d6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         0000043a  00000000  00000000  00000094  2**1
+  1 .text         00000442  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000002  0080011e  0080011e  000004ec  2**0
+  2 .bss          00000002  0080011e  0080011e  000004f4  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000004ec  2**0
+  3 .comment      00000030  00000000  00000000  000004f4  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000051c  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000524  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000048  00000000  00000000  0000055c  2**0
+  5 .debug_aranges 00000048  00000000  00000000  00000564  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000da6  00000000  00000000  000005a4  2**0
+  6 .debug_info   00000da5  00000000  00000000  000005ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007e6  00000000  00000000  0000134a  2**0
+  7 .debug_abbrev 000007bc  00000000  00000000  00001351  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000005dd  00000000  00000000  00001b30  2**0
+  8 .debug_line   000005d9  00000000  00000000  00001b0d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000000ac  00000000  00000000  00002110  2**2
+  9 .debug_frame  000000ac  00000000  00000000  000020e8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000042a  00000000  00000000  000021bc  2**0
+ 10 .debug_str    0000042d  00000000  00000000  00002194  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000059c  00000000  00000000  000025e6  2**0
+ 11 .debug_loc    00000834  00000000  00000000  000025c1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000058  00000000  00000000  00002b82  2**0
+ 12 .debug_ranges 00000058  00000000  00000000  00002df5  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,7 +72,7 @@ Disassembly of section .text:
   74:	11 e0       	ldi	r17, 0x01	; 1
   76:	a0 e0       	ldi	r26, 0x00	; 0
   78:	b1 e0       	ldi	r27, 0x01	; 1
-  7a:	ea e3       	ldi	r30, 0x3A	; 58
+  7a:	e2 e4       	ldi	r30, 0x42	; 66
   7c:	f4 e0       	ldi	r31, 0x04	; 4
   7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
   80:	05 90       	lpm	r0, Z+
@@ -95,24 +95,24 @@ Disassembly of section .text:
   96:	b2 07       	cpc	r27, r18
   98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
   9a:	0e 94 fc 00 	call	0x1f8	; 0x1f8 <main>
-  9e:	0c 94 1b 02 	jmp	0x436	; 0x436 <_exit>
+  9e:	0c 94 1f 02 	jmp	0x43e	; 0x43e <_exit>
 
 000000a2 <__bad_interrupt>:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <lcdCommand>:
 
-int counter = 0; 
+int counter = 0;  		 //Used to see how many characters are printed
 
-//**************************************************************** 
-void lcdCommand (unsigned char cmd) {  
-	LCD_DPRT = cmd;				//send cmd to data port  
+//****************************************************************
+void lcdCommand (unsigned char cmd) {
+	LCD_DPRT = cmd;				//send cmd to data port
   a6:	85 b9       	out	0x05, r24	; 5
-	LCD_CPRT &= ~(1<<LCD_RS);   //RS = 0 for command  
+	LCD_CPRT &= ~(1<<LCD_RS);   //RS = 0 for command
   a8:	40 98       	cbi	0x08, 0	; 8
-	LCD_CPRT &= ~(1<<LCD_RW);   //RW = 0 for write   
+	LCD_CPRT &= ~(1<<LCD_RW);   //RW = 0 for write
   aa:	41 98       	cbi	0x08, 1	; 8
-	LCD_CPRT |= (1<<LCD_EN);    //EN = 1 for H-to-L pulse  
+	LCD_CPRT |= (1<<LCD_EN);    //EN = 1 for H-to-L pulse
   ac:	42 9a       	sbi	0x08, 2	; 8
 	#else
 		//round up by default
@@ -124,8 +124,8 @@ void lcdCommand (unsigned char cmd) {
   b0:	8a 95       	dec	r24
   b2:	f1 f7       	brne	.-4      	; 0xb0 <lcdCommand+0xa>
   b4:	00 c0       	rjmp	.+0      	; 0xb6 <lcdCommand+0x10>
-	_delay_us(1);					//wait to make enable wide  
-	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse  
+	_delay_us(1);					//wait to make enable wide
+	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse
   b6:	42 98       	cbi	0x08, 2	; 8
   b8:	87 ec       	ldi	r24, 0xC7	; 199
   ba:	90 e0       	ldi	r25, 0x00	; 0
@@ -136,17 +136,17 @@ void lcdCommand (unsigned char cmd) {
   c4:	08 95       	ret
 
 000000c6 <lcd_init>:
-	_delay_us(100);				//wait to make enable wide  
+	_delay_us(100);				//wait to make enable wide
 	counter ++;
-} 
+}
 
-void lcd_init() {  
-	LCD_DDDR = 0xFF;  
+void lcd_init() {
+	LCD_DDDR = 0xFF;
   c6:	8f ef       	ldi	r24, 0xFF	; 255
   c8:	84 b9       	out	0x04, r24	; 4
-	LCD_CDDR = 0xFF;    
+	LCD_CDDR = 0xFF;
   ca:	87 b9       	out	0x07, r24	; 7
-	LCD_CPRT &=~(1<<LCD_EN);   //LCD_EN = 0  
+	LCD_CPRT &=~(1<<LCD_EN);   //LCD_EN = 0
   cc:	42 98       	cbi	0x08, 2	; 8
   ce:	8f e9       	ldi	r24, 0x9F	; 159
   d0:	9f e0       	ldi	r25, 0x0F	; 15
@@ -154,15 +154,15 @@ void lcd_init() {
   d4:	f1 f7       	brne	.-4      	; 0xd2 <lcd_init+0xc>
   d6:	00 c0       	rjmp	.+0      	; 0xd8 <lcd_init+0x12>
   d8:	00 00       	nop
-	_delay_us(2000);    
-	//wait for init  
-	lcdCommand(0x38);   //initialize LCD 2 line, 5x7  
+	_delay_us(2000);
+	//wait for init
+	lcdCommand(0x38);   //initialize LCD 2 line, 5x7
   da:	88 e3       	ldi	r24, 0x38	; 56
   dc:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
-	lcdCommand(0x0E);   //display on, cursor on  
+	lcdCommand(0x0E);   //display on, cursor on
   e0:	8e e0       	ldi	r24, 0x0E	; 14
   e2:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
-	lcdCommand(0x01);   //clear LCD  
+	lcdCommand(0x01);   //clear LCD
   e6:	81 e0       	ldi	r24, 0x01	; 1
   e8:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
   ec:	8f e9       	ldi	r24, 0x9F	; 159
@@ -171,8 +171,8 @@ void lcd_init() {
   f2:	f1 f7       	brne	.-4      	; 0xf0 <lcd_init+0x2a>
   f4:	00 c0       	rjmp	.+0      	; 0xf6 <lcd_init+0x30>
   f6:	00 00       	nop
-	_delay_us(2000);		 //wait  
-	lcdCommand(0x06);   //shift cursor right 
+	_delay_us(2000);		 //wait
+	lcdCommand(0x06);   //shift cursor right
   f8:	86 e0       	ldi	r24, 0x06	; 6
   fa:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
   fe:	08 95       	ret
@@ -183,7 +183,7 @@ void lcd_init() {
 }
 
 // go to specific LCD locations
-void lcd_gotoxy(unsigned char x, unsigned char y) {  
+void lcd_gotoxy(unsigned char x, unsigned char y) {
  100:	cf 93       	push	r28
  102:	df 93       	push	r29
  104:	00 d0       	rcall	.+0      	; 0x106 <lcd_gotoxy+0x6>
@@ -198,7 +198,7 @@ void lcd_gotoxy(unsigned char x, unsigned char y) {
  112:	61 30       	cpi	r22, 0x01	; 1
  114:	29 f4       	brne	.+10     	; 0x120 <lcd_gotoxy+0x20>
 	{
-		counter = 0;
+		counter = 0;			// just to make sure when counter is called at this location it goes to 0
  116:	10 92 1f 01 	sts	0x011F, r1	; 0x80011f <__data_end+0x1>
  11a:	10 92 1e 01 	sts	0x011E, r1	; 0x80011e <__data_end>
  11e:	08 c0       	rjmp	.+16     	; 0x130 <lcd_gotoxy+0x30>
@@ -207,17 +207,17 @@ void lcd_gotoxy(unsigned char x, unsigned char y) {
  120:	62 30       	cpi	r22, 0x02	; 2
  122:	31 f4       	brne	.+12     	; 0x130 <lcd_gotoxy+0x30>
 	{
-		counter = 8;
+		counter = 8;	// just to make sure when counter is called at this location it goes to 8
  124:	28 e0       	ldi	r18, 0x08	; 8
  126:	30 e0       	ldi	r19, 0x00	; 0
  128:	30 93 1f 01 	sts	0x011F, r19	; 0x80011f <__data_end+0x1>
  12c:	20 93 1e 01 	sts	0x011E, r18	; 0x80011e <__data_end>
- 130:	81 50       	subi	r24, 0x01	; 1
 	}
-	lcdCommand(firstCharAdr[y-1] + x-1);  
- 132:	fe 01       	movw	r30, r28
- 134:	e6 0f       	add	r30, r22
- 136:	f1 1d       	adc	r31, r1
+	lcdCommand(firstCharAdr[y-1] + x-1);
+ 130:	fe 01       	movw	r30, r28
+ 132:	e6 0f       	add	r30, r22
+ 134:	f1 1d       	adc	r31, r1
+ 136:	81 50       	subi	r24, 0x01	; 1
  138:	90 81       	ld	r25, Z
  13a:	89 0f       	add	r24, r25
  13c:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
@@ -227,8 +227,8 @@ void lcd_gotoxy(unsigned char x, unsigned char y) {
  146:	f1 f7       	brne	.-4      	; 0x144 <lcd_gotoxy+0x44>
  148:	00 c0       	rjmp	.+0      	; 0x14a <lcd_gotoxy+0x4a>
  14a:	00 00       	nop
-	_delay_us(100); 
-} 
+	_delay_us(100);
+}
  14c:	0f 90       	pop	r0
  14e:	0f 90       	pop	r0
  150:	df 91       	pop	r29
@@ -236,15 +236,15 @@ void lcd_gotoxy(unsigned char x, unsigned char y) {
  154:	08 95       	ret
 
 00000156 <lcdData>:
-	_delay_us(1);					//wait to make enable wide  
-	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse  
-	_delay_us(100);				//wait to make enable wide 
-} 
- 
-void lcdData(unsigned char data) {  
+	_delay_us(1);					//wait to make enable wide
+	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse
+	_delay_us(100);				//wait to make enable wide
+}
+
+void lcdData(unsigned char data) {
  156:	cf 93       	push	r28
  158:	c8 2f       	mov	r28, r24
-	if (counter == 8)
+	if (counter == 8)		// if its at 8 go to (1,2) (this is here because its an 8x2 LED)
  15a:	80 91 1e 01 	lds	r24, 0x011E	; 0x80011e <__data_end>
  15e:	90 91 1f 01 	lds	r25, 0x011F	; 0x80011f <__data_end+0x1>
  162:	08 97       	sbiw	r24, 0x08	; 8
@@ -263,7 +263,7 @@ void lcdData(unsigned char data) {
  17a:	40 97       	sbiw	r24, 0x10	; 16
  17c:	69 f4       	brne	.+26     	; 0x198 <lcdData+0x42>
 	{
-		lcdCommand(0x01);
+		lcdCommand(0x01);	 // if it gets to 16 reset it to the beginning
  17e:	81 e0       	ldi	r24, 0x01	; 1
  180:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
 		lcd_gotoxy(1,1);
@@ -276,20 +276,20 @@ void lcdData(unsigned char data) {
  190:	10 92 1f 01 	sts	0x011F, r1	; 0x80011f <__data_end+0x1>
  194:	10 92 1e 01 	sts	0x011E, r1	; 0x80011e <__data_end>
 	}
-	LCD_DPRT = data;				//send data to data port  
+	LCD_DPRT = data;				//send data to data port
  198:	c5 b9       	out	0x05, r28	; 5
-	LCD_CPRT |= (1<<LCD_RS);		//RS = 1 for data  
+	LCD_CPRT |= (1<<LCD_RS);		//RS = 1 for data
  19a:	40 9a       	sbi	0x08, 0	; 8
-	LCD_CPRT &= ~(1<<LCD_RW);   //RW = 0 for write   
+	LCD_CPRT &= ~(1<<LCD_RW);   //RW = 0 for write
  19c:	41 98       	cbi	0x08, 1	; 8
-	LCD_CPRT |= (1<<LCD_EN);		//EN = 1 for H-to-L pulse  
+	LCD_CPRT |= (1<<LCD_EN);		//EN = 1 for H-to-L pulse
  19e:	42 9a       	sbi	0x08, 2	; 8
  1a0:	82 e0       	ldi	r24, 0x02	; 2
  1a2:	8a 95       	dec	r24
  1a4:	f1 f7       	brne	.-4      	; 0x1a2 <lcdData+0x4c>
  1a6:	00 c0       	rjmp	.+0      	; 0x1a8 <lcdData+0x52>
-	_delay_us(1);					//wait to make enable wide  
-	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse  
+	_delay_us(1);					//wait to make enable wide
+	LCD_CPRT &= ~(1<<LCD_EN);   //EN = 0 for H-to_L pulse
  1a8:	42 98       	cbi	0x08, 2	; 8
  1aa:	87 ec       	ldi	r24, 0xC7	; 199
  1ac:	90 e0       	ldi	r25, 0x00	; 0
@@ -297,30 +297,30 @@ void lcdData(unsigned char data) {
  1b0:	f1 f7       	brne	.-4      	; 0x1ae <lcdData+0x58>
  1b2:	00 c0       	rjmp	.+0      	; 0x1b4 <lcdData+0x5e>
  1b4:	00 00       	nop
-	_delay_us(100);				//wait to make enable wide  
+	_delay_us(100);				//wait to make enable wide
 	counter ++;
  1b6:	80 91 1e 01 	lds	r24, 0x011E	; 0x80011e <__data_end>
  1ba:	90 91 1f 01 	lds	r25, 0x011F	; 0x80011f <__data_end+0x1>
  1be:	01 96       	adiw	r24, 0x01	; 1
  1c0:	90 93 1f 01 	sts	0x011F, r25	; 0x80011f <__data_end+0x1>
  1c4:	80 93 1e 01 	sts	0x011E, r24	; 0x80011e <__data_end>
-} 
+}
  1c8:	cf 91       	pop	r28
  1ca:	08 95       	ret
 
 000001cc <lcd_print>:
-	lcdCommand(0x01);   //clear LCD  
-	_delay_us(2000);		 //wait  
-	lcdCommand(0x06);   //shift cursor right 
-} 
- 
+	lcdCommand(0x01);   //clear LCD
+	_delay_us(2000);		 //wait
+	lcdCommand(0x06);   //shift cursor right
+}
+
 void lcd_print(char * str) {
  1cc:	0f 93       	push	r16
  1ce:	1f 93       	push	r17
  1d0:	cf 93       	push	r28
  1d2:	fc 01       	movw	r30, r24
 	unsigned char i = 0;
-	
+
 	while (str[i]!=0)  {
  1d4:	80 81       	ld	r24, Z
  1d6:	88 23       	and	r24, r24
@@ -330,11 +330,11 @@ void lcd_print(char * str) {
 		lcdData(str[i]); i++;
  1de:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
  1e2:	cf 5f       	subi	r28, 0xFF	; 255
-} 
- 
+}
+
 void lcd_print(char * str) {
 	unsigned char i = 0;
-	
+
 	while (str[i]!=0)  {
  1e4:	f8 01       	movw	r30, r16
  1e6:	ec 0f       	add	r30, r28
@@ -351,12 +351,12 @@ void lcd_print(char * str) {
  1f6:	08 95       	ret
 
 000001f8 <main>:
-	lcdCommand(firstCharAdr[y-1] + x-1);  
-	_delay_us(100); 
-} 
+	lcdCommand(firstCharAdr[y-1] + x-1);
+	_delay_us(100);
+}
 
 
-int main(void) {  
+int main(void) {
  1f8:	cf 93       	push	r28
  1fa:	df 93       	push	r29
  1fc:	cd b7       	in	r28, 0x3d	; 61
@@ -368,8 +368,8 @@ int main(void) {
  208:	0f be       	out	0x3f, r0	; 63
  20a:	cd bf       	out	0x3d, r28	; 61
 	// initialize LCD
-	char colloc, rowloc, printCharacter, password, count;
-	char keypad[4][3] = {'1','2','3',
+	char colloc, rowloc, printCharacter, password, count; // password and count are used to know when someone enters the password
+	char keypad[4][3] = {'1','2','3',    // my keypad inputs mapped here
  20c:	8c e0       	ldi	r24, 0x0C	; 12
  20e:	e0 e0       	ldi	r30, 0x00	; 0
  210:	f1 e0       	ldi	r31, 0x01	; 1
@@ -392,43 +392,43 @@ int main(void) {
  228:	8b b9       	out	0x0b, r24	; 11
 		_delay_ms(20);
 		colloc = (KEY_PIN & 0x70);
-	} while (colloc == 0x70);
-	
+	} while (colloc == 0x70); // this is here to be certain someone pushed a button
+
 	while(1){
-		KEY_PRT = 0x7E;
+		KEY_PRT = 0x7E;    // we ground the first row to see if the thing being pressed is there
  22a:	0f 2e       	mov	r0, r31
  22c:	fe e7       	ldi	r31, 0x7E	; 126
  22e:	cf 2e       	mov	r12, r31
  230:	f0 2d       	mov	r31, r0
-		_delay_ms(1);
+		_delay_ms(1);			 // the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
 		if (colloc != 0x70){
-			rowloc = 0;
+			rowloc = 0;  // save row location
  232:	f1 2c       	mov	r15, r1
 			break;
-		} 
-		KEY_PRT = 0x7D;
+		}
+		KEY_PRT = 0x7D; 		// we ground the second row to see if the thing being pressed is there
  234:	0f 2e       	mov	r0, r31
  236:	fd e7       	ldi	r31, 0x7D	; 125
  238:	7f 2e       	mov	r7, r31
  23a:	f0 2d       	mov	r31, r0
-		_delay_ms(10);
+		_delay_ms(10); 			// the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
 		if (colloc != 0x70){
-			rowloc = 1;
+			rowloc = 1;				// save row location
  23c:	dd 24       	eor	r13, r13
  23e:	d3 94       	inc	r13
 			break;
 		}
-		KEY_PRT = 0x7B;
+		KEY_PRT = 0x7B;			// we ground the third row to see if the thing being pressed is there
  240:	0f 2e       	mov	r0, r31
  242:	fb e7       	ldi	r31, 0x7B	; 123
  244:	8f 2e       	mov	r8, r31
  246:	f0 2d       	mov	r31, r0
-		_delay_ms(10);
+		_delay_ms(10);			// the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
 		if (colloc != 0x70){
-			rowloc = 2;
+			rowloc = 2; 			// save row location
  248:	68 94       	set
  24a:	99 24       	eor	r9, r9
  24c:	91 f8       	bld	r9, 1
@@ -440,356 +440,347 @@ int main(void) {
  252:	af 2e       	mov	r10, r31
  254:	f0 2d       	mov	r31, r0
 		_delay_ms(10);
-		colloc = (KEY_PIN & 0x70);
+		colloc = (KEY_PIN & 0x70);  // If its not any of the past rows we know its the third one
 		rowloc = 3;
  256:	0f 2e       	mov	r0, r31
  258:	f3 e0       	ldi	r31, 0x03	; 3
  25a:	bf 2e       	mov	r11, r31
  25c:	f0 2d       	mov	r31, r0
+ 25e:	01 c0       	rjmp	.+2      	; 0x262 <main+0x6a>
+ 260:	ef 2c       	mov	r14, r15
 	KEY_DDR = 0x0F;
 	KEY_PRT = 0x7F;
 	while (1){
 	 do
-	{	
+	{
 		KEY_PRT &= 0x70;			// make sure no buttons are being pressed yet
- 25e:	9b b1       	in	r25, 0x0b	; 11
- 260:	90 77       	andi	r25, 0x70	; 112
- 262:	9b b9       	out	0x0b, r25	; 11
+ 262:	8b b1       	in	r24, 0x0b	; 11
+ 264:	80 77       	andi	r24, 0x70	; 112
+ 266:	8b b9       	out	0x0b, r24	; 11
 		colloc = (KEY_PIN & 0x70);
- 264:	99 b1       	in	r25, 0x09	; 9
- 266:	90 77       	andi	r25, 0x70	; 112
-	}while (colloc != 0x70);
- 268:	90 37       	cpi	r25, 0x70	; 112
- 26a:	c9 f7       	brne	.-14     	; 0x25e <main+0x66>
+ 268:	89 b1       	in	r24, 0x09	; 9
+	}while (colloc != 0x70);  // repeat until someone stops pushing the button
+ 26a:	80 77       	andi	r24, 0x70	; 112
+ 26c:	80 37       	cpi	r24, 0x70	; 112
+ 26e:	c9 f7       	brne	.-14     	; 0x262 <main+0x6a>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 26c:	8f e3       	ldi	r24, 0x3F	; 63
- 26e:	9c e9       	ldi	r25, 0x9C	; 156
- 270:	01 97       	sbiw	r24, 0x01	; 1
- 272:	f1 f7       	brne	.-4      	; 0x270 <main+0x78>
- 274:	00 c0       	rjmp	.+0      	; 0x276 <main+0x7e>
- 276:	00 00       	nop
-	do 
+ 270:	8f e3       	ldi	r24, 0x3F	; 63
+ 272:	9c e9       	ldi	r25, 0x9C	; 156
+ 274:	01 97       	sbiw	r24, 0x01	; 1
+ 276:	f1 f7       	brne	.-4      	; 0x274 <main+0x7c>
+ 278:	00 c0       	rjmp	.+0      	; 0x27a <main+0x82>
+ 27a:	00 00       	nop
+	do
 	{
-		do 
+		do
 		{
 			_delay_ms(20);
 			colloc = (KEY_PIN & 0x70);
- 278:	99 b1       	in	r25, 0x09	; 9
- 27a:	90 77       	andi	r25, 0x70	; 112
-		} while (colloc == 0x70);
- 27c:	90 37       	cpi	r25, 0x70	; 112
- 27e:	b1 f3       	breq	.-20     	; 0x26c <main+0x74>
- 280:	8f e3       	ldi	r24, 0x3F	; 63
- 282:	9c e9       	ldi	r25, 0x9C	; 156
- 284:	01 97       	sbiw	r24, 0x01	; 1
- 286:	f1 f7       	brne	.-4      	; 0x284 <main+0x8c>
- 288:	00 c0       	rjmp	.+0      	; 0x28a <main+0x92>
- 28a:	00 00       	nop
+ 27c:	89 b1       	in	r24, 0x09	; 9
+		} while (colloc == 0x70);  // see if someone pushed a button
+ 27e:	80 77       	andi	r24, 0x70	; 112
+ 280:	80 37       	cpi	r24, 0x70	; 112
+ 282:	b1 f3       	breq	.-20     	; 0x270 <main+0x78>
+ 284:	8f e3       	ldi	r24, 0x3F	; 63
+ 286:	9c e9       	ldi	r25, 0x9C	; 156
+ 288:	01 97       	sbiw	r24, 0x01	; 1
+ 28a:	f1 f7       	brne	.-4      	; 0x288 <main+0x90>
+ 28c:	00 c0       	rjmp	.+0      	; 0x28e <main+0x96>
+ 28e:	00 00       	nop
 		_delay_ms(20);
 		colloc = (KEY_PIN & 0x70);
- 28c:	89 b1       	in	r24, 0x09	; 9
- 28e:	80 77       	andi	r24, 0x70	; 112
-	} while (colloc == 0x70);
- 290:	80 37       	cpi	r24, 0x70	; 112
- 292:	61 f3       	breq	.-40     	; 0x26c <main+0x74>
-	
+ 290:	89 b1       	in	r24, 0x09	; 9
+	} while (colloc == 0x70); // this is here to be certain someone pushed a button
+ 292:	80 77       	andi	r24, 0x70	; 112
+ 294:	80 37       	cpi	r24, 0x70	; 112
+ 296:	61 f3       	breq	.-40     	; 0x270 <main+0x78>
+
 	while(1){
-		KEY_PRT = 0x7E;
- 294:	cb b8       	out	0x0b, r12	; 11
- 296:	8f ec       	ldi	r24, 0xCF	; 207
- 298:	97 e0       	ldi	r25, 0x07	; 7
- 29a:	01 97       	sbiw	r24, 0x01	; 1
- 29c:	f1 f7       	brne	.-4      	; 0x29a <main+0xa2>
- 29e:	00 c0       	rjmp	.+0      	; 0x2a0 <main+0xa8>
- 2a0:	00 00       	nop
-		_delay_ms(1);
+		KEY_PRT = 0x7E;    // we ground the first row to see if the thing being pressed is there
+ 298:	cb b8       	out	0x0b, r12	; 11
+ 29a:	8f ec       	ldi	r24, 0xCF	; 207
+ 29c:	97 e0       	ldi	r25, 0x07	; 7
+ 29e:	01 97       	sbiw	r24, 0x01	; 1
+ 2a0:	f1 f7       	brne	.-4      	; 0x29e <main+0xa6>
+ 2a2:	00 c0       	rjmp	.+0      	; 0x2a4 <main+0xac>
+ 2a4:	00 00       	nop
+		_delay_ms(1);			 // the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
- 2a2:	89 b1       	in	r24, 0x09	; 9
- 2a4:	80 77       	andi	r24, 0x70	; 112
+ 2a6:	89 b1       	in	r24, 0x09	; 9
+ 2a8:	80 77       	andi	r24, 0x70	; 112
 		if (colloc != 0x70){
- 2a6:	80 37       	cpi	r24, 0x70	; 112
- 2a8:	09 f5       	brne	.+66     	; 0x2ec <main+0xf4>
-			rowloc = 0;
-			break;
-		} 
-		KEY_PRT = 0x7D;
- 2aa:	7b b8       	out	0x0b, r7	; 11
- 2ac:	8f e1       	ldi	r24, 0x1F	; 31
- 2ae:	9e e4       	ldi	r25, 0x4E	; 78
- 2b0:	01 97       	sbiw	r24, 0x01	; 1
- 2b2:	f1 f7       	brne	.-4      	; 0x2b0 <main+0xb8>
- 2b4:	00 c0       	rjmp	.+0      	; 0x2b6 <main+0xbe>
- 2b6:	00 00       	nop
-		_delay_ms(10);
-		colloc = (KEY_PIN & 0x70);
- 2b8:	89 b1       	in	r24, 0x09	; 9
- 2ba:	80 77       	andi	r24, 0x70	; 112
-		if (colloc != 0x70){
- 2bc:	80 37       	cpi	r24, 0x70	; 112
- 2be:	c1 f4       	brne	.+48     	; 0x2f0 <main+0xf8>
-			rowloc = 1;
+ 2aa:	80 37       	cpi	r24, 0x70	; 112
+ 2ac:	09 f5       	brne	.+66     	; 0x2f0 <main+0xf8>
+			rowloc = 0;  // save row location
 			break;
 		}
-		KEY_PRT = 0x7B;
- 2c0:	8b b8       	out	0x0b, r8	; 11
- 2c2:	8f e1       	ldi	r24, 0x1F	; 31
- 2c4:	9e e4       	ldi	r25, 0x4E	; 78
- 2c6:	01 97       	sbiw	r24, 0x01	; 1
- 2c8:	f1 f7       	brne	.-4      	; 0x2c6 <main+0xce>
- 2ca:	00 c0       	rjmp	.+0      	; 0x2cc <main+0xd4>
- 2cc:	00 00       	nop
-		_delay_ms(10);
+		KEY_PRT = 0x7D; 		// we ground the second row to see if the thing being pressed is there
+ 2ae:	7b b8       	out	0x0b, r7	; 11
+ 2b0:	8f e1       	ldi	r24, 0x1F	; 31
+ 2b2:	9e e4       	ldi	r25, 0x4E	; 78
+ 2b4:	01 97       	sbiw	r24, 0x01	; 1
+ 2b6:	f1 f7       	brne	.-4      	; 0x2b4 <main+0xbc>
+ 2b8:	00 c0       	rjmp	.+0      	; 0x2ba <main+0xc2>
+ 2ba:	00 00       	nop
+		_delay_ms(10); 			// the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
- 2ce:	89 b1       	in	r24, 0x09	; 9
- 2d0:	80 77       	andi	r24, 0x70	; 112
+ 2bc:	89 b1       	in	r24, 0x09	; 9
+ 2be:	80 77       	andi	r24, 0x70	; 112
 		if (colloc != 0x70){
- 2d2:	80 37       	cpi	r24, 0x70	; 112
- 2d4:	79 f4       	brne	.+30     	; 0x2f4 <main+0xfc>
-			rowloc = 2;
+ 2c0:	80 37       	cpi	r24, 0x70	; 112
+ 2c2:	c1 f4       	brne	.+48     	; 0x2f4 <main+0xfc>
+			rowloc = 1;				// save row location
+			break;
+		}
+		KEY_PRT = 0x7B;			// we ground the third row to see if the thing being pressed is there
+ 2c4:	8b b8       	out	0x0b, r8	; 11
+ 2c6:	8f e1       	ldi	r24, 0x1F	; 31
+ 2c8:	9e e4       	ldi	r25, 0x4E	; 78
+ 2ca:	01 97       	sbiw	r24, 0x01	; 1
+ 2cc:	f1 f7       	brne	.-4      	; 0x2ca <main+0xd2>
+ 2ce:	00 c0       	rjmp	.+0      	; 0x2d0 <main+0xd8>
+ 2d0:	00 00       	nop
+		_delay_ms(10);			// the delay is here because otherwise the hardware needed time to ground it
+		colloc = (KEY_PIN & 0x70);
+ 2d2:	89 b1       	in	r24, 0x09	; 9
+ 2d4:	80 77       	andi	r24, 0x70	; 112
+		if (colloc != 0x70){
+ 2d6:	80 37       	cpi	r24, 0x70	; 112
+ 2d8:	79 f4       	brne	.+30     	; 0x2f8 <main+0x100>
+			rowloc = 2; 			// save row location
 			break;
 		}
 		KEY_PRT = 0x77;
- 2d6:	ab b8       	out	0x0b, r10	; 11
- 2d8:	8f e1       	ldi	r24, 0x1F	; 31
- 2da:	9e e4       	ldi	r25, 0x4E	; 78
- 2dc:	01 97       	sbiw	r24, 0x01	; 1
- 2de:	f1 f7       	brne	.-4      	; 0x2dc <main+0xe4>
- 2e0:	00 c0       	rjmp	.+0      	; 0x2e2 <main+0xea>
- 2e2:	00 00       	nop
+ 2da:	ab b8       	out	0x0b, r10	; 11
+ 2dc:	8f e1       	ldi	r24, 0x1F	; 31
+ 2de:	9e e4       	ldi	r25, 0x4E	; 78
+ 2e0:	01 97       	sbiw	r24, 0x01	; 1
+ 2e2:	f1 f7       	brne	.-4      	; 0x2e0 <main+0xe8>
+ 2e4:	00 c0       	rjmp	.+0      	; 0x2e6 <main+0xee>
+ 2e6:	00 00       	nop
 		_delay_ms(10);
-		colloc = (KEY_PIN & 0x70);
- 2e4:	89 b1       	in	r24, 0x09	; 9
- 2e6:	80 77       	andi	r24, 0x70	; 112
+		colloc = (KEY_PIN & 0x70);  // If its not any of the past rows we know its the third one
+ 2e8:	89 b1       	in	r24, 0x09	; 9
+ 2ea:	80 77       	andi	r24, 0x70	; 112
 		rowloc = 3;
- 2e8:	9b 2d       	mov	r25, r11
+ 2ec:	9b 2d       	mov	r25, r11
 		break;
- 2ea:	05 c0       	rjmp	.+10     	; 0x2f6 <main+0xfe>
+ 2ee:	05 c0       	rjmp	.+10     	; 0x2fa <main+0x102>
 	while(1){
-		KEY_PRT = 0x7E;
-		_delay_ms(1);
+		KEY_PRT = 0x7E;    // we ground the first row to see if the thing being pressed is there
+		_delay_ms(1);			 // the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
 		if (colloc != 0x70){
-			rowloc = 0;
- 2ec:	9f 2d       	mov	r25, r15
- 2ee:	03 c0       	rjmp	.+6      	; 0x2f6 <main+0xfe>
-		} 
-		KEY_PRT = 0x7D;
-		_delay_ms(10);
-		colloc = (KEY_PIN & 0x70);
-		if (colloc != 0x70){
-			rowloc = 1;
- 2f0:	9d 2d       	mov	r25, r13
- 2f2:	01 c0       	rjmp	.+2      	; 0x2f6 <main+0xfe>
+			rowloc = 0;  // save row location
+ 2f0:	9f 2d       	mov	r25, r15
+ 2f2:	03 c0       	rjmp	.+6      	; 0x2fa <main+0x102>
 		}
-		KEY_PRT = 0x7B;
-		_delay_ms(10);
+		KEY_PRT = 0x7D; 		// we ground the second row to see if the thing being pressed is there
+		_delay_ms(10); 			// the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
 		if (colloc != 0x70){
-			rowloc = 2;
- 2f4:	99 2d       	mov	r25, r9
-		_delay_ms(10);
+			rowloc = 1;				// save row location
+ 2f4:	9d 2d       	mov	r25, r13
+ 2f6:	01 c0       	rjmp	.+2      	; 0x2fa <main+0x102>
+		}
+		KEY_PRT = 0x7B;			// we ground the third row to see if the thing being pressed is there
+		_delay_ms(10);			// the delay is here because otherwise the hardware needed time to ground it
 		colloc = (KEY_PIN & 0x70);
+		if (colloc != 0x70){
+			rowloc = 2; 			// save row location
+ 2f8:	99 2d       	mov	r25, r9
+		_delay_ms(10);
+		colloc = (KEY_PIN & 0x70);  // If its not any of the past rows we know its the third one
 		rowloc = 3;
 		break;
 		}
 		if (colloc == 0x60)
- 2f6:	80 36       	cpi	r24, 0x60	; 96
- 2f8:	91 f4       	brne	.+36     	; 0x31e <main+0x126>
+ 2fa:	80 36       	cpi	r24, 0x60	; 96
+ 2fc:	91 f4       	brne	.+36     	; 0x322 <main+0x12a>
 		{
 			printCharacter = keypad[rowloc][0];
- 2fa:	89 2f       	mov	r24, r25
- 2fc:	90 e0       	ldi	r25, 0x00	; 0
- 2fe:	fc 01       	movw	r30, r24
- 300:	ee 0f       	add	r30, r30
- 302:	ff 1f       	adc	r31, r31
- 304:	8e 0f       	add	r24, r30
- 306:	9f 1f       	adc	r25, r31
- 308:	e1 e0       	ldi	r30, 0x01	; 1
- 30a:	f0 e0       	ldi	r31, 0x00	; 0
- 30c:	ec 0f       	add	r30, r28
- 30e:	fd 1f       	adc	r31, r29
- 310:	e8 0f       	add	r30, r24
- 312:	f9 1f       	adc	r31, r25
- 314:	00 81       	ld	r16, Z
+ 2fe:	89 2f       	mov	r24, r25
+ 300:	90 e0       	ldi	r25, 0x00	; 0
+ 302:	fc 01       	movw	r30, r24
+ 304:	ee 0f       	add	r30, r30
+ 306:	ff 1f       	adc	r31, r31
+ 308:	8e 0f       	add	r24, r30
+ 30a:	9f 1f       	adc	r25, r31
+ 30c:	e1 e0       	ldi	r30, 0x01	; 1
+ 30e:	f0 e0       	ldi	r31, 0x00	; 0
+ 310:	ec 0f       	add	r30, r28
+ 312:	fd 1f       	adc	r31, r29
+ 314:	e8 0f       	add	r30, r24
+ 316:	f9 1f       	adc	r31, r25
+ 318:	10 81       	ld	r17, Z
 			lcdData(printCharacter);
- 316:	80 2f       	mov	r24, r16
- 318:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
- 31c:	27 c0       	rjmp	.+78     	; 0x36c <main+0x174>
+ 31a:	81 2f       	mov	r24, r17
+ 31c:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
+ 320:	27 c0       	rjmp	.+78     	; 0x370 <main+0x178>
 		}
 		else if (colloc == 0x50)
- 31e:	80 35       	cpi	r24, 0x50	; 80
- 320:	91 f4       	brne	.+36     	; 0x346 <main+0x14e>
+ 322:	80 35       	cpi	r24, 0x50	; 80
+ 324:	91 f4       	brne	.+36     	; 0x34a <main+0x152>
 		{
 			printCharacter = keypad[rowloc][1];
- 322:	89 2f       	mov	r24, r25
- 324:	90 e0       	ldi	r25, 0x00	; 0
- 326:	fc 01       	movw	r30, r24
- 328:	ee 0f       	add	r30, r30
- 32a:	ff 1f       	adc	r31, r31
- 32c:	8e 0f       	add	r24, r30
- 32e:	9f 1f       	adc	r25, r31
- 330:	e1 e0       	ldi	r30, 0x01	; 1
- 332:	f0 e0       	ldi	r31, 0x00	; 0
- 334:	ec 0f       	add	r30, r28
- 336:	fd 1f       	adc	r31, r29
- 338:	e8 0f       	add	r30, r24
- 33a:	f9 1f       	adc	r31, r25
- 33c:	01 81       	ldd	r16, Z+1	; 0x01
+ 326:	89 2f       	mov	r24, r25
+ 328:	90 e0       	ldi	r25, 0x00	; 0
+ 32a:	fc 01       	movw	r30, r24
+ 32c:	ee 0f       	add	r30, r30
+ 32e:	ff 1f       	adc	r31, r31
+ 330:	8e 0f       	add	r24, r30
+ 332:	9f 1f       	adc	r25, r31
+ 334:	e1 e0       	ldi	r30, 0x01	; 1
+ 336:	f0 e0       	ldi	r31, 0x00	; 0
+ 338:	ec 0f       	add	r30, r28
+ 33a:	fd 1f       	adc	r31, r29
+ 33c:	e8 0f       	add	r30, r24
+ 33e:	f9 1f       	adc	r31, r25
+ 340:	11 81       	ldd	r17, Z+1	; 0x01
 			lcdData(printCharacter);
- 33e:	80 2f       	mov	r24, r16
- 340:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
- 344:	13 c0       	rjmp	.+38     	; 0x36c <main+0x174>
+ 342:	81 2f       	mov	r24, r17
+ 344:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
+ 348:	13 c0       	rjmp	.+38     	; 0x370 <main+0x178>
 		}
 		else if (colloc == 0x30)
- 346:	80 33       	cpi	r24, 0x30	; 48
- 348:	89 f4       	brne	.+34     	; 0x36c <main+0x174>
+ 34a:	80 33       	cpi	r24, 0x30	; 48
+ 34c:	89 f4       	brne	.+34     	; 0x370 <main+0x178>
 		{
 			printCharacter = keypad[rowloc][2];
- 34a:	89 2f       	mov	r24, r25
- 34c:	90 e0       	ldi	r25, 0x00	; 0
- 34e:	fc 01       	movw	r30, r24
- 350:	ee 0f       	add	r30, r30
- 352:	ff 1f       	adc	r31, r31
- 354:	8e 0f       	add	r24, r30
- 356:	9f 1f       	adc	r25, r31
- 358:	e1 e0       	ldi	r30, 0x01	; 1
- 35a:	f0 e0       	ldi	r31, 0x00	; 0
- 35c:	ec 0f       	add	r30, r28
- 35e:	fd 1f       	adc	r31, r29
- 360:	e8 0f       	add	r30, r24
- 362:	f9 1f       	adc	r31, r25
- 364:	02 81       	ldd	r16, Z+2	; 0x02
+ 34e:	89 2f       	mov	r24, r25
+ 350:	90 e0       	ldi	r25, 0x00	; 0
+ 352:	fc 01       	movw	r30, r24
+ 354:	ee 0f       	add	r30, r30
+ 356:	ff 1f       	adc	r31, r31
+ 358:	8e 0f       	add	r24, r30
+ 35a:	9f 1f       	adc	r25, r31
+ 35c:	e1 e0       	ldi	r30, 0x01	; 1
+ 35e:	f0 e0       	ldi	r31, 0x00	; 0
+ 360:	ec 0f       	add	r30, r28
+ 362:	fd 1f       	adc	r31, r29
+ 364:	e8 0f       	add	r30, r24
+ 366:	f9 1f       	adc	r31, r25
+ 368:	12 81       	ldd	r17, Z+2	; 0x02
 			lcdData(printCharacter);
- 366:	80 2f       	mov	r24, r16
- 368:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
+ 36a:	81 2f       	mov	r24, r17
+ 36c:	0e 94 ab 00 	call	0x156	; 0x156 <lcdData>
 		}
-		if ((printCharacter == '5') && (password == 0))
- 36c:	05 33       	cpi	r16, 0x35	; 53
- 36e:	29 f4       	brne	.+10     	; 0x37a <main+0x182>
- 370:	8d 2d       	mov	r24, r13
- 372:	e1 10       	cpse	r14, r1
- 374:	8f 2d       	mov	r24, r15
-		{
-			password ++;
-		}
-		else
-		{
-			password = 0;
- 376:	e8 2e       	mov	r14, r24
- 378:	59 c0       	rjmp	.+178    	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
-		}
-		if ((printCharacter == '5') && (password == 0))
+		if ((printCharacter == '5') && (password == 0))  // the password is 537
+ 370:	15 33       	cpi	r17, 0x35	; 53
+ 372:	21 f4       	brne	.+8      	; 0x37c <main+0x184>
+ 374:	ee 20       	and	r14, r14
+ 376:	09 f4       	brne	.+2      	; 0x37a <main+0x182>
+ 378:	56 c0       	rjmp	.+172    	; 0x426 <__LOCK_REGION_LENGTH__+0x26>
+ 37a:	11 c0       	rjmp	.+34     	; 0x39e <main+0x1a6>
 		{
 			password ++;
 		}
 		else if ((printCharacter == '3') && (password == 1))
- 37a:	03 33       	cpi	r16, 0x33	; 51
- 37c:	21 f4       	brne	.+8      	; 0x386 <main+0x18e>
- 37e:	91 e0       	ldi	r25, 0x01	; 1
- 380:	e9 12       	cpse	r14, r25
- 382:	51 c0       	rjmp	.+162    	; 0x426 <__LOCK_REGION_LENGTH__+0x26>
- 384:	52 c0       	rjmp	.+164    	; 0x42a <__LOCK_REGION_LENGTH__+0x2a>
+ 37c:	13 33       	cpi	r17, 0x33	; 51
+ 37e:	21 f4       	brne	.+8      	; 0x388 <main+0x190>
+ 380:	91 e0       	ldi	r25, 0x01	; 1
+ 382:	e9 12       	cpse	r14, r25
+ 384:	0c c0       	rjmp	.+24     	; 0x39e <main+0x1a6>
+ 386:	51 c0       	rjmp	.+162    	; 0x42a <__LOCK_REGION_LENGTH__+0x2a>
 		{
 			password ++;
 		}
 		else if ((printCharacter == '7') && (password == 2))
- 386:	07 33       	cpi	r16, 0x37	; 55
- 388:	69 f5       	brne	.+90     	; 0x3e4 <main+0x1ec>
- 38a:	22 e0       	ldi	r18, 0x02	; 2
- 38c:	e2 12       	cpse	r14, r18
- 38e:	2a c0       	rjmp	.+84     	; 0x3e4 <main+0x1ec>
+ 388:	17 33       	cpi	r17, 0x37	; 55
+ 38a:	09 f0       	breq	.+2      	; 0x38e <main+0x196>
+ 38c:	50 c0       	rjmp	.+160    	; 0x42e <__LOCK_REGION_LENGTH__+0x2e>
+ 38e:	22 e0       	ldi	r18, 0x02	; 2
+ 390:	e2 12       	cpse	r14, r18
+ 392:	4f c0       	rjmp	.+158    	; 0x432 <__LOCK_REGION_LENGTH__+0x32>
 		}
 		else
 		{
 			password = 0;
 		}
 		count++;
- 390:	1f 5f       	subi	r17, 0xFF	; 255
+ 394:	0f 5f       	subi	r16, 0xFF	; 255
 		if (count == 3)
- 392:	13 30       	cpi	r17, 0x03	; 3
- 394:	61 f1       	breq	.+88     	; 0x3ee <main+0x1f6>
+ 396:	03 30       	cpi	r16, 0x03	; 3
+ 398:	51 f1       	breq	.+84     	; 0x3ee <main+0x1f6>
 		{
 			password ++;
 		}
 		else if ((printCharacter == '7') && (password == 2))
 		{
 			password ++;
- 396:	eb 2c       	mov	r14, r11
- 398:	62 cf       	rjmp	.-316    	; 0x25e <main+0x66>
+ 39a:	eb 2c       	mov	r14, r11
+ 39c:	62 cf       	rjmp	.-316    	; 0x262 <main+0x6a>
+		}
+		else
+		{
+			password = 0;
+		}
+		count++;
+ 39e:	0f 5f       	subi	r16, 0xFF	; 255
+		if (count == 3)
+ 3a0:	03 30       	cpi	r16, 0x03	; 3
+ 3a2:	09 f0       	breq	.+2      	; 0x3a6 <main+0x1ae>
+ 3a4:	5d cf       	rjmp	.-326    	; 0x260 <main+0x68>
+ 3a6:	8f ef       	ldi	r24, 0xFF	; 255
+ 3a8:	90 e7       	ldi	r25, 0x70	; 112
+ 3aa:	22 e0       	ldi	r18, 0x02	; 2
+ 3ac:	81 50       	subi	r24, 0x01	; 1
+ 3ae:	90 40       	sbci	r25, 0x00	; 0
+ 3b0:	20 40       	sbci	r18, 0x00	; 0
+ 3b2:	e1 f7       	brne	.-8      	; 0x3ac <main+0x1b4>
+ 3b4:	00 c0       	rjmp	.+0      	; 0x3b6 <main+0x1be>
+ 3b6:	00 00       	nop
 				lcd_gotoxy(1,1);
-				lcd_print("Correct");
+				lcd_print("Correct");  // password was entered correctly SUCCESS
 			}
 			else
 			{
 				lcd_gotoxy(1,1);
- 39a:	6d 2d       	mov	r22, r13
- 39c:	8d 2d       	mov	r24, r13
- 39e:	0e 94 80 00 	call	0x100	; 0x100 <lcd_gotoxy>
-				lcd_print("Incorrect");
- 3a2:	8c e0       	ldi	r24, 0x0C	; 12
- 3a4:	91 e0       	ldi	r25, 0x01	; 1
- 3a6:	0e 94 e6 00 	call	0x1cc	; 0x1cc <lcd_print>
- 3aa:	8f ef       	ldi	r24, 0xFF	; 255
- 3ac:	92 e5       	ldi	r25, 0x52	; 82
- 3ae:	27 e0       	ldi	r18, 0x07	; 7
- 3b0:	81 50       	subi	r24, 0x01	; 1
- 3b2:	90 40       	sbci	r25, 0x00	; 0
- 3b4:	20 40       	sbci	r18, 0x00	; 0
- 3b6:	e1 f7       	brne	.-8      	; 0x3b0 <main+0x1b8>
- 3b8:	00 c0       	rjmp	.+0      	; 0x3ba <main+0x1c2>
- 3ba:	00 00       	nop
-				
+ 3b8:	6d 2d       	mov	r22, r13
+ 3ba:	8d 2d       	mov	r24, r13
+ 3bc:	0e 94 80 00 	call	0x100	; 0x100 <lcd_gotoxy>
+				lcd_print("Incorrect"); // password was entered correctly SAD!
+ 3c0:	8c e0       	ldi	r24, 0x0C	; 12
+ 3c2:	91 e0       	ldi	r25, 0x01	; 1
+ 3c4:	0e 94 e6 00 	call	0x1cc	; 0x1cc <lcd_print>
+ 3c8:	8f ef       	ldi	r24, 0xFF	; 255
+ 3ca:	92 e5       	ldi	r25, 0x52	; 82
+ 3cc:	27 e0       	ldi	r18, 0x07	; 7
+ 3ce:	81 50       	subi	r24, 0x01	; 1
+ 3d0:	90 40       	sbci	r25, 0x00	; 0
+ 3d2:	20 40       	sbci	r18, 0x00	; 0
+ 3d4:	e1 f7       	brne	.-8      	; 0x3ce <main+0x1d6>
+ 3d6:	00 c0       	rjmp	.+0      	; 0x3d8 <main+0x1e0>
+ 3d8:	00 00       	nop
 			}
 			_delay_ms(300);
 			lcdCommand(0x01);
- 3bc:	8d 2d       	mov	r24, r13
- 3be:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
+ 3da:	8d 2d       	mov	r24, r13
+ 3dc:	0e 94 53 00 	call	0xa6	; 0xa6 <lcdCommand>
 			lcd_gotoxy(1,1);
- 3c2:	6d 2d       	mov	r22, r13
- 3c4:	8d 2d       	mov	r24, r13
- 3c6:	0e 94 80 00 	call	0x100	; 0x100 <lcd_gotoxy>
+ 3e0:	6d 2d       	mov	r22, r13
+ 3e2:	8d 2d       	mov	r24, r13
+ 3e4:	0e 94 80 00 	call	0x100	; 0x100 <lcd_gotoxy>
 		}
 		count++;
 		if (count == 3)
-		{	
+		{
 			_delay_ms(100);
 			count = 0;
- 3ca:	1f 2d       	mov	r17, r15
-				
+ 3e8:	00 e0       	ldi	r16, 0x00	; 0
+				lcd_print("Incorrect"); // password was entered correctly SAD!
 			}
 			_delay_ms(300);
 			lcdCommand(0x01);
 			lcd_gotoxy(1,1);
-			password = 0;
- 3cc:	ef 2c       	mov	r14, r15
- 3ce:	47 cf       	rjmp	.-370    	; 0x25e <main+0x66>
- 3d0:	8f ef       	ldi	r24, 0xFF	; 255
- 3d2:	90 e7       	ldi	r25, 0x70	; 112
- 3d4:	22 e0       	ldi	r18, 0x02	; 2
- 3d6:	81 50       	subi	r24, 0x01	; 1
- 3d8:	90 40       	sbci	r25, 0x00	; 0
- 3da:	20 40       	sbci	r18, 0x00	; 0
- 3dc:	e1 f7       	brne	.-8      	; 0x3d6 <main+0x1de>
- 3de:	00 c0       	rjmp	.+0      	; 0x3e0 <main+0x1e8>
- 3e0:	00 00       	nop
- 3e2:	db cf       	rjmp	.-74     	; 0x39a <main+0x1a2>
-		}
-		else
-		{
-			password = 0;
-		}
-		count++;
- 3e4:	1f 5f       	subi	r17, 0xFF	; 255
-		if (count == 3)
- 3e6:	13 30       	cpi	r17, 0x03	; 3
- 3e8:	99 f3       	breq	.-26     	; 0x3d0 <main+0x1d8>
+			password = 0;    // reset everything
  3ea:	ef 2c       	mov	r14, r15
- 3ec:	38 cf       	rjmp	.-400    	; 0x25e <main+0x66>
+ 3ec:	3a cf       	rjmp	.-396    	; 0x262 <main+0x6a>
  3ee:	8f ef       	ldi	r24, 0xFF	; 255
  3f0:	90 e7       	ldi	r25, 0x70	; 112
  3f2:	22 e0       	ldi	r18, 0x02	; 2
@@ -799,7 +790,7 @@ int main(void) {
  3fa:	e1 f7       	brne	.-8      	; 0x3f4 <main+0x1fc>
  3fc:	00 c0       	rjmp	.+0      	; 0x3fe <main+0x206>
  3fe:	00 00       	nop
-		{	
+		{
 			_delay_ms(100);
 			count = 0;
 			if (password == 3)
@@ -808,11 +799,11 @@ int main(void) {
  400:	6d 2d       	mov	r22, r13
  402:	8d 2d       	mov	r24, r13
  404:	0e 94 80 00 	call	0x100	; 0x100 <lcd_gotoxy>
-				lcd_print("Correct");
+				lcd_print("Correct");  // password was entered correctly SUCCESS
  408:	86 e1       	ldi	r24, 0x16	; 22
  40a:	91 e0       	ldi	r25, 0x01	; 1
  40c:	0e 94 e6 00 	call	0x1cc	; 0x1cc <lcd_print>
- 410:	cc cf       	rjmp	.-104    	; 0x3aa <main+0x1b2>
+ 410:	db cf       	rjmp	.-74     	; 0x3c8 <main+0x1d0>
  412:	8f ef       	ldi	r24, 0xFF	; 255
  414:	90 e7       	ldi	r25, 0x70	; 112
  416:	22 e0       	ldi	r18, 0x02	; 2
@@ -822,37 +813,41 @@ int main(void) {
  41e:	e1 f7       	brne	.-8      	; 0x418 <__LOCK_REGION_LENGTH__+0x18>
  420:	00 c0       	rjmp	.+0      	; 0x422 <__LOCK_REGION_LENGTH__+0x22>
  422:	00 00       	nop
- 424:	ba cf       	rjmp	.-140    	; 0x39a <main+0x1a2>
-		{
-			password ++;
+ 424:	c9 cf       	rjmp	.-110    	; 0x3b8 <main+0x1c0>
+			printCharacter = keypad[rowloc][2];
+			lcdData(printCharacter);
 		}
-		else
-		{
-			password = 0;
- 426:	ef 2c       	mov	r14, r15
- 428:	01 c0       	rjmp	.+2      	; 0x42c <__LOCK_REGION_LENGTH__+0x2c>
+		if ((printCharacter == '5') && (password == 0))  // the password is 537
 		{
 			password ++;
+ 426:	ed 2c       	mov	r14, r13
+ 428:	05 c0       	rjmp	.+10     	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
 		}
 		else if ((printCharacter == '3') && (password == 1))
 		{
 			password ++;
  42a:	e9 2c       	mov	r14, r9
+ 42c:	03 c0       	rjmp	.+6      	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+		{
+			password ++;
 		}
 		else
 		{
 			password = 0;
+ 42e:	ef 2c       	mov	r14, r15
+ 430:	01 c0       	rjmp	.+2      	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
+ 432:	ef 2c       	mov	r14, r15
 		}
 		count++;
- 42c:	1f 5f       	subi	r17, 0xFF	; 255
+ 434:	0f 5f       	subi	r16, 0xFF	; 255
 		if (count == 3)
- 42e:	13 30       	cpi	r17, 0x03	; 3
- 430:	09 f0       	breq	.+2      	; 0x434 <__LOCK_REGION_LENGTH__+0x34>
- 432:	15 cf       	rjmp	.-470    	; 0x25e <main+0x66>
- 434:	ee cf       	rjmp	.-36     	; 0x412 <__LOCK_REGION_LENGTH__+0x12>
+ 436:	03 30       	cpi	r16, 0x03	; 3
+ 438:	09 f0       	breq	.+2      	; 0x43c <__LOCK_REGION_LENGTH__+0x3c>
+ 43a:	13 cf       	rjmp	.-474    	; 0x262 <main+0x6a>
+ 43c:	ea cf       	rjmp	.-44     	; 0x412 <__LOCK_REGION_LENGTH__+0x12>
 
-00000436 <_exit>:
- 436:	f8 94       	cli
+0000043e <_exit>:
+ 43e:	f8 94       	cli
 
-00000438 <__stop_program>:
- 438:	ff cf       	rjmp	.-2      	; 0x438 <__stop_program>
+00000440 <__stop_program>:
+ 440:	ff cf       	rjmp	.-2      	; 0x440 <__stop_program>
