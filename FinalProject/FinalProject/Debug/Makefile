@@ -38,7 +38,11 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../Drivers/aux_globals.c \
+../Drivers/dht.c \
+../Drivers/hw_dht11.c \
 ../Drivers/nokia5110.c \
+../Drivers/uart.c \
 ../main.c
 
 
@@ -49,19 +53,35 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+Drivers/aux_globals.o \
+Drivers/dht.o \
+Drivers/hw_dht11.o \
 Drivers/nokia5110.o \
+Drivers/uart.o \
 main.o
 
 OBJS_AS_ARGS +=  \
+Drivers/aux_globals.o \
+Drivers/dht.o \
+Drivers/hw_dht11.o \
 Drivers/nokia5110.o \
+Drivers/uart.o \
 main.o
 
 C_DEPS +=  \
+Drivers/aux_globals.d \
+Drivers/dht.d \
+Drivers/hw_dht11.d \
 Drivers/nokia5110.d \
+Drivers/uart.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
+Drivers/aux_globals.d \
+Drivers/dht.d \
+Drivers/hw_dht11.d \
 Drivers/nokia5110.d \
+Drivers/uart.d \
 main.d
 
 OUTPUT_FILE_PATH +=FinalProject.elf
@@ -78,6 +98,14 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
+
+
+
+
 
 
 
