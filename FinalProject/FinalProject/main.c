@@ -154,3 +154,55 @@ int main(void)
 	
 	while(1) {}
 }
+
+void drawImage(const unsigned char img[504]){
+	int y = 0;
+	int i = 0;
+	int counter = 0;
+	while(y != 48){
+		while(i <= 79){
+			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			counter++;
+
+		}
+		if(i == 84){
+			y++;
+			i = 0;
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			counter++;
+		}
+		else{
+			i = 0;
+		y++;}
+
+	}
+}
