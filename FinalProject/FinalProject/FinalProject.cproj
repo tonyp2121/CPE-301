@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>FinalProjectTestLCD2</AssemblyName>
-    <Name>FinalProjectTestLCD2</Name>
-    <RootNamespace>FinalProjectTestLCD2</RootNamespace>
+    <AssemblyName>FinalProject</AssemblyName>
+    <Name>FinalProject</Name>
+    <RootNamespace>FinalProject</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
