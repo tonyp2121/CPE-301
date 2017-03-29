@@ -3,31 +3,31 @@ FinalProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000000  00800100  00800100  00000b42  2**0
+  0 .data         000001fc  00800100  00000ed4  00000f68  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         00000ace  00000000  00000000  00000074  2**1
+  1 .text         00000ed4  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000001fe  00800100  00800100  00000b42  2**0
+  2 .bss          00000204  008002fc  008002fc  00001164  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000b42  2**0
+  3 .comment      00000030  00000000  00000000  00001164  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00000b74  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001194  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000110  00000000  00000000  00000bb4  2**0
+  5 .debug_aranges 00000168  00000000  00000000  000011d4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000016ce  00000000  00000000  00000cc4  2**0
+  6 .debug_info   000021c7  00000000  00000000  0000133c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000c81  00000000  00000000  00002392  2**0
+  7 .debug_abbrev 00000daa  00000000  00000000  00003503  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000b79  00000000  00000000  00003013  2**0
+  8 .debug_line   0000115a  00000000  00000000  000042ad  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000002e8  00000000  00000000  00003b8c  2**2
+  9 .debug_frame  0000045c  00000000  00000000  00005408  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000682  00000000  00000000  00003e74  2**0
+ 10 .debug_str    0000074b  00000000  00000000  00005864  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00000f1a  00000000  00000000  000044f6  2**0
+ 11 .debug_loc    00001950  00000000  00000000  00005faf  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000128  00000000  00000000  00005410  2**0
+ 12 .debug_ranges 00000158  00000000  00000000  000078ff  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -101,1204 +101,2238 @@ Disassembly of section .text:
  252:	cd bf       	out	0x3d, r28	; 61
 
 00000254 <__do_copy_data>:
- 254:	11 e0       	ldi	r17, 0x01	; 1
+ 254:	12 e0       	ldi	r17, 0x02	; 2
  256:	a0 e0       	ldi	r26, 0x00	; 0
  258:	b1 e0       	ldi	r27, 0x01	; 1
- 25a:	ee ec       	ldi	r30, 0xCE	; 206
- 25c:	fa e0       	ldi	r31, 0x0A	; 10
+ 25a:	e4 ed       	ldi	r30, 0xD4	; 212
+ 25c:	fe e0       	ldi	r31, 0x0E	; 14
  25e:	02 c0       	rjmp	.+4      	; 0x264 <__do_copy_data+0x10>
  260:	05 90       	lpm	r0, Z+
  262:	0d 92       	st	X+, r0
- 264:	a0 30       	cpi	r26, 0x00	; 0
+ 264:	ac 3f       	cpi	r26, 0xFC	; 252
  266:	b1 07       	cpc	r27, r17
  268:	d9 f7       	brne	.-10     	; 0x260 <__do_copy_data+0xc>
 
 0000026a <__do_clear_bss>:
- 26a:	22 e0       	ldi	r18, 0x02	; 2
- 26c:	a0 e0       	ldi	r26, 0x00	; 0
- 26e:	b1 e0       	ldi	r27, 0x01	; 1
+ 26a:	25 e0       	ldi	r18, 0x05	; 5
+ 26c:	ac ef       	ldi	r26, 0xFC	; 252
+ 26e:	b2 e0       	ldi	r27, 0x02	; 2
  270:	01 c0       	rjmp	.+2      	; 0x274 <.do_clear_bss_start>
 
 00000272 <.do_clear_bss_loop>:
  272:	1d 92       	st	X+, r1
 
 00000274 <.do_clear_bss_start>:
- 274:	ae 3f       	cpi	r26, 0xFE	; 254
+ 274:	a0 30       	cpi	r26, 0x00	; 0
  276:	b2 07       	cpc	r27, r18
  278:	e1 f7       	brne	.-8      	; 0x272 <.do_clear_bss_loop>
- 27a:	0e 94 b1 03 	call	0x762	; 0x762 <main>
- 27e:	0c 94 65 05 	jmp	0xaca	; 0xaca <_exit>
+ 27a:	0e 94 82 06 	call	0xd04	; 0xd04 <main>
+ 27e:	0c 94 68 07 	jmp	0xed0	; 0xed0 <_exit>
 
 00000282 <__bad_interrupt>:
  282:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000286 <dht_getdata>:
- * get humidity
- */
-int8_t dht_gethumidity(int8_t *humidity) {
-	int8_t temperature = 0;
-	return dht_getdata(&temperature, humidity);
+00000286 <write>:
+		nokia_lcd.screen[i] = 0x00;
 }
- 286:	cf 92       	push	r12
- 288:	df 92       	push	r13
- 28a:	ef 92       	push	r14
- 28c:	ff 92       	push	r15
- 28e:	0f 93       	push	r16
- 290:	1f 93       	push	r17
- 292:	cf 93       	push	r28
- 294:	df 93       	push	r29
- 296:	00 d0       	rcall	.+0      	; 0x298 <dht_getdata+0x12>
- 298:	00 d0       	rcall	.+0      	; 0x29a <dht_getdata+0x14>
- 29a:	1f 92       	push	r1
- 29c:	cd b7       	in	r28, 0x3d	; 61
- 29e:	de b7       	in	r29, 0x3e	; 62
- 2a0:	6c 01       	movw	r12, r24
- 2a2:	de 01       	movw	r26, r28
- 2a4:	11 96       	adiw	r26, 0x01	; 1
- 2a6:	95 e0       	ldi	r25, 0x05	; 5
- 2a8:	fd 01       	movw	r30, r26
- 2aa:	11 92       	st	Z+, r1
- 2ac:	9a 95       	dec	r25
- 2ae:	e9 f7       	brne	.-6      	; 0x2aa <dht_getdata+0x24>
- 2b0:	56 9a       	sbi	0x0a, 6	; 10
- 2b2:	5e 9a       	sbi	0x0b, 6	; 11
- 2b4:	ff ef       	ldi	r31, 0xFF	; 255
- 2b6:	20 e7       	ldi	r18, 0x70	; 112
- 2b8:	82 e0       	ldi	r24, 0x02	; 2
- 2ba:	f1 50       	subi	r31, 0x01	; 1
- 2bc:	20 40       	sbci	r18, 0x00	; 0
- 2be:	80 40       	sbci	r24, 0x00	; 0
- 2c0:	e1 f7       	brne	.-8      	; 0x2ba <dht_getdata+0x34>
- 2c2:	00 c0       	rjmp	.+0      	; 0x2c4 <dht_getdata+0x3e>
- 2c4:	00 00       	nop
- 2c6:	5e 98       	cbi	0x0b, 6	; 11
- 2c8:	a7 ee       	ldi	r26, 0xE7	; 231
- 2ca:	b3 e0       	ldi	r27, 0x03	; 3
- 2cc:	11 97       	sbiw	r26, 0x01	; 1
- 2ce:	f1 f7       	brne	.-4      	; 0x2cc <dht_getdata+0x46>
- 2d0:	00 c0       	rjmp	.+0      	; 0x2d2 <dht_getdata+0x4c>
- 2d2:	00 00       	nop
- 2d4:	56 98       	cbi	0x0a, 6	; 10
- 2d6:	5e 9a       	sbi	0x0b, 6	; 11
- 2d8:	ba e6       	ldi	r27, 0x6A	; 106
- 2da:	ba 95       	dec	r27
- 2dc:	f1 f7       	brne	.-4      	; 0x2da <dht_getdata+0x54>
- 2de:	00 c0       	rjmp	.+0      	; 0x2e0 <dht_getdata+0x5a>
- 2e0:	4e 99       	sbic	0x09, 6	; 9
- 2e2:	8d c0       	rjmp	.+282    	; 0x3fe <dht_getdata+0x178>
- 2e4:	e5 ed       	ldi	r30, 0xD5	; 213
- 2e6:	ea 95       	dec	r30
- 2e8:	f1 f7       	brne	.-4      	; 0x2e6 <dht_getdata+0x60>
- 2ea:	00 00       	nop
- 2ec:	4e 9b       	sbis	0x09, 6	; 9
- 2ee:	89 c0       	rjmp	.+274    	; 0x402 <__LOCK_REGION_LENGTH__+0x2>
- 2f0:	f5 ed       	ldi	r31, 0xD5	; 213
- 2f2:	fa 95       	dec	r31
- 2f4:	f1 f7       	brne	.-4      	; 0x2f2 <dht_getdata+0x6c>
- 2f6:	00 00       	nop
- 2f8:	8e 01       	movw	r16, r28
- 2fa:	0f 5f       	subi	r16, 0xFF	; 255
- 2fc:	1f 4f       	sbci	r17, 0xFF	; 255
- 2fe:	7e 01       	movw	r14, r28
- 300:	26 e0       	ldi	r18, 0x06	; 6
- 302:	e2 0e       	add	r14, r18
- 304:	f1 1c       	adc	r15, r1
- 306:	e1 e0       	ldi	r30, 0x01	; 1
- 308:	f0 e0       	ldi	r31, 0x00	; 0
- 30a:	27 c0       	rjmp	.+78     	; 0x35a <dht_getdata+0xd4>
- 30c:	21 50       	subi	r18, 0x01	; 1
- 30e:	31 09       	sbc	r19, r1
- 310:	19 f4       	brne	.+6      	; 0x318 <dht_getdata+0x92>
- 312:	79 c0       	rjmp	.+242    	; 0x406 <__LOCK_REGION_LENGTH__+0x6>
- 314:	29 ec       	ldi	r18, 0xC9	; 201
- 316:	30 e0       	ldi	r19, 0x00	; 0
- 318:	4e 9b       	sbis	0x09, 6	; 9
- 31a:	f8 cf       	rjmp	.-16     	; 0x30c <dht_getdata+0x86>
- 31c:	80 e5       	ldi	r24, 0x50	; 80
- 31e:	8a 95       	dec	r24
- 320:	f1 f7       	brne	.-4      	; 0x31e <dht_getdata+0x98>
- 322:	4e 9b       	sbis	0x09, 6	; 9
- 324:	08 c0       	rjmp	.+16     	; 0x336 <dht_getdata+0xb0>
- 326:	9f 01       	movw	r18, r30
- 328:	04 2e       	mov	r0, r20
- 32a:	02 c0       	rjmp	.+4      	; 0x330 <dht_getdata+0xaa>
- 32c:	22 0f       	add	r18, r18
- 32e:	33 1f       	adc	r19, r19
- 330:	0a 94       	dec	r0
- 332:	e2 f7       	brpl	.-8      	; 0x32c <dht_getdata+0xa6>
- 334:	92 2b       	or	r25, r18
- 336:	29 ec       	ldi	r18, 0xC9	; 201
- 338:	30 e0       	ldi	r19, 0x00	; 0
- 33a:	04 c0       	rjmp	.+8      	; 0x344 <dht_getdata+0xbe>
- 33c:	21 50       	subi	r18, 0x01	; 1
- 33e:	31 09       	sbc	r19, r1
- 340:	09 f4       	brne	.+2      	; 0x344 <dht_getdata+0xbe>
- 342:	63 c0       	rjmp	.+198    	; 0x40a <__LOCK_REGION_LENGTH__+0xa>
- 344:	4e 99       	sbic	0x09, 6	; 9
- 346:	fa cf       	rjmp	.-12     	; 0x33c <dht_getdata+0xb6>
- 348:	41 50       	subi	r20, 0x01	; 1
- 34a:	51 09       	sbc	r21, r1
- 34c:	18 f7       	brcc	.-58     	; 0x314 <dht_getdata+0x8e>
- 34e:	d8 01       	movw	r26, r16
- 350:	9d 93       	st	X+, r25
- 352:	8d 01       	movw	r16, r26
- 354:	ea 16       	cp	r14, r26
- 356:	fb 06       	cpc	r15, r27
- 358:	21 f0       	breq	.+8      	; 0x362 <dht_getdata+0xdc>
- 35a:	47 e0       	ldi	r20, 0x07	; 7
- 35c:	50 e0       	ldi	r21, 0x00	; 0
- 35e:	90 e0       	ldi	r25, 0x00	; 0
- 360:	d9 cf       	rjmp	.-78     	; 0x314 <dht_getdata+0x8e>
- 362:	56 9a       	sbi	0x0a, 6	; 10
- 364:	5e 9a       	sbi	0x0b, 6	; 11
- 366:	bf ef       	ldi	r27, 0xFF	; 255
- 368:	e0 e7       	ldi	r30, 0x70	; 112
- 36a:	f2 e0       	ldi	r31, 0x02	; 2
- 36c:	b1 50       	subi	r27, 0x01	; 1
- 36e:	e0 40       	sbci	r30, 0x00	; 0
- 370:	f0 40       	sbci	r31, 0x00	; 0
- 372:	e1 f7       	brne	.-8      	; 0x36c <dht_getdata+0xe6>
- 374:	00 c0       	rjmp	.+0      	; 0x376 <dht_getdata+0xf0>
- 376:	00 00       	nop
- 378:	39 81       	ldd	r19, Y+1	; 0x01
- 37a:	ea 80       	ldd	r14, Y+2	; 0x02
- 37c:	2b 81       	ldd	r18, Y+3	; 0x03
- 37e:	8c 81       	ldd	r24, Y+4	; 0x04
- 380:	93 2f       	mov	r25, r19
- 382:	9e 0d       	add	r25, r14
- 384:	92 0f       	add	r25, r18
- 386:	98 0f       	add	r25, r24
- 388:	4d 81       	ldd	r20, Y+5	; 0x05
- 38a:	94 13       	cpse	r25, r20
- 38c:	40 c0       	rjmp	.+128    	; 0x40e <__LOCK_REGION_LENGTH__+0xe>
- 38e:	8b 01       	movw	r16, r22
- 390:	f1 2c       	mov	r15, r1
- 392:	f3 2a       	or	r15, r19
- 394:	68 2f       	mov	r22, r24
- 396:	70 e0       	ldi	r23, 0x00	; 0
- 398:	72 2b       	or	r23, r18
- 39a:	77 23       	and	r23, r23
- 39c:	8c f4       	brge	.+34     	; 0x3c0 <dht_getdata+0x13a>
- 39e:	7f 77       	andi	r23, 0x7F	; 127
- 3a0:	80 e0       	ldi	r24, 0x00	; 0
- 3a2:	90 e0       	ldi	r25, 0x00	; 0
- 3a4:	0e 94 96 04 	call	0x92c	; 0x92c <__floatunsisf>
- 3a8:	20 e0       	ldi	r18, 0x00	; 0
- 3aa:	30 e0       	ldi	r19, 0x00	; 0
- 3ac:	40 e2       	ldi	r20, 0x20	; 32
- 3ae:	51 e4       	ldi	r21, 0x41	; 65
- 3b0:	0e 94 ee 03 	call	0x7dc	; 0x7dc <__divsf3>
- 3b4:	90 58       	subi	r25, 0x80	; 128
- 3b6:	0e 94 60 04 	call	0x8c0	; 0x8c0 <__fixsfsi>
- 3ba:	d6 01       	movw	r26, r12
- 3bc:	6c 93       	st	X, r22
- 3be:	0e c0       	rjmp	.+28     	; 0x3dc <dht_getdata+0x156>
- 3c0:	80 e0       	ldi	r24, 0x00	; 0
- 3c2:	90 e0       	ldi	r25, 0x00	; 0
- 3c4:	0e 94 96 04 	call	0x92c	; 0x92c <__floatunsisf>
- 3c8:	20 e0       	ldi	r18, 0x00	; 0
- 3ca:	30 e0       	ldi	r19, 0x00	; 0
- 3cc:	40 e2       	ldi	r20, 0x20	; 32
- 3ce:	51 e4       	ldi	r21, 0x41	; 65
- 3d0:	0e 94 ee 03 	call	0x7dc	; 0x7dc <__divsf3>
- 3d4:	0e 94 60 04 	call	0x8c0	; 0x8c0 <__fixsfsi>
- 3d8:	f6 01       	movw	r30, r12
- 3da:	60 83       	st	Z, r22
- 3dc:	b7 01       	movw	r22, r14
- 3de:	80 e0       	ldi	r24, 0x00	; 0
- 3e0:	90 e0       	ldi	r25, 0x00	; 0
- 3e2:	0e 94 96 04 	call	0x92c	; 0x92c <__floatunsisf>
- 3e6:	20 e0       	ldi	r18, 0x00	; 0
- 3e8:	30 e0       	ldi	r19, 0x00	; 0
- 3ea:	40 e2       	ldi	r20, 0x20	; 32
- 3ec:	51 e4       	ldi	r21, 0x41	; 65
- 3ee:	0e 94 ee 03 	call	0x7dc	; 0x7dc <__divsf3>
- 3f2:	0e 94 60 04 	call	0x8c0	; 0x8c0 <__fixsfsi>
- 3f6:	d8 01       	movw	r26, r16
- 3f8:	6c 93       	st	X, r22
- 3fa:	80 e0       	ldi	r24, 0x00	; 0
- 3fc:	09 c0       	rjmp	.+18     	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 3fe:	8f ef       	ldi	r24, 0xFF	; 255
- 400:	07 c0       	rjmp	.+14     	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 402:	8f ef       	ldi	r24, 0xFF	; 255
- 404:	05 c0       	rjmp	.+10     	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 406:	8f ef       	ldi	r24, 0xFF	; 255
- 408:	03 c0       	rjmp	.+6      	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 40a:	8f ef       	ldi	r24, 0xFF	; 255
- 40c:	01 c0       	rjmp	.+2      	; 0x410 <__LOCK_REGION_LENGTH__+0x10>
- 40e:	8f ef       	ldi	r24, 0xFF	; 255
- 410:	0f 90       	pop	r0
- 412:	0f 90       	pop	r0
- 414:	0f 90       	pop	r0
- 416:	0f 90       	pop	r0
- 418:	0f 90       	pop	r0
- 41a:	df 91       	pop	r29
- 41c:	cf 91       	pop	r28
- 41e:	1f 91       	pop	r17
- 420:	0f 91       	pop	r16
- 422:	ff 90       	pop	r15
- 424:	ef 90       	pop	r14
- 426:	df 90       	pop	r13
- 428:	cf 90       	pop	r12
- 42a:	08 95       	ret
 
-0000042c <dht_gettemperaturehumidity>:
+void nokia_lcd_power(uint8_t on)
+{
+	write_cmd(on ? 0x20 : 0x24);
+ 286:	29 98       	cbi	0x05, 1	; 5
+ 288:	66 23       	and	r22, r22
+ 28a:	11 f0       	breq	.+4      	; 0x290 <write+0xa>
+ 28c:	2b 9a       	sbi	0x05, 3	; 5
+ 28e:	15 c0       	rjmp	.+42     	; 0x2ba <write+0x34>
+ 290:	2b 98       	cbi	0x05, 3	; 5
+ 292:	13 c0       	rjmp	.+38     	; 0x2ba <write+0x34>
+ 294:	ac 01       	movw	r20, r24
+ 296:	02 2e       	mov	r0, r18
+ 298:	02 c0       	rjmp	.+4      	; 0x29e <write+0x18>
+ 29a:	55 95       	asr	r21
+ 29c:	47 95       	ror	r20
+ 29e:	0a 94       	dec	r0
+ 2a0:	e2 f7       	brpl	.-8      	; 0x29a <write+0x14>
+ 2a2:	40 ff       	sbrs	r20, 0
+ 2a4:	02 c0       	rjmp	.+4      	; 0x2aa <write+0x24>
+ 2a6:	2c 9a       	sbi	0x05, 4	; 5
+ 2a8:	01 c0       	rjmp	.+2      	; 0x2ac <write+0x26>
+ 2aa:	2c 98       	cbi	0x05, 4	; 5
+ 2ac:	2d 9a       	sbi	0x05, 5	; 5
+ 2ae:	2d 98       	cbi	0x05, 5	; 5
+ 2b0:	21 50       	subi	r18, 0x01	; 1
+ 2b2:	31 09       	sbc	r19, r1
+ 2b4:	78 f7       	brcc	.-34     	; 0x294 <write+0xe>
+ 2b6:	29 9a       	sbi	0x05, 1	; 5
+ 2b8:	08 95       	ret
+ 2ba:	27 e0       	ldi	r18, 0x07	; 7
+ 2bc:	30 e0       	ldi	r19, 0x00	; 0
+ 2be:	90 e0       	ldi	r25, 0x00	; 0
+ 2c0:	e9 cf       	rjmp	.-46     	; 0x294 <write+0xe>
 
-/*
- * get temperature and humidity
- */
-	int8_t dht_gettemperaturehumidity(int8_t *temperature, int8_t *humidity) {
-	return dht_getdata(temperature, humidity);
- 42c:	0e 94 43 01 	call	0x286	; 0x286 <dht_getdata>
+000002c2 <write_cmd>:
+ 2c2:	60 e0       	ldi	r22, 0x00	; 0
+ 2c4:	0e 94 43 01 	call	0x286	; 0x286 <write>
+ 2c8:	08 95       	ret
+
+000002ca <nokia_lcd_init>:
+ 2ca:	cf 93       	push	r28
+ 2cc:	df 93       	push	r29
+ 2ce:	21 9a       	sbi	0x04, 1	; 4
+ 2d0:	22 9a       	sbi	0x04, 2	; 4
+ 2d2:	23 9a       	sbi	0x04, 3	; 4
+ 2d4:	24 9a       	sbi	0x04, 4	; 4
+ 2d6:	25 9a       	sbi	0x04, 5	; 4
+ 2d8:	2a 9a       	sbi	0x05, 2	; 5
+ 2da:	29 9a       	sbi	0x05, 1	; 5
+ 2dc:	8f e3       	ldi	r24, 0x3F	; 63
+ 2de:	9c e9       	ldi	r25, 0x9C	; 156
+ 2e0:	01 97       	sbiw	r24, 0x01	; 1
+ 2e2:	f1 f7       	brne	.-4      	; 0x2e0 <nokia_lcd_init+0x16>
+ 2e4:	00 c0       	rjmp	.+0      	; 0x2e6 <nokia_lcd_init+0x1c>
+ 2e6:	00 00       	nop
+ 2e8:	2a 98       	cbi	0x05, 2	; 5
+ 2ea:	9f ef       	ldi	r25, 0xFF	; 255
+ 2ec:	2a e6       	ldi	r18, 0x6A	; 106
+ 2ee:	83 e0       	ldi	r24, 0x03	; 3
+ 2f0:	91 50       	subi	r25, 0x01	; 1
+ 2f2:	20 40       	sbci	r18, 0x00	; 0
+ 2f4:	80 40       	sbci	r24, 0x00	; 0
+ 2f6:	e1 f7       	brne	.-8      	; 0x2f0 <nokia_lcd_init+0x26>
+ 2f8:	00 c0       	rjmp	.+0      	; 0x2fa <nokia_lcd_init+0x30>
+ 2fa:	00 00       	nop
+ 2fc:	2a 9a       	sbi	0x05, 2	; 5
+ 2fe:	29 98       	cbi	0x05, 1	; 5
+ 300:	81 e2       	ldi	r24, 0x21	; 33
+ 302:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 306:	83 e1       	ldi	r24, 0x13	; 19
+ 308:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 30c:	86 e0       	ldi	r24, 0x06	; 6
+ 30e:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 312:	82 ec       	ldi	r24, 0xC2	; 194
+ 314:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 318:	80 e2       	ldi	r24, 0x20	; 32
+ 31a:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 31e:	89 e0       	ldi	r24, 0x09	; 9
+ 320:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 324:	80 e8       	ldi	r24, 0x80	; 128
+ 326:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 32a:	80 e4       	ldi	r24, 0x40	; 64
+ 32c:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 330:	c8 ef       	ldi	r28, 0xF8	; 248
+ 332:	d1 e0       	ldi	r29, 0x01	; 1
+ 334:	61 e0       	ldi	r22, 0x01	; 1
+ 336:	80 e0       	ldi	r24, 0x00	; 0
+ 338:	0e 94 43 01 	call	0x286	; 0x286 <write>
+ 33c:	21 97       	sbiw	r28, 0x01	; 1
+ 33e:	d1 f7       	brne	.-12     	; 0x334 <nokia_lcd_init+0x6a>
+ 340:	88 e0       	ldi	r24, 0x08	; 8
+ 342:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 346:	8c e0       	ldi	r24, 0x0C	; 12
+ 348:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 34c:	df 91       	pop	r29
+ 34e:	cf 91       	pop	r28
+ 350:	08 95       	ret
+
+00000352 <nokia_lcd_clear>:
+ 352:	80 e8       	ldi	r24, 0x80	; 128
+ 354:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 358:	80 e4       	ldi	r24, 0x40	; 64
+ 35a:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 35e:	10 92 f4 04 	sts	0x04F4, r1	; 0x8004f4 <__data_end+0x1f8>
+ 362:	10 92 f5 04 	sts	0x04F5, r1	; 0x8004f5 <__data_end+0x1f9>
+ 366:	ec ef       	ldi	r30, 0xFC	; 252
+ 368:	f2 e0       	ldi	r31, 0x02	; 2
+ 36a:	84 ef       	ldi	r24, 0xF4	; 244
+ 36c:	94 e0       	ldi	r25, 0x04	; 4
+ 36e:	11 92       	st	Z+, r1
+ 370:	e8 17       	cp	r30, r24
+ 372:	f9 07       	cpc	r31, r25
+ 374:	e1 f7       	brne	.-8      	; 0x36e <nokia_lcd_clear+0x1c>
+ 376:	08 95       	ret
+
+00000378 <nokia_lcd_set_pixel>:
 }
- 430:	08 95       	ret
 
-00000432 <write>:
+void nokia_lcd_set_pixel(uint8_t x, uint8_t y, uint8_t value)
+{
+	uint8_t *byte = &nokia_lcd.screen[y/8*84+x];
+ 378:	26 2f       	mov	r18, r22
+ 37a:	26 95       	lsr	r18
+ 37c:	26 95       	lsr	r18
+ 37e:	26 95       	lsr	r18
+ 380:	90 e0       	ldi	r25, 0x00	; 0
+ 382:	34 e5       	ldi	r19, 0x54	; 84
+ 384:	23 9f       	mul	r18, r19
+ 386:	80 0d       	add	r24, r0
+ 388:	91 1d       	adc	r25, r1
+ 38a:	11 24       	eor	r1, r1
+	if (value)
+ 38c:	44 23       	and	r20, r20
+ 38e:	79 f0       	breq	.+30     	; 0x3ae <nokia_lcd_set_pixel+0x36>
+		*byte |= (1 << (y % 8));
+ 390:	fc 01       	movw	r30, r24
+ 392:	e4 50       	subi	r30, 0x04	; 4
+ 394:	fd 4f       	sbci	r31, 0xFD	; 253
+ 396:	67 70       	andi	r22, 0x07	; 7
+ 398:	81 e0       	ldi	r24, 0x01	; 1
+ 39a:	90 e0       	ldi	r25, 0x00	; 0
+ 39c:	02 c0       	rjmp	.+4      	; 0x3a2 <nokia_lcd_set_pixel+0x2a>
+ 39e:	88 0f       	add	r24, r24
+ 3a0:	99 1f       	adc	r25, r25
+ 3a2:	6a 95       	dec	r22
+ 3a4:	e2 f7       	brpl	.-8      	; 0x39e <nokia_lcd_set_pixel+0x26>
+ 3a6:	90 81       	ld	r25, Z
+ 3a8:	89 2b       	or	r24, r25
+ 3aa:	80 83       	st	Z, r24
+ 3ac:	08 95       	ret
+	else
+		*byte &= ~(1 << (y %8 ));
+ 3ae:	fc 01       	movw	r30, r24
+ 3b0:	e4 50       	subi	r30, 0x04	; 4
+ 3b2:	fd 4f       	sbci	r31, 0xFD	; 253
+ 3b4:	67 70       	andi	r22, 0x07	; 7
+ 3b6:	81 e0       	ldi	r24, 0x01	; 1
+ 3b8:	90 e0       	ldi	r25, 0x00	; 0
+ 3ba:	02 c0       	rjmp	.+4      	; 0x3c0 <nokia_lcd_set_pixel+0x48>
+ 3bc:	88 0f       	add	r24, r24
+ 3be:	99 1f       	adc	r25, r25
+ 3c0:	6a 95       	dec	r22
+ 3c2:	e2 f7       	brpl	.-8      	; 0x3bc <nokia_lcd_set_pixel+0x44>
+ 3c4:	80 95       	com	r24
+ 3c6:	90 81       	ld	r25, Z
+ 3c8:	89 23       	and	r24, r25
+ 3ca:	80 83       	st	Z, r24
+ 3cc:	08 95       	ret
+
+000003ce <nokia_lcd_write_char>:
 }
+
+void nokia_lcd_write_char(char code, uint8_t scale)
+{
+ 3ce:	5f 92       	push	r5
+ 3d0:	6f 92       	push	r6
+ 3d2:	7f 92       	push	r7
+ 3d4:	8f 92       	push	r8
+ 3d6:	9f 92       	push	r9
+ 3d8:	af 92       	push	r10
+ 3da:	bf 92       	push	r11
+ 3dc:	cf 92       	push	r12
+ 3de:	df 92       	push	r13
+ 3e0:	ef 92       	push	r14
+ 3e2:	ff 92       	push	r15
+ 3e4:	0f 93       	push	r16
+ 3e6:	1f 93       	push	r17
+ 3e8:	cf 93       	push	r28
+ 3ea:	df 93       	push	r29
+ 3ec:	56 2e       	mov	r5, r22
+	register uint8_t x, y;
+
+	for (x = 0; x < 5*scale; x++)
+ 3ee:	26 2f       	mov	r18, r22
+ 3f0:	30 e0       	ldi	r19, 0x00	; 0
+ 3f2:	49 01       	movw	r8, r18
+ 3f4:	88 0c       	add	r8, r8
+ 3f6:	99 1c       	adc	r9, r9
+ 3f8:	88 0c       	add	r8, r8
+ 3fa:	99 1c       	adc	r9, r9
+ 3fc:	82 0e       	add	r8, r18
+ 3fe:	93 1e       	adc	r9, r19
+ 400:	18 14       	cp	r1, r8
+ 402:	19 04       	cpc	r1, r9
+ 404:	0c f0       	brlt	.+2      	; 0x408 <__LOCK_REGION_LENGTH__+0x8>
+ 406:	5d c0       	rjmp	.+186    	; 0x4c2 <__LOCK_REGION_LENGTH__+0xc2>
+		for (y = 0; y < 7*scale; y++)
+ 408:	89 01       	movw	r16, r18
+ 40a:	00 0f       	add	r16, r16
+ 40c:	11 1f       	adc	r17, r17
+ 40e:	00 0f       	add	r16, r16
+ 410:	11 1f       	adc	r17, r17
+ 412:	00 0f       	add	r16, r16
+ 414:	11 1f       	adc	r17, r17
+ 416:	02 1b       	sub	r16, r18
+ 418:	13 0b       	sbc	r17, r19
+ 41a:	61 2c       	mov	r6, r1
+			if (pgm_read_byte(&CHARSET[code-32][x/scale]) & (1 << y/scale))
+ 41c:	a8 2e       	mov	r10, r24
+ 41e:	b1 2c       	mov	r11, r1
+ 420:	c5 01       	movw	r24, r10
+ 422:	80 97       	sbiw	r24, 0x20	; 32
+ 424:	5c 01       	movw	r10, r24
+ 426:	aa 0c       	add	r10, r10
+ 428:	bb 1c       	adc	r11, r11
+ 42a:	aa 0c       	add	r10, r10
+ 42c:	bb 1c       	adc	r11, r11
+ 42e:	a8 0e       	add	r10, r24
+ 430:	b9 1e       	adc	r11, r25
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 1);
+			else
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 0);
+ 432:	0f 2e       	mov	r0, r31
+ 434:	f5 ef       	ldi	r31, 0xF5	; 245
+ 436:	cf 2e       	mov	r12, r31
+ 438:	f4 e0       	ldi	r31, 0x04	; 4
+ 43a:	df 2e       	mov	r13, r31
+ 43c:	f0 2d       	mov	r31, r0
+ 43e:	0f 2e       	mov	r0, r31
+ 440:	f4 ef       	ldi	r31, 0xF4	; 244
+ 442:	ef 2e       	mov	r14, r31
+ 444:	f4 e0       	ldi	r31, 0x04	; 4
+ 446:	ff 2e       	mov	r15, r31
+ 448:	f0 2d       	mov	r31, r0
+ 44a:	2d c0       	rjmp	.+90     	; 0x4a6 <__LOCK_REGION_LENGTH__+0xa6>
+{
+	register uint8_t x, y;
+
+	for (x = 0; x < 5*scale; x++)
+		for (y = 0; y < 7*scale; y++)
+			if (pgm_read_byte(&CHARSET[code-32][x/scale]) & (1 << y/scale))
+ 44c:	fe 01       	movw	r30, r28
+ 44e:	24 91       	lpm	r18, Z
+ 450:	30 e0       	ldi	r19, 0x00	; 0
+ 452:	87 2d       	mov	r24, r7
+ 454:	65 2d       	mov	r22, r5
+ 456:	0e 94 27 07 	call	0xe4e	; 0xe4e <__udivmodqi4>
+ 45a:	02 c0       	rjmp	.+4      	; 0x460 <__LOCK_REGION_LENGTH__+0x60>
+ 45c:	35 95       	asr	r19
+ 45e:	27 95       	ror	r18
+ 460:	8a 95       	dec	r24
+ 462:	e2 f7       	brpl	.-8      	; 0x45c <__LOCK_REGION_LENGTH__+0x5c>
+ 464:	20 ff       	sbrs	r18, 0
+ 466:	0a c0       	rjmp	.+20     	; 0x47c <__LOCK_REGION_LENGTH__+0x7c>
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 1);
+ 468:	f6 01       	movw	r30, r12
+ 46a:	60 81       	ld	r22, Z
+ 46c:	67 0d       	add	r22, r7
+ 46e:	f7 01       	movw	r30, r14
+ 470:	80 81       	ld	r24, Z
+ 472:	41 e0       	ldi	r20, 0x01	; 1
+ 474:	86 0d       	add	r24, r6
+ 476:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+ 47a:	09 c0       	rjmp	.+18     	; 0x48e <__LOCK_REGION_LENGTH__+0x8e>
+			else
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 0);
+ 47c:	f6 01       	movw	r30, r12
+ 47e:	60 81       	ld	r22, Z
+ 480:	67 0d       	add	r22, r7
+ 482:	f7 01       	movw	r30, r14
+ 484:	80 81       	ld	r24, Z
+ 486:	40 e0       	ldi	r20, 0x00	; 0
+ 488:	86 0d       	add	r24, r6
+ 48a:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+void nokia_lcd_write_char(char code, uint8_t scale)
+{
+	register uint8_t x, y;
+
+	for (x = 0; x < 5*scale; x++)
+		for (y = 0; y < 7*scale; y++)
+ 48e:	73 94       	inc	r7
+ 490:	87 2d       	mov	r24, r7
+ 492:	90 e0       	ldi	r25, 0x00	; 0
+ 494:	80 17       	cp	r24, r16
+ 496:	91 07       	cpc	r25, r17
+ 498:	cc f2       	brlt	.-78     	; 0x44c <__LOCK_REGION_LENGTH__+0x4c>
+
+void nokia_lcd_write_char(char code, uint8_t scale)
+{
+	register uint8_t x, y;
+
+	for (x = 0; x < 5*scale; x++)
+ 49a:	63 94       	inc	r6
+ 49c:	86 2d       	mov	r24, r6
+ 49e:	90 e0       	ldi	r25, 0x00	; 0
+ 4a0:	88 15       	cp	r24, r8
+ 4a2:	99 05       	cpc	r25, r9
+ 4a4:	74 f4       	brge	.+28     	; 0x4c2 <__LOCK_REGION_LENGTH__+0xc2>
+		for (y = 0; y < 7*scale; y++)
+ 4a6:	10 16       	cp	r1, r16
+ 4a8:	11 06       	cpc	r1, r17
+ 4aa:	bc f7       	brge	.-18     	; 0x49a <__LOCK_REGION_LENGTH__+0x9a>
+			if (pgm_read_byte(&CHARSET[code-32][x/scale]) & (1 << y/scale))
+ 4ac:	86 2d       	mov	r24, r6
+ 4ae:	65 2d       	mov	r22, r5
+ 4b0:	0e 94 27 07 	call	0xe4e	; 0xe4e <__udivmodqi4>
+ 4b4:	e5 01       	movw	r28, r10
+ 4b6:	c8 0f       	add	r28, r24
+ 4b8:	d1 1d       	adc	r29, r1
+ 4ba:	c8 59       	subi	r28, 0x98	; 152
+ 4bc:	df 4f       	sbci	r29, 0xFF	; 255
+ 4be:	71 2c       	mov	r7, r1
+ 4c0:	c5 cf       	rjmp	.-118    	; 0x44c <__LOCK_REGION_LENGTH__+0x4c>
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 1);
+			else
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 0);
+
+	nokia_lcd.cursor_x += 5*scale + 1;
+ 4c2:	80 91 f4 04 	lds	r24, 0x04F4	; 0x8004f4 <__data_end+0x1f8>
+ 4c6:	91 e0       	ldi	r25, 0x01	; 1
+ 4c8:	98 0f       	add	r25, r24
+ 4ca:	85 2d       	mov	r24, r5
+ 4cc:	88 0f       	add	r24, r24
+ 4ce:	88 0f       	add	r24, r24
+ 4d0:	85 0d       	add	r24, r5
+ 4d2:	89 0f       	add	r24, r25
+	if (nokia_lcd.cursor_x >= 84) {
+ 4d4:	84 35       	cpi	r24, 0x54	; 84
+ 4d6:	18 f4       	brcc	.+6      	; 0x4de <__LOCK_REGION_LENGTH__+0xde>
+			if (pgm_read_byte(&CHARSET[code-32][x/scale]) & (1 << y/scale))
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 1);
+			else
+				nokia_lcd_set_pixel(nokia_lcd.cursor_x + x, nokia_lcd.cursor_y + y, 0);
+
+	nokia_lcd.cursor_x += 5*scale + 1;
+ 4d8:	80 93 f4 04 	sts	0x04F4, r24	; 0x8004f4 <__data_end+0x1f8>
+ 4dc:	0e c0       	rjmp	.+28     	; 0x4fa <__LOCK_REGION_LENGTH__+0xfa>
+	if (nokia_lcd.cursor_x >= 84) {
+		nokia_lcd.cursor_x = 0;
+ 4de:	10 92 f4 04 	sts	0x04F4, r1	; 0x8004f4 <__data_end+0x1f8>
+		nokia_lcd.cursor_y += 7*scale + 1;
+ 4e2:	e5 ef       	ldi	r30, 0xF5	; 245
+ 4e4:	f4 e0       	ldi	r31, 0x04	; 4
+ 4e6:	80 81       	ld	r24, Z
+ 4e8:	91 e0       	ldi	r25, 0x01	; 1
+ 4ea:	98 0f       	add	r25, r24
+ 4ec:	85 2d       	mov	r24, r5
+ 4ee:	88 0f       	add	r24, r24
+ 4f0:	88 0f       	add	r24, r24
+ 4f2:	88 0f       	add	r24, r24
+ 4f4:	85 19       	sub	r24, r5
+ 4f6:	89 0f       	add	r24, r25
+ 4f8:	80 83       	st	Z, r24
+	}
+	if (nokia_lcd.cursor_y >= 48) {
+ 4fa:	80 91 f5 04 	lds	r24, 0x04F5	; 0x8004f5 <__data_end+0x1f9>
+ 4fe:	80 33       	cpi	r24, 0x30	; 48
+ 500:	20 f0       	brcs	.+8      	; 0x50a <__LOCK_REGION_LENGTH__+0x10a>
+		nokia_lcd.cursor_x = 0;
+ 502:	10 92 f4 04 	sts	0x04F4, r1	; 0x8004f4 <__data_end+0x1f8>
+		nokia_lcd.cursor_y = 0;
+ 506:	10 92 f5 04 	sts	0x04F5, r1	; 0x8004f5 <__data_end+0x1f9>
+	}
+}
+ 50a:	df 91       	pop	r29
+ 50c:	cf 91       	pop	r28
+ 50e:	1f 91       	pop	r17
+ 510:	0f 91       	pop	r16
+ 512:	ff 90       	pop	r15
+ 514:	ef 90       	pop	r14
+ 516:	df 90       	pop	r13
+ 518:	cf 90       	pop	r12
+ 51a:	bf 90       	pop	r11
+ 51c:	af 90       	pop	r10
+ 51e:	9f 90       	pop	r9
+ 520:	8f 90       	pop	r8
+ 522:	7f 90       	pop	r7
+ 524:	6f 90       	pop	r6
+ 526:	5f 90       	pop	r5
+ 528:	08 95       	ret
+
+0000052a <nokia_lcd_write_string>:
+
+void nokia_lcd_write_string(const char *str, uint8_t scale)
+{
+ 52a:	1f 93       	push	r17
+ 52c:	cf 93       	push	r28
+ 52e:	df 93       	push	r29
+ 530:	ec 01       	movw	r28, r24
+	while(*str)
+ 532:	88 81       	ld	r24, Y
+ 534:	88 23       	and	r24, r24
+ 536:	41 f0       	breq	.+16     	; 0x548 <nokia_lcd_write_string+0x1e>
+ 538:	16 2f       	mov	r17, r22
+ 53a:	21 96       	adiw	r28, 0x01	; 1
+		nokia_lcd_write_char(*str++, scale);
+ 53c:	61 2f       	mov	r22, r17
+ 53e:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
+	}
+}
+
+void nokia_lcd_write_string(const char *str, uint8_t scale)
+{
+	while(*str)
+ 542:	89 91       	ld	r24, Y+
+ 544:	81 11       	cpse	r24, r1
+ 546:	fa cf       	rjmp	.-12     	; 0x53c <nokia_lcd_write_string+0x12>
+		nokia_lcd_write_char(*str++, scale);
+}
+ 548:	df 91       	pop	r29
+ 54a:	cf 91       	pop	r28
+ 54c:	1f 91       	pop	r17
+ 54e:	08 95       	ret
+
+00000550 <nokia_lcd_set_cursor>:
 
 void nokia_lcd_set_cursor(uint8_t x, uint8_t y)
 {
 	nokia_lcd.cursor_x = x;
+ 550:	80 93 f4 04 	sts	0x04F4, r24	; 0x8004f4 <__data_end+0x1f8>
 	nokia_lcd.cursor_y = y;
- 432:	29 98       	cbi	0x05, 1	; 5
- 434:	66 23       	and	r22, r22
- 436:	11 f0       	breq	.+4      	; 0x43c <write+0xa>
- 438:	2b 9a       	sbi	0x05, 3	; 5
- 43a:	15 c0       	rjmp	.+42     	; 0x466 <write+0x34>
- 43c:	2b 98       	cbi	0x05, 3	; 5
- 43e:	13 c0       	rjmp	.+38     	; 0x466 <write+0x34>
- 440:	ac 01       	movw	r20, r24
- 442:	02 2e       	mov	r0, r18
- 444:	02 c0       	rjmp	.+4      	; 0x44a <write+0x18>
- 446:	55 95       	asr	r21
- 448:	47 95       	ror	r20
- 44a:	0a 94       	dec	r0
- 44c:	e2 f7       	brpl	.-8      	; 0x446 <write+0x14>
- 44e:	40 ff       	sbrs	r20, 0
- 450:	02 c0       	rjmp	.+4      	; 0x456 <write+0x24>
- 452:	2c 9a       	sbi	0x05, 4	; 5
- 454:	01 c0       	rjmp	.+2      	; 0x458 <write+0x26>
- 456:	2c 98       	cbi	0x05, 4	; 5
- 458:	2d 9a       	sbi	0x05, 5	; 5
- 45a:	2d 98       	cbi	0x05, 5	; 5
- 45c:	21 50       	subi	r18, 0x01	; 1
- 45e:	31 09       	sbc	r19, r1
- 460:	78 f7       	brcc	.-34     	; 0x440 <write+0xe>
- 462:	29 9a       	sbi	0x05, 1	; 5
- 464:	08 95       	ret
- 466:	27 e0       	ldi	r18, 0x07	; 7
- 468:	30 e0       	ldi	r19, 0x00	; 0
- 46a:	90 e0       	ldi	r25, 0x00	; 0
- 46c:	e9 cf       	rjmp	.-46     	; 0x440 <write+0xe>
-
-0000046e <write_cmd>:
- 46e:	60 e0       	ldi	r22, 0x00	; 0
- 470:	0e 94 19 02 	call	0x432	; 0x432 <write>
- 474:	08 95       	ret
-
-00000476 <nokia_lcd_init>:
- 476:	cf 93       	push	r28
- 478:	df 93       	push	r29
- 47a:	21 9a       	sbi	0x04, 1	; 4
- 47c:	22 9a       	sbi	0x04, 2	; 4
- 47e:	23 9a       	sbi	0x04, 3	; 4
- 480:	24 9a       	sbi	0x04, 4	; 4
- 482:	25 9a       	sbi	0x04, 5	; 4
- 484:	2a 9a       	sbi	0x05, 2	; 5
- 486:	29 9a       	sbi	0x05, 1	; 5
- 488:	8f e3       	ldi	r24, 0x3F	; 63
- 48a:	9c e9       	ldi	r25, 0x9C	; 156
- 48c:	01 97       	sbiw	r24, 0x01	; 1
- 48e:	f1 f7       	brne	.-4      	; 0x48c <nokia_lcd_init+0x16>
- 490:	00 c0       	rjmp	.+0      	; 0x492 <nokia_lcd_init+0x1c>
- 492:	00 00       	nop
- 494:	2a 98       	cbi	0x05, 2	; 5
- 496:	9f ef       	ldi	r25, 0xFF	; 255
- 498:	2a e6       	ldi	r18, 0x6A	; 106
- 49a:	83 e0       	ldi	r24, 0x03	; 3
- 49c:	91 50       	subi	r25, 0x01	; 1
- 49e:	20 40       	sbci	r18, 0x00	; 0
- 4a0:	80 40       	sbci	r24, 0x00	; 0
- 4a2:	e1 f7       	brne	.-8      	; 0x49c <nokia_lcd_init+0x26>
- 4a4:	00 c0       	rjmp	.+0      	; 0x4a6 <nokia_lcd_init+0x30>
- 4a6:	00 00       	nop
- 4a8:	2a 9a       	sbi	0x05, 2	; 5
- 4aa:	29 98       	cbi	0x05, 1	; 5
- 4ac:	81 e2       	ldi	r24, 0x21	; 33
- 4ae:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4b2:	83 e1       	ldi	r24, 0x13	; 19
- 4b4:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4b8:	86 e0       	ldi	r24, 0x06	; 6
- 4ba:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4be:	82 ec       	ldi	r24, 0xC2	; 194
- 4c0:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4c4:	80 e2       	ldi	r24, 0x20	; 32
- 4c6:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4ca:	89 e0       	ldi	r24, 0x09	; 9
- 4cc:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4d0:	80 e8       	ldi	r24, 0x80	; 128
- 4d2:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4d6:	80 e4       	ldi	r24, 0x40	; 64
- 4d8:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4dc:	c8 ef       	ldi	r28, 0xF8	; 248
- 4de:	d1 e0       	ldi	r29, 0x01	; 1
- 4e0:	61 e0       	ldi	r22, 0x01	; 1
- 4e2:	80 e0       	ldi	r24, 0x00	; 0
- 4e4:	0e 94 19 02 	call	0x432	; 0x432 <write>
- 4e8:	21 97       	sbiw	r28, 0x01	; 1
- 4ea:	d1 f7       	brne	.-12     	; 0x4e0 <nokia_lcd_init+0x6a>
- 4ec:	88 e0       	ldi	r24, 0x08	; 8
- 4ee:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4f2:	8c e0       	ldi	r24, 0x0C	; 12
- 4f4:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 4f8:	df 91       	pop	r29
- 4fa:	cf 91       	pop	r28
- 4fc:	08 95       	ret
-
-000004fe <nokia_lcd_clear>:
- 4fe:	80 e8       	ldi	r24, 0x80	; 128
- 500:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 504:	80 e4       	ldi	r24, 0x40	; 64
- 506:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 50a:	10 92 f8 02 	sts	0x02F8, r1	; 0x8002f8 <__data_end+0x1f8>
- 50e:	10 92 f9 02 	sts	0x02F9, r1	; 0x8002f9 <__data_end+0x1f9>
- 512:	e0 e0       	ldi	r30, 0x00	; 0
- 514:	f1 e0       	ldi	r31, 0x01	; 1
- 516:	88 ef       	ldi	r24, 0xF8	; 248
- 518:	92 e0       	ldi	r25, 0x02	; 2
- 51a:	11 92       	st	Z+, r1
- 51c:	e8 17       	cp	r30, r24
- 51e:	f9 07       	cpc	r31, r25
- 520:	e1 f7       	brne	.-8      	; 0x51a <nokia_lcd_clear+0x1c>
- 522:	08 95       	ret
-
-00000524 <nokia_lcd_set_pixel>:
- 524:	26 2f       	mov	r18, r22
- 526:	26 95       	lsr	r18
- 528:	26 95       	lsr	r18
- 52a:	26 95       	lsr	r18
- 52c:	90 e0       	ldi	r25, 0x00	; 0
- 52e:	34 e5       	ldi	r19, 0x54	; 84
- 530:	23 9f       	mul	r18, r19
- 532:	80 0d       	add	r24, r0
- 534:	91 1d       	adc	r25, r1
- 536:	11 24       	eor	r1, r1
- 538:	44 23       	and	r20, r20
- 53a:	79 f0       	breq	.+30     	; 0x55a <nokia_lcd_set_pixel+0x36>
- 53c:	fc 01       	movw	r30, r24
- 53e:	e0 50       	subi	r30, 0x00	; 0
- 540:	ff 4f       	sbci	r31, 0xFF	; 255
- 542:	67 70       	andi	r22, 0x07	; 7
- 544:	81 e0       	ldi	r24, 0x01	; 1
- 546:	90 e0       	ldi	r25, 0x00	; 0
- 548:	02 c0       	rjmp	.+4      	; 0x54e <nokia_lcd_set_pixel+0x2a>
- 54a:	88 0f       	add	r24, r24
- 54c:	99 1f       	adc	r25, r25
- 54e:	6a 95       	dec	r22
- 550:	e2 f7       	brpl	.-8      	; 0x54a <nokia_lcd_set_pixel+0x26>
- 552:	90 81       	ld	r25, Z
- 554:	89 2b       	or	r24, r25
- 556:	80 83       	st	Z, r24
+ 554:	60 93 f5 04 	sts	0x04F5, r22	; 0x8004f5 <__data_end+0x1f9>
  558:	08 95       	ret
- 55a:	fc 01       	movw	r30, r24
- 55c:	e0 50       	subi	r30, 0x00	; 0
- 55e:	ff 4f       	sbci	r31, 0xFF	; 255
- 560:	67 70       	andi	r22, 0x07	; 7
- 562:	81 e0       	ldi	r24, 0x01	; 1
- 564:	90 e0       	ldi	r25, 0x00	; 0
- 566:	02 c0       	rjmp	.+4      	; 0x56c <nokia_lcd_set_pixel+0x48>
- 568:	88 0f       	add	r24, r24
- 56a:	99 1f       	adc	r25, r25
- 56c:	6a 95       	dec	r22
- 56e:	e2 f7       	brpl	.-8      	; 0x568 <nokia_lcd_set_pixel+0x44>
- 570:	80 95       	com	r24
- 572:	90 81       	ld	r25, Z
- 574:	89 23       	and	r24, r25
- 576:	80 83       	st	Z, r24
- 578:	08 95       	ret
 
-0000057a <nokia_lcd_write_char>:
- 57a:	5f 92       	push	r5
- 57c:	6f 92       	push	r6
- 57e:	7f 92       	push	r7
- 580:	8f 92       	push	r8
- 582:	9f 92       	push	r9
- 584:	af 92       	push	r10
- 586:	bf 92       	push	r11
- 588:	cf 92       	push	r12
- 58a:	df 92       	push	r13
- 58c:	ef 92       	push	r14
- 58e:	ff 92       	push	r15
- 590:	0f 93       	push	r16
- 592:	1f 93       	push	r17
- 594:	cf 93       	push	r28
- 596:	df 93       	push	r29
- 598:	56 2e       	mov	r5, r22
- 59a:	26 2f       	mov	r18, r22
- 59c:	30 e0       	ldi	r19, 0x00	; 0
- 59e:	49 01       	movw	r8, r18
- 5a0:	88 0c       	add	r8, r8
- 5a2:	99 1c       	adc	r9, r9
- 5a4:	88 0c       	add	r8, r8
- 5a6:	99 1c       	adc	r9, r9
- 5a8:	82 0e       	add	r8, r18
- 5aa:	93 1e       	adc	r9, r19
- 5ac:	18 14       	cp	r1, r8
- 5ae:	19 04       	cpc	r1, r9
- 5b0:	0c f0       	brlt	.+2      	; 0x5b4 <nokia_lcd_write_char+0x3a>
- 5b2:	5d c0       	rjmp	.+186    	; 0x66e <nokia_lcd_write_char+0xf4>
- 5b4:	89 01       	movw	r16, r18
- 5b6:	00 0f       	add	r16, r16
- 5b8:	11 1f       	adc	r17, r17
- 5ba:	00 0f       	add	r16, r16
- 5bc:	11 1f       	adc	r17, r17
- 5be:	00 0f       	add	r16, r16
- 5c0:	11 1f       	adc	r17, r17
- 5c2:	02 1b       	sub	r16, r18
- 5c4:	13 0b       	sbc	r17, r19
- 5c6:	61 2c       	mov	r6, r1
- 5c8:	a8 2e       	mov	r10, r24
- 5ca:	b1 2c       	mov	r11, r1
- 5cc:	c5 01       	movw	r24, r10
- 5ce:	80 97       	sbiw	r24, 0x20	; 32
- 5d0:	5c 01       	movw	r10, r24
- 5d2:	aa 0c       	add	r10, r10
- 5d4:	bb 1c       	adc	r11, r11
- 5d6:	aa 0c       	add	r10, r10
- 5d8:	bb 1c       	adc	r11, r11
- 5da:	a8 0e       	add	r10, r24
- 5dc:	b9 1e       	adc	r11, r25
- 5de:	0f 2e       	mov	r0, r31
- 5e0:	f9 ef       	ldi	r31, 0xF9	; 249
- 5e2:	cf 2e       	mov	r12, r31
- 5e4:	f2 e0       	ldi	r31, 0x02	; 2
- 5e6:	df 2e       	mov	r13, r31
- 5e8:	f0 2d       	mov	r31, r0
- 5ea:	0f 2e       	mov	r0, r31
- 5ec:	f8 ef       	ldi	r31, 0xF8	; 248
- 5ee:	ef 2e       	mov	r14, r31
- 5f0:	f2 e0       	ldi	r31, 0x02	; 2
- 5f2:	ff 2e       	mov	r15, r31
- 5f4:	f0 2d       	mov	r31, r0
- 5f6:	2d c0       	rjmp	.+90     	; 0x652 <nokia_lcd_write_char+0xd8>
- 5f8:	fe 01       	movw	r30, r28
- 5fa:	24 91       	lpm	r18, Z
- 5fc:	30 e0       	ldi	r19, 0x00	; 0
- 5fe:	87 2d       	mov	r24, r7
- 600:	65 2d       	mov	r22, r5
- 602:	0e 94 24 05 	call	0xa48	; 0xa48 <__udivmodqi4>
- 606:	02 c0       	rjmp	.+4      	; 0x60c <nokia_lcd_write_char+0x92>
- 608:	35 95       	asr	r19
- 60a:	27 95       	ror	r18
- 60c:	8a 95       	dec	r24
- 60e:	e2 f7       	brpl	.-8      	; 0x608 <nokia_lcd_write_char+0x8e>
- 610:	20 ff       	sbrs	r18, 0
- 612:	0a c0       	rjmp	.+20     	; 0x628 <nokia_lcd_write_char+0xae>
- 614:	f6 01       	movw	r30, r12
- 616:	60 81       	ld	r22, Z
- 618:	67 0d       	add	r22, r7
- 61a:	f7 01       	movw	r30, r14
- 61c:	80 81       	ld	r24, Z
- 61e:	41 e0       	ldi	r20, 0x01	; 1
- 620:	86 0d       	add	r24, r6
- 622:	0e 94 92 02 	call	0x524	; 0x524 <nokia_lcd_set_pixel>
- 626:	09 c0       	rjmp	.+18     	; 0x63a <nokia_lcd_write_char+0xc0>
- 628:	f6 01       	movw	r30, r12
- 62a:	60 81       	ld	r22, Z
- 62c:	67 0d       	add	r22, r7
- 62e:	f7 01       	movw	r30, r14
- 630:	80 81       	ld	r24, Z
- 632:	40 e0       	ldi	r20, 0x00	; 0
- 634:	86 0d       	add	r24, r6
- 636:	0e 94 92 02 	call	0x524	; 0x524 <nokia_lcd_set_pixel>
- 63a:	73 94       	inc	r7
- 63c:	87 2d       	mov	r24, r7
- 63e:	90 e0       	ldi	r25, 0x00	; 0
- 640:	80 17       	cp	r24, r16
- 642:	91 07       	cpc	r25, r17
- 644:	cc f2       	brlt	.-78     	; 0x5f8 <nokia_lcd_write_char+0x7e>
- 646:	63 94       	inc	r6
- 648:	86 2d       	mov	r24, r6
- 64a:	90 e0       	ldi	r25, 0x00	; 0
- 64c:	88 15       	cp	r24, r8
- 64e:	99 05       	cpc	r25, r9
- 650:	74 f4       	brge	.+28     	; 0x66e <nokia_lcd_write_char+0xf4>
- 652:	10 16       	cp	r1, r16
- 654:	11 06       	cpc	r1, r17
- 656:	bc f7       	brge	.-18     	; 0x646 <nokia_lcd_write_char+0xcc>
- 658:	86 2d       	mov	r24, r6
- 65a:	65 2d       	mov	r22, r5
- 65c:	0e 94 24 05 	call	0xa48	; 0xa48 <__udivmodqi4>
- 660:	e5 01       	movw	r28, r10
- 662:	c8 0f       	add	r28, r24
- 664:	d1 1d       	adc	r29, r1
- 666:	c8 59       	subi	r28, 0x98	; 152
- 668:	df 4f       	sbci	r29, 0xFF	; 255
- 66a:	71 2c       	mov	r7, r1
- 66c:	c5 cf       	rjmp	.-118    	; 0x5f8 <nokia_lcd_write_char+0x7e>
- 66e:	80 91 f8 02 	lds	r24, 0x02F8	; 0x8002f8 <__data_end+0x1f8>
- 672:	91 e0       	ldi	r25, 0x01	; 1
- 674:	98 0f       	add	r25, r24
- 676:	85 2d       	mov	r24, r5
- 678:	88 0f       	add	r24, r24
- 67a:	88 0f       	add	r24, r24
- 67c:	85 0d       	add	r24, r5
- 67e:	89 0f       	add	r24, r25
- 680:	84 35       	cpi	r24, 0x54	; 84
- 682:	18 f4       	brcc	.+6      	; 0x68a <nokia_lcd_write_char+0x110>
- 684:	80 93 f8 02 	sts	0x02F8, r24	; 0x8002f8 <__data_end+0x1f8>
- 688:	0e c0       	rjmp	.+28     	; 0x6a6 <nokia_lcd_write_char+0x12c>
- 68a:	10 92 f8 02 	sts	0x02F8, r1	; 0x8002f8 <__data_end+0x1f8>
- 68e:	e9 ef       	ldi	r30, 0xF9	; 249
- 690:	f2 e0       	ldi	r31, 0x02	; 2
- 692:	80 81       	ld	r24, Z
- 694:	91 e0       	ldi	r25, 0x01	; 1
- 696:	98 0f       	add	r25, r24
- 698:	85 2d       	mov	r24, r5
- 69a:	88 0f       	add	r24, r24
- 69c:	88 0f       	add	r24, r24
- 69e:	88 0f       	add	r24, r24
- 6a0:	85 19       	sub	r24, r5
- 6a2:	89 0f       	add	r24, r25
- 6a4:	80 83       	st	Z, r24
- 6a6:	80 91 f9 02 	lds	r24, 0x02F9	; 0x8002f9 <__data_end+0x1f9>
- 6aa:	80 33       	cpi	r24, 0x30	; 48
- 6ac:	20 f0       	brcs	.+8      	; 0x6b6 <nokia_lcd_write_char+0x13c>
- 6ae:	10 92 f8 02 	sts	0x02F8, r1	; 0x8002f8 <__data_end+0x1f8>
- 6b2:	10 92 f9 02 	sts	0x02F9, r1	; 0x8002f9 <__data_end+0x1f9>
- 6b6:	df 91       	pop	r29
- 6b8:	cf 91       	pop	r28
- 6ba:	1f 91       	pop	r17
- 6bc:	0f 91       	pop	r16
- 6be:	ff 90       	pop	r15
- 6c0:	ef 90       	pop	r14
- 6c2:	df 90       	pop	r13
- 6c4:	cf 90       	pop	r12
- 6c6:	bf 90       	pop	r11
- 6c8:	af 90       	pop	r10
- 6ca:	9f 90       	pop	r9
- 6cc:	8f 90       	pop	r8
- 6ce:	7f 90       	pop	r7
- 6d0:	6f 90       	pop	r6
- 6d2:	5f 90       	pop	r5
- 6d4:	08 95       	ret
-
-000006d6 <nokia_lcd_write_string>:
- 6d6:	1f 93       	push	r17
- 6d8:	cf 93       	push	r28
- 6da:	df 93       	push	r29
- 6dc:	ec 01       	movw	r28, r24
- 6de:	88 81       	ld	r24, Y
- 6e0:	88 23       	and	r24, r24
- 6e2:	41 f0       	breq	.+16     	; 0x6f4 <nokia_lcd_write_string+0x1e>
- 6e4:	16 2f       	mov	r17, r22
- 6e6:	21 96       	adiw	r28, 0x01	; 1
- 6e8:	61 2f       	mov	r22, r17
- 6ea:	0e 94 bd 02 	call	0x57a	; 0x57a <nokia_lcd_write_char>
- 6ee:	89 91       	ld	r24, Y+
- 6f0:	81 11       	cpse	r24, r1
- 6f2:	fa cf       	rjmp	.-12     	; 0x6e8 <nokia_lcd_write_string+0x12>
- 6f4:	df 91       	pop	r29
- 6f6:	cf 91       	pop	r28
- 6f8:	1f 91       	pop	r17
- 6fa:	08 95       	ret
-
-000006fc <nokia_lcd_render>:
+0000055a <nokia_lcd_render>:
 }
 
 void nokia_lcd_render(void)
 {
- 6fc:	0f 93       	push	r16
- 6fe:	1f 93       	push	r17
- 700:	cf 93       	push	r28
- 702:	df 93       	push	r29
+ 55a:	0f 93       	push	r16
+ 55c:	1f 93       	push	r17
+ 55e:	cf 93       	push	r28
+ 560:	df 93       	push	r29
 	register unsigned i;
 	/* Set column and row to 0 */
 	write_cmd(0x80);
- 704:	80 e8       	ldi	r24, 0x80	; 128
- 706:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
+ 562:	80 e8       	ldi	r24, 0x80	; 128
+ 564:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
 	write_cmd(0x40);
- 70a:	80 e4       	ldi	r24, 0x40	; 64
- 70c:	0e 94 37 02 	call	0x46e	; 0x46e <write_cmd>
- 710:	c0 e0       	ldi	r28, 0x00	; 0
- 712:	d1 e0       	ldi	r29, 0x01	; 1
- 714:	08 ef       	ldi	r16, 0xF8	; 248
- 716:	12 e0       	ldi	r17, 0x02	; 2
+ 568:	80 e4       	ldi	r24, 0x40	; 64
+ 56a:	0e 94 61 01 	call	0x2c2	; 0x2c2 <write_cmd>
+ 56e:	cc ef       	ldi	r28, 0xFC	; 252
+ 570:	d2 e0       	ldi	r29, 0x02	; 2
+ 572:	04 ef       	ldi	r16, 0xF4	; 244
+ 574:	14 e0       	ldi	r17, 0x04	; 4
 	write(cmd, 0);
 }
 
 static void write_data(uint8_t data)
 {
 	write(data, 1);
- 718:	61 e0       	ldi	r22, 0x01	; 1
- 71a:	89 91       	ld	r24, Y+
- 71c:	0e 94 19 02 	call	0x432	; 0x432 <write>
+ 576:	61 e0       	ldi	r22, 0x01	; 1
+ 578:	89 91       	ld	r24, Y+
+ 57a:	0e 94 43 01 	call	0x286	; 0x286 <write>
 	/* Set column and row to 0 */
 	write_cmd(0x80);
 	write_cmd(0x40);
 
 	/* Write screen to display */
 	for (i = 0; i < 504; i++)
- 720:	c0 17       	cp	r28, r16
- 722:	d1 07       	cpc	r29, r17
- 724:	c9 f7       	brne	.-14     	; 0x718 <nokia_lcd_render+0x1c>
+ 57e:	c0 17       	cp	r28, r16
+ 580:	d1 07       	cpc	r29, r17
+ 582:	c9 f7       	brne	.-14     	; 0x576 <nokia_lcd_render+0x1c>
 		write_data(nokia_lcd.screen[i]);
- 726:	df 91       	pop	r29
- 728:	cf 91       	pop	r28
- 72a:	1f 91       	pop	r17
- 72c:	0f 91       	pop	r16
- 72e:	08 95       	ret
+ 584:	df 91       	pop	r29
+ 586:	cf 91       	pop	r28
+ 588:	1f 91       	pop	r17
+ 58a:	0f 91       	pop	r16
+ 58c:	08 95       	ret
 
-00000730 <uart_init>:
-Input:    baudrate using macro UART_BAUD_SELECT()
-Returns:  none
-**************************************************************************/
-void uart_init(unsigned int baudrate)
-{
-    UART_TxHead = 0;
- 730:	10 92 fd 02 	sts	0x02FD, r1	; 0x8002fd <UART_TxHead>
-    UART_TxTail = 0;
- 734:	10 92 fc 02 	sts	0x02FC, r1	; 0x8002fc <UART_TxTail>
-    UART_RxHead = 0;
- 738:	10 92 fb 02 	sts	0x02FB, r1	; 0x8002fb <UART_RxHead>
-    UART_RxTail = 0;
- 73c:	10 92 fa 02 	sts	0x02FA, r1	; 0x8002fa <UART_RxTail>
-    UCSRC = (3<<UCSZ0);
-    #endif 
-    
-#elif defined (ATMEGA_USART0 )
-    /* Set baud rate */
-    if ( baudrate & 0x8000 ) 
- 740:	99 23       	and	r25, r25
- 742:	24 f4       	brge	.+8      	; 0x74c <uart_init+0x1c>
-    {
-   		UART0_STATUS = (1<<U2X0);  //Enable 2x speed 
- 744:	22 e0       	ldi	r18, 0x02	; 2
- 746:	20 93 c0 00 	sts	0x00C0, r18	; 0x8000c0 <__TEXT_REGION_LENGTH__+0x7e00c0>
-   		baudrate &= ~0x8000;
- 74a:	9f 77       	andi	r25, 0x7F	; 127
-   	}
-    UBRR0H = (unsigned char)(baudrate>>8);
- 74c:	90 93 c5 00 	sts	0x00C5, r25	; 0x8000c5 <__TEXT_REGION_LENGTH__+0x7e00c5>
-    UBRR0L = (unsigned char) baudrate;
- 750:	80 93 c4 00 	sts	0x00C4, r24	; 0x8000c4 <__TEXT_REGION_LENGTH__+0x7e00c4>
+0000058e <rtc2_write_byte>:
+// Routine used for pretty much any operation {{{
+#if RTC2_READ || RTC2_WRITE ||RTC2_RAM || RTC2_UTILITY
+static void rtc2_write_byte(uint8_t byte){
+  uint8_t i;
 
-    /* Enable USART receiver and transmitter and receive complete interrupt */
-    UART0_CONTROL = _BV(RXCIE0)|(1<<RXEN0)|(1<<TXEN0);
- 754:	88 e9       	ldi	r24, 0x98	; 152
- 756:	80 93 c1 00 	sts	0x00C1, r24	; 0x8000c1 <__TEXT_REGION_LENGTH__+0x7e00c1>
-    
-    /* Set frame format: asynchronous, 8data, no parity, 1stop bit */
-    #ifdef URSEL0
-    UCSR0C = (1<<URSEL0)|(3<<UCSZ00);
-    #else
-    UCSR0C = (3<<UCSZ00);
- 75a:	86 e0       	ldi	r24, 0x06	; 6
- 75c:	80 93 c2 00 	sts	0x00C2, r24	; 0x8000c2 <__TEXT_REGION_LENGTH__+0x7e00c2>
- 760:	08 95       	ret
+  RTC2_IO_OUTPUT;
+ 58e:	3c 9a       	sbi	0x07, 4	; 7
+ 590:	98 e0       	ldi	r25, 0x08	; 8
 
-00000762 <main>:
+  for(i = 0; i < 8; ++i){
+    if(byte & 1)
+ 592:	80 ff       	sbrs	r24, 0
+ 594:	02 c0       	rjmp	.+4      	; 0x59a <rtc2_write_byte+0xc>
+      RTC2_IO_HIGH;
+ 596:	44 9a       	sbi	0x08, 4	; 8
+ 598:	01 c0       	rjmp	.+2      	; 0x59c <rtc2_write_byte+0xe>
+    else
+      RTC2_IO_LOW;
+ 59a:	44 98       	cbi	0x08, 4	; 8
 
-const int i;
-const int j;
-
-int main(void)
-{	
- 762:	cf 93       	push	r28
- 764:	df 93       	push	r29
- 766:	cd b7       	in	r28, 0x3d	; 61
- 768:	de b7       	in	r29, 0x3e	; 62
- 76a:	c6 56       	subi	r28, 0x66	; 102
- 76c:	d1 09       	sbc	r29, r1
- 76e:	0f b6       	in	r0, 0x3f	; 63
- 770:	f8 94       	cli
- 772:	de bf       	out	0x3e, r29	; 62
- 774:	0f be       	out	0x3f, r0	; 63
- 776:	cd bf       	out	0x3d, r28	; 61
-	//sei();
-	nokia_lcd_init();
- 778:	0e 94 3b 02 	call	0x476	; 0x476 <nokia_lcd_init>
-	nokia_lcd_clear();
- 77c:	0e 94 7f 02 	call	0x4fe	; 0x4fe <nokia_lcd_clear>
-	}
-	*/
-	char printbuff[100];
-
-	//init uart
-	uart_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) );
- 780:	83 e3       	ldi	r24, 0x33	; 51
- 782:	90 e0       	ldi	r25, 0x00	; 0
- 784:	0e 94 98 03 	call	0x730	; 0x730 <uart_init>
-
-	//init interrupt
-	sei();
- 788:	78 94       	sei
-
-	int8_t temperature = 0;
- 78a:	a6 96       	adiw	r28, 0x26	; 38
- 78c:	1f ae       	std	Y+63, r1	; 0x3f
- 78e:	a6 97       	sbiw	r28, 0x26	; 38
-	int8_t humidity = 0;
- 790:	a7 96       	adiw	r28, 0x27	; 39
- 792:	1f ae       	std	Y+63, r1	; 0x3f
- 794:	a7 97       	sbiw	r28, 0x27	; 39
-	
-
-	for (;;) {
-		dht_gettemperaturehumidity(&temperature, &humidity);
- 796:	be 01       	movw	r22, r28
- 798:	6a 59       	subi	r22, 0x9A	; 154
- 79a:	7f 4f       	sbci	r23, 0xFF	; 255
- 79c:	ce 01       	movw	r24, r28
- 79e:	8b 59       	subi	r24, 0x9B	; 155
- 7a0:	9f 4f       	sbci	r25, 0xFF	; 255
- 7a2:	0e 94 16 02 	call	0x42c	; 0x42c <dht_gettemperaturehumidity>
-    } else if (__radix < 2 || __radix > 36) {
-	*__s = 0;
-	return __s;
-    } else {
-	extern char *__itoa_ncheck (int, char *, unsigned char);
-	return __itoa_ncheck (__val, __s, __radix);
- 7a6:	a6 96       	adiw	r28, 0x26	; 38
- 7a8:	8f ad       	ldd	r24, Y+63	; 0x3f
- 7aa:	a6 97       	sbiw	r28, 0x26	; 38
- 7ac:	4a e0       	ldi	r20, 0x0A	; 10
- 7ae:	be 01       	movw	r22, r28
- 7b0:	6f 5f       	subi	r22, 0xFF	; 255
- 7b2:	7f 4f       	sbci	r23, 0xFF	; 255
- 7b4:	08 2e       	mov	r0, r24
- 7b6:	00 0c       	add	r0, r0
- 7b8:	99 0b       	sbc	r25, r25
- 7ba:	0e 94 30 05 	call	0xa60	; 0xa60 <__itoa_ncheck>
-
-						nokia_lcd_write_string(itoa(temperature, printbuff, 10), 1);
- 7be:	61 e0       	ldi	r22, 0x01	; 1
- 7c0:	0e 94 6b 03 	call	0x6d6	; 0x6d6 <nokia_lcd_write_string>
-			nokia_lcd_render();
- 7c4:	0e 94 7e 03 	call	0x6fc	; 0x6fc <nokia_lcd_render>
+    RTC2_CLK_LOW;
+ 59c:	45 98       	cbi	0x08, 5	; 8
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 7c8:	2f ef       	ldi	r18, 0xFF	; 255
- 7ca:	8e e9       	ldi	r24, 0x9E	; 158
- 7cc:	94 e2       	ldi	r25, 0x24	; 36
- 7ce:	21 50       	subi	r18, 0x01	; 1
- 7d0:	80 40       	sbci	r24, 0x00	; 0
- 7d2:	90 40       	sbci	r25, 0x00	; 0
- 7d4:	e1 f7       	brne	.-8      	; 0x7ce <main+0x6c>
- 7d6:	00 c0       	rjmp	.+0      	; 0x7d8 <main+0x76>
- 7d8:	00 00       	nop
- 7da:	dd cf       	rjmp	.-70     	; 0x796 <main+0x34>
+ 59e:	00 c0       	rjmp	.+0      	; 0x5a0 <rtc2_write_byte+0x12>
+    _delay_us(2);
+    RTC2_CLK_HIGH;
+ 5a0:	45 9a       	sbi	0x08, 5	; 8
+ 5a2:	00 c0       	rjmp	.+0      	; 0x5a4 <rtc2_write_byte+0x16>
+    _delay_us(2);
+    byte >>= 1;
+ 5a4:	86 95       	lsr	r24
+ 5a6:	91 50       	subi	r25, 0x01	; 1
+static void rtc2_write_byte(uint8_t byte){
+  uint8_t i;
 
-000007dc <__divsf3>:
- 7dc:	0e 94 02 04 	call	0x804	; 0x804 <__divsf3x>
- 7e0:	0c 94 ea 04 	jmp	0x9d4	; 0x9d4 <__fp_round>
- 7e4:	0e 94 e3 04 	call	0x9c6	; 0x9c6 <__fp_pscB>
- 7e8:	58 f0       	brcs	.+22     	; 0x800 <__divsf3+0x24>
- 7ea:	0e 94 dc 04 	call	0x9b8	; 0x9b8 <__fp_pscA>
- 7ee:	40 f0       	brcs	.+16     	; 0x800 <__divsf3+0x24>
- 7f0:	29 f4       	brne	.+10     	; 0x7fc <__divsf3+0x20>
- 7f2:	5f 3f       	cpi	r21, 0xFF	; 255
- 7f4:	29 f0       	breq	.+10     	; 0x800 <__divsf3+0x24>
- 7f6:	0c 94 d3 04 	jmp	0x9a6	; 0x9a6 <__fp_inf>
- 7fa:	51 11       	cpse	r21, r1
- 7fc:	0c 94 1e 05 	jmp	0xa3c	; 0xa3c <__fp_szero>
- 800:	0c 94 d9 04 	jmp	0x9b2	; 0x9b2 <__fp_nan>
+  RTC2_IO_OUTPUT;
 
-00000804 <__divsf3x>:
- 804:	0e 94 fb 04 	call	0x9f6	; 0x9f6 <__fp_split3>
- 808:	68 f3       	brcs	.-38     	; 0x7e4 <__divsf3+0x8>
+  for(i = 0; i < 8; ++i){
+ 5a8:	a1 f7       	brne	.-24     	; 0x592 <rtc2_write_byte+0x4>
+    _delay_us(2);
+    RTC2_CLK_HIGH;
+    _delay_us(2);
+    byte >>= 1;
+  }
+}
+ 5aa:	08 95       	ret
 
-0000080a <__divsf3_pse>:
- 80a:	99 23       	and	r25, r25
- 80c:	b1 f3       	breq	.-20     	; 0x7fa <__divsf3+0x1e>
- 80e:	55 23       	and	r21, r21
- 810:	91 f3       	breq	.-28     	; 0x7f6 <__divsf3+0x1a>
- 812:	95 1b       	sub	r25, r21
- 814:	55 0b       	sbc	r21, r21
- 816:	bb 27       	eor	r27, r27
- 818:	aa 27       	eor	r26, r26
- 81a:	62 17       	cp	r22, r18
- 81c:	73 07       	cpc	r23, r19
- 81e:	84 07       	cpc	r24, r20
- 820:	38 f0       	brcs	.+14     	; 0x830 <__divsf3_pse+0x26>
- 822:	9f 5f       	subi	r25, 0xFF	; 255
- 824:	5f 4f       	sbci	r21, 0xFF	; 255
- 826:	22 0f       	add	r18, r18
- 828:	33 1f       	adc	r19, r19
- 82a:	44 1f       	adc	r20, r20
- 82c:	aa 1f       	adc	r26, r26
- 82e:	a9 f3       	breq	.-22     	; 0x81a <__divsf3_pse+0x10>
- 830:	35 d0       	rcall	.+106    	; 0x89c <__divsf3_pse+0x92>
- 832:	0e 2e       	mov	r0, r30
- 834:	3a f0       	brmi	.+14     	; 0x844 <__divsf3_pse+0x3a>
- 836:	e0 e8       	ldi	r30, 0x80	; 128
- 838:	32 d0       	rcall	.+100    	; 0x89e <__divsf3_pse+0x94>
- 83a:	91 50       	subi	r25, 0x01	; 1
- 83c:	50 40       	sbci	r21, 0x00	; 0
- 83e:	e6 95       	lsr	r30
- 840:	00 1c       	adc	r0, r0
- 842:	ca f7       	brpl	.-14     	; 0x836 <__divsf3_pse+0x2c>
- 844:	2b d0       	rcall	.+86     	; 0x89c <__divsf3_pse+0x92>
- 846:	fe 2f       	mov	r31, r30
- 848:	29 d0       	rcall	.+82     	; 0x89c <__divsf3_pse+0x92>
- 84a:	66 0f       	add	r22, r22
- 84c:	77 1f       	adc	r23, r23
- 84e:	88 1f       	adc	r24, r24
- 850:	bb 1f       	adc	r27, r27
- 852:	26 17       	cp	r18, r22
- 854:	37 07       	cpc	r19, r23
- 856:	48 07       	cpc	r20, r24
- 858:	ab 07       	cpc	r26, r27
- 85a:	b0 e8       	ldi	r27, 0x80	; 128
- 85c:	09 f0       	breq	.+2      	; 0x860 <__divsf3_pse+0x56>
- 85e:	bb 0b       	sbc	r27, r27
- 860:	80 2d       	mov	r24, r0
- 862:	bf 01       	movw	r22, r30
- 864:	ff 27       	eor	r31, r31
- 866:	93 58       	subi	r25, 0x83	; 131
- 868:	5f 4f       	sbci	r21, 0xFF	; 255
- 86a:	3a f0       	brmi	.+14     	; 0x87a <__divsf3_pse+0x70>
- 86c:	9e 3f       	cpi	r25, 0xFE	; 254
- 86e:	51 05       	cpc	r21, r1
- 870:	78 f0       	brcs	.+30     	; 0x890 <__divsf3_pse+0x86>
- 872:	0c 94 d3 04 	jmp	0x9a6	; 0x9a6 <__fp_inf>
- 876:	0c 94 1e 05 	jmp	0xa3c	; 0xa3c <__fp_szero>
- 87a:	5f 3f       	cpi	r21, 0xFF	; 255
- 87c:	e4 f3       	brlt	.-8      	; 0x876 <__divsf3_pse+0x6c>
- 87e:	98 3e       	cpi	r25, 0xE8	; 232
- 880:	d4 f3       	brlt	.-12     	; 0x876 <__divsf3_pse+0x6c>
- 882:	86 95       	lsr	r24
- 884:	77 95       	ror	r23
- 886:	67 95       	ror	r22
- 888:	b7 95       	ror	r27
- 88a:	f7 95       	ror	r31
- 88c:	9f 5f       	subi	r25, 0xFF	; 255
- 88e:	c9 f7       	brne	.-14     	; 0x882 <__divsf3_pse+0x78>
- 890:	88 0f       	add	r24, r24
- 892:	91 1d       	adc	r25, r1
- 894:	96 95       	lsr	r25
- 896:	87 95       	ror	r24
- 898:	97 f9       	bld	r25, 7
- 89a:	08 95       	ret
- 89c:	e1 e0       	ldi	r30, 0x01	; 1
- 89e:	66 0f       	add	r22, r22
- 8a0:	77 1f       	adc	r23, r23
- 8a2:	88 1f       	adc	r24, r24
- 8a4:	bb 1f       	adc	r27, r27
- 8a6:	62 17       	cp	r22, r18
- 8a8:	73 07       	cpc	r23, r19
- 8aa:	84 07       	cpc	r24, r20
- 8ac:	ba 07       	cpc	r27, r26
- 8ae:	20 f0       	brcs	.+8      	; 0x8b8 <__divsf3_pse+0xae>
- 8b0:	62 1b       	sub	r22, r18
- 8b2:	73 0b       	sbc	r23, r19
- 8b4:	84 0b       	sbc	r24, r20
- 8b6:	ba 0b       	sbc	r27, r26
- 8b8:	ee 1f       	adc	r30, r30
- 8ba:	88 f7       	brcc	.-30     	; 0x89e <__divsf3_pse+0x94>
- 8bc:	e0 95       	com	r30
+000005ac <rtc2_write>:
+// }}}
+
+// Write to register {{{
+#if RTC2_WRITE || RTC2_RAM || RTC2_UTILITY
+
+static void rtc2_write(uint8_t reg, uint8_t val){
+ 5ac:	cf 93       	push	r28
+ 5ae:	c6 2f       	mov	r28, r22
+}
+// }}}
+
+// Utility stuff used to reset current transfer state {{{
+static inline void rtc2_reset(void){
+  RTC2_STOP_TRANSMISSION;
+ 5b0:	43 98       	cbi	0x08, 3	; 8
+ 5b2:	45 98       	cbi	0x08, 5	; 8
+  RTC2_CE_HIGH;
+ 5b4:	43 9a       	sbi	0x08, 3	; 8
+
+// Write to register {{{
+#if RTC2_WRITE || RTC2_RAM || RTC2_UTILITY
+
+static void rtc2_write(uint8_t reg, uint8_t val){
+  RTC2_START_TRANSMISSION(reg);
+ 5b6:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+  rtc2_write_byte(val);
+ 5ba:	8c 2f       	mov	r24, r28
+ 5bc:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+  RTC2_STOP_TRANSMISSION;
+ 5c0:	43 98       	cbi	0x08, 3	; 8
+ 5c2:	45 98       	cbi	0x08, 5	; 8
+}
+ 5c4:	cf 91       	pop	r28
+ 5c6:	08 95       	ret
+
+000005c8 <rtc2_read_byte>:
+#if RTC2_READ || RTC2_UTILITY || RTC2_RAM
+
+static uint8_t rtc2_read_byte(void){
+  uint8_t i, ret = 0;
+
+  RTC2_IO_INPUT;
+ 5c8:	3c 98       	cbi	0x07, 4	; 7
+ 5ca:	98 e0       	ldi	r25, 0x08	; 8
+
+// Low level read functions {{{
+#if RTC2_READ || RTC2_UTILITY || RTC2_RAM
+
+static uint8_t rtc2_read_byte(void){
+  uint8_t i, ret = 0;
+ 5cc:	80 e0       	ldi	r24, 0x00	; 0
+
+  RTC2_IO_INPUT;
+
+  for(i = 0; i < 8; ++i){
+    RTC2_CLK_HIGH;
+ 5ce:	45 9a       	sbi	0x08, 5	; 8
+ 5d0:	00 c0       	rjmp	.+0      	; 0x5d2 <rtc2_read_byte+0xa>
+    _delay_us(2);
+    RTC2_CLK_LOW;
+ 5d2:	45 98       	cbi	0x08, 5	; 8
+ 5d4:	00 c0       	rjmp	.+0      	; 0x5d6 <rtc2_read_byte+0xe>
+    _delay_us(2);
+    ret >>= 1;
+ 5d6:	86 95       	lsr	r24
+
+    if(bit_is_set(RTC2_PIN, RTC2_IO))
+ 5d8:	34 99       	sbic	0x06, 4	; 6
+      ret |= _BV(7);
+ 5da:	80 68       	ori	r24, 0x80	; 128
+ 5dc:	91 50       	subi	r25, 0x01	; 1
+static uint8_t rtc2_read_byte(void){
+  uint8_t i, ret = 0;
+
+  RTC2_IO_INPUT;
+
+  for(i = 0; i < 8; ++i){
+ 5de:	b9 f7       	brne	.-18     	; 0x5ce <rtc2_read_byte+0x6>
+    if(bit_is_set(RTC2_PIN, RTC2_IO))
+      ret |= _BV(7);
+  }
+
+  return ret;
+}
+ 5e0:	08 95       	ret
+
+000005e2 <rtc2_read>:
+}
+// }}}
+
+// Utility stuff used to reset current transfer state {{{
+static inline void rtc2_reset(void){
+  RTC2_STOP_TRANSMISSION;
+ 5e2:	43 98       	cbi	0x08, 3	; 8
+ 5e4:	45 98       	cbi	0x08, 5	; 8
+  RTC2_CE_HIGH;
+ 5e6:	43 9a       	sbi	0x08, 3	; 8
+  return ret;
+}
+
+static uint8_t rtc2_read(uint8_t reg){
+  uint8_t ret;
+  RTC2_START_TRANSMISSION(reg);
+ 5e8:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+  ret = rtc2_read_byte();
+ 5ec:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+  RTC2_STOP_TRANSMISSION;
+ 5f0:	43 98       	cbi	0x08, 3	; 8
+ 5f2:	45 98       	cbi	0x08, 5	; 8
+  return ret;
+}
+ 5f4:	08 95       	ret
+
+000005f6 <rtc2_init>:
+// }}}
+
+// Initializer. Configures I/O ports and maybe sets up global variable {{{
+void rtc2_init(void){
+  // set all pins to output
+  RTC2_DDR |= _BV(RTC2_CE) | _BV(RTC2_CLK) | _BV(RTC2_IO);
+ 5f6:	87 b1       	in	r24, 0x07	; 7
+ 5f8:	88 63       	ori	r24, 0x38	; 56
+ 5fa:	87 b9       	out	0x07, r24	; 7
+  // and turn them off
+  RTC2_PORT &= ~(_BV(RTC2_CE) | _BV(RTC2_CLK) | _BV(RTC2_IO));
+ 5fc:	88 b1       	in	r24, 0x08	; 8
+ 5fe:	87 7c       	andi	r24, 0xC7	; 199
+ 600:	88 b9       	out	0x08, r24	; 8
+
+  // initialize default global pointer if needed
+#if RTC2_DEFAULT && (RTC2_READ || RTC2__WRITE)
+  RTC2_VALUE = &rtc2_default;
+ 602:	86 ef       	ldi	r24, 0xF6	; 246
+ 604:	94 e0       	ldi	r25, 0x04	; 4
+ 606:	90 93 ff 04 	sts	0x04FF, r25	; 0x8004ff <RTC2_VALUE+0x1>
+ 60a:	80 93 fe 04 	sts	0x04FE, r24	; 0x8004fe <RTC2_VALUE>
+ 60e:	08 95       	ret
+
+00000610 <rtc2_set>:
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+}
+
+void rtc2_set(rtc2_datetime ptr, uint8_t fields){
+ 610:	0f 93       	push	r16
+ 612:	1f 93       	push	r17
+ 614:	cf 93       	push	r28
+ 616:	8c 01       	movw	r16, r24
+ 618:	c6 2f       	mov	r28, r22
+#if RTC2_BURST
+  if(fields & RTC2_ALL_FIELDS){
+ 61a:	86 2f       	mov	r24, r22
+ 61c:	8f 77       	andi	r24, 0x7F	; 127
+ 61e:	09 f4       	brne	.+2      	; 0x622 <rtc2_set+0x12>
+ 620:	9f c0       	rjmp	.+318    	; 0x760 <rtc2_set+0x150>
+}
+// }}}
+
+// Utility stuff used to reset current transfer state {{{
+static inline void rtc2_reset(void){
+  RTC2_STOP_TRANSMISSION;
+ 622:	43 98       	cbi	0x08, 3	; 8
+ 624:	45 98       	cbi	0x08, 5	; 8
+  RTC2_CE_HIGH;
+ 626:	43 9a       	sbi	0x08, 3	; 8
+}
+
+void rtc2_set(rtc2_datetime ptr, uint8_t fields){
+#if RTC2_BURST
+  if(fields & RTC2_ALL_FIELDS){
+    RTC2_START_TRANSMISSION(RTC2_BURST_WRITE);
+ 628:	8e eb       	ldi	r24, 0xBE	; 190
+ 62a:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+
+    rtc2_write_byte(rtc2_store_field(RTC2_SECONDS_WRITE, ptr->seconds));
+ 62e:	f8 01       	movw	r30, r16
+ 630:	20 81       	ld	r18, Z
+ 632:	cd ec       	ldi	r28, 0xCD	; 205
+ 634:	2c 9f       	mul	r18, r28
+ 636:	91 2d       	mov	r25, r1
+ 638:	11 24       	eor	r1, r1
+ 63a:	96 95       	lsr	r25
+ 63c:	96 95       	lsr	r25
+ 63e:	96 95       	lsr	r25
+ 640:	f0 e1       	ldi	r31, 0x10	; 16
+ 642:	9f 9f       	mul	r25, r31
+ 644:	a0 01       	movw	r20, r0
+ 646:	11 24       	eor	r1, r1
+ 648:	84 2f       	mov	r24, r20
+ 64a:	80 77       	andi	r24, 0x70	; 112
+ 64c:	99 0f       	add	r25, r25
+ 64e:	39 2f       	mov	r19, r25
+ 650:	33 0f       	add	r19, r19
+ 652:	33 0f       	add	r19, r19
+ 654:	93 0f       	add	r25, r19
+ 656:	29 1b       	sub	r18, r25
+ 658:	82 2b       	or	r24, r18
+ 65a:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_MINUTES_WRITE, ptr->minutes));
+ 65e:	f8 01       	movw	r30, r16
+ 660:	22 81       	ldd	r18, Z+2	; 0x02
+ 662:	2c 9f       	mul	r18, r28
+ 664:	91 2d       	mov	r25, r1
+ 666:	11 24       	eor	r1, r1
+ 668:	96 95       	lsr	r25
+ 66a:	96 95       	lsr	r25
+ 66c:	96 95       	lsr	r25
+ 66e:	f0 e1       	ldi	r31, 0x10	; 16
+ 670:	9f 9f       	mul	r25, r31
+ 672:	a0 01       	movw	r20, r0
+ 674:	11 24       	eor	r1, r1
+ 676:	84 2f       	mov	r24, r20
+ 678:	80 77       	andi	r24, 0x70	; 112
+ 67a:	99 0f       	add	r25, r25
+ 67c:	39 2f       	mov	r19, r25
+ 67e:	33 0f       	add	r19, r19
+ 680:	33 0f       	add	r19, r19
+ 682:	93 0f       	add	r25, r19
+ 684:	29 1b       	sub	r18, r25
+ 686:	82 2b       	or	r24, r18
+ 688:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_HOURS_WRITE, ptr->format | ptr->hours));
+ 68c:	f8 01       	movw	r30, r16
+ 68e:	97 81       	ldd	r25, Z+7	; 0x07
+ 690:	81 81       	ldd	r24, Z+1	; 0x01
+ 692:	98 2b       	or	r25, r24
+ 694:	9c 9f       	mul	r25, r28
+ 696:	21 2d       	mov	r18, r1
+ 698:	11 24       	eor	r1, r1
+ 69a:	26 95       	lsr	r18
+ 69c:	26 95       	lsr	r18
+ 69e:	26 95       	lsr	r18
+ 6a0:	f0 e1       	ldi	r31, 0x10	; 16
+ 6a2:	2f 9f       	mul	r18, r31
+ 6a4:	a0 01       	movw	r20, r0
+ 6a6:	11 24       	eor	r1, r1
+ 6a8:	40 71       	andi	r20, 0x10	; 16
+ 6aa:	89 2f       	mov	r24, r25
+ 6ac:	80 7a       	andi	r24, 0xA0	; 160
+ 6ae:	22 0f       	add	r18, r18
+ 6b0:	32 2f       	mov	r19, r18
+ 6b2:	33 0f       	add	r19, r19
+ 6b4:	33 0f       	add	r19, r19
+ 6b6:	23 0f       	add	r18, r19
+ 6b8:	92 1b       	sub	r25, r18
+ 6ba:	89 2b       	or	r24, r25
+ 6bc:	84 2b       	or	r24, r20
+ 6be:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_DATE_WRITE, ptr->date));
+ 6c2:	f8 01       	movw	r30, r16
+ 6c4:	24 81       	ldd	r18, Z+4	; 0x04
+ 6c6:	2c 9f       	mul	r18, r28
+ 6c8:	91 2d       	mov	r25, r1
+ 6ca:	11 24       	eor	r1, r1
+ 6cc:	96 95       	lsr	r25
+ 6ce:	96 95       	lsr	r25
+ 6d0:	96 95       	lsr	r25
+ 6d2:	f0 e1       	ldi	r31, 0x10	; 16
+ 6d4:	9f 9f       	mul	r25, r31
+ 6d6:	a0 01       	movw	r20, r0
+ 6d8:	11 24       	eor	r1, r1
+ 6da:	84 2f       	mov	r24, r20
+ 6dc:	80 73       	andi	r24, 0x30	; 48
+ 6de:	99 0f       	add	r25, r25
+ 6e0:	39 2f       	mov	r19, r25
+ 6e2:	33 0f       	add	r19, r19
+ 6e4:	33 0f       	add	r19, r19
+ 6e6:	93 0f       	add	r25, r19
+ 6e8:	29 1b       	sub	r18, r25
+ 6ea:	82 2b       	or	r24, r18
+ 6ec:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_MONTH_WRITE, ptr->month));
+ 6f0:	f8 01       	movw	r30, r16
+ 6f2:	25 81       	ldd	r18, Z+5	; 0x05
+ 6f4:	2c 9f       	mul	r18, r28
+ 6f6:	91 2d       	mov	r25, r1
+ 6f8:	11 24       	eor	r1, r1
+ 6fa:	96 95       	lsr	r25
+ 6fc:	96 95       	lsr	r25
+ 6fe:	96 95       	lsr	r25
+ 700:	f0 e1       	ldi	r31, 0x10	; 16
+ 702:	9f 9f       	mul	r25, r31
+ 704:	a0 01       	movw	r20, r0
+ 706:	11 24       	eor	r1, r1
+ 708:	84 2f       	mov	r24, r20
+ 70a:	80 71       	andi	r24, 0x10	; 16
+ 70c:	99 0f       	add	r25, r25
+ 70e:	39 2f       	mov	r19, r25
+ 710:	33 0f       	add	r19, r19
+ 712:	33 0f       	add	r19, r19
+ 714:	93 0f       	add	r25, r19
+ 716:	29 1b       	sub	r18, r25
+ 718:	82 2b       	or	r24, r18
+ 71a:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_WDAY_WRITE, ptr->wday));
+ 71e:	f8 01       	movw	r30, r16
+ 720:	83 81       	ldd	r24, Z+3	; 0x03
+ 722:	83 70       	andi	r24, 0x03	; 3
+ 724:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(rtc2_store_field(RTC2_YEAR_WRITE, ptr->year));
+ 728:	f8 01       	movw	r30, r16
+ 72a:	96 81       	ldd	r25, Z+6	; 0x06
+ 72c:	9c 9f       	mul	r25, r28
+ 72e:	c1 2d       	mov	r28, r1
+ 730:	11 24       	eor	r1, r1
+ 732:	c6 95       	lsr	r28
+ 734:	c6 95       	lsr	r28
+ 736:	c6 95       	lsr	r28
+ 738:	f0 e1       	ldi	r31, 0x10	; 16
+ 73a:	cf 9f       	mul	r28, r31
+ 73c:	a0 01       	movw	r20, r0
+ 73e:	11 24       	eor	r1, r1
+ 740:	cc 0f       	add	r28, r28
+ 742:	2c 2f       	mov	r18, r28
+ 744:	22 0f       	add	r18, r18
+ 746:	22 0f       	add	r18, r18
+ 748:	c2 0f       	add	r28, r18
+ 74a:	89 2f       	mov	r24, r25
+ 74c:	8c 1b       	sub	r24, r28
+ 74e:	84 2b       	or	r24, r20
+ 750:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+    rtc2_write_byte(0);
+ 754:	80 e0       	ldi	r24, 0x00	; 0
+ 756:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
+
+    RTC2_STOP_TRANSMISSION;
+ 75a:	43 98       	cbi	0x08, 3	; 8
+ 75c:	45 98       	cbi	0x08, 5	; 8
+ 75e:	a8 c0       	rjmp	.+336    	; 0x8b0 <rtc2_set+0x2a0>
+  }else{
+#endif
+    if(fields & RTC2_SECONDS_FIELD)
+ 760:	60 ff       	sbrs	r22, 0
+ 762:	18 c0       	rjmp	.+48     	; 0x794 <rtc2_set+0x184>
+      rtc2_set_val(RTC2_SECONDS_WRITE, ptr->seconds);
+ 764:	f8 01       	movw	r30, r16
+ 766:	90 81       	ld	r25, Z
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 768:	8d ec       	ldi	r24, 0xCD	; 205
+ 76a:	98 9f       	mul	r25, r24
+ 76c:	81 2d       	mov	r24, r1
+ 76e:	11 24       	eor	r1, r1
+ 770:	86 95       	lsr	r24
+ 772:	86 95       	lsr	r24
+ 774:	86 95       	lsr	r24
+ 776:	f0 e1       	ldi	r31, 0x10	; 16
+ 778:	8f 9f       	mul	r24, r31
+ 77a:	b0 01       	movw	r22, r0
+ 77c:	11 24       	eor	r1, r1
+ 77e:	60 77       	andi	r22, 0x70	; 112
+ 780:	88 0f       	add	r24, r24
+ 782:	28 2f       	mov	r18, r24
+ 784:	22 0f       	add	r18, r18
+ 786:	22 0f       	add	r18, r18
+ 788:	82 0f       	add	r24, r18
+ 78a:	98 1b       	sub	r25, r24
+ 78c:	69 2b       	or	r22, r25
+ 78e:	80 e8       	ldi	r24, 0x80	; 128
+ 790:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+  }else{
+#endif
+    if(fields & RTC2_SECONDS_FIELD)
+      rtc2_set_val(RTC2_SECONDS_WRITE, ptr->seconds);
+
+    if(fields & RTC2_MINUTES_FIELD)
+ 794:	c1 ff       	sbrs	r28, 1
+ 796:	18 c0       	rjmp	.+48     	; 0x7c8 <rtc2_set+0x1b8>
+      rtc2_set_val(RTC2_MINUTES_WRITE, ptr->minutes);
+ 798:	f8 01       	movw	r30, r16
+ 79a:	92 81       	ldd	r25, Z+2	; 0x02
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 79c:	8d ec       	ldi	r24, 0xCD	; 205
+ 79e:	98 9f       	mul	r25, r24
+ 7a0:	81 2d       	mov	r24, r1
+ 7a2:	11 24       	eor	r1, r1
+ 7a4:	86 95       	lsr	r24
+ 7a6:	86 95       	lsr	r24
+ 7a8:	86 95       	lsr	r24
+ 7aa:	f0 e1       	ldi	r31, 0x10	; 16
+ 7ac:	8f 9f       	mul	r24, r31
+ 7ae:	b0 01       	movw	r22, r0
+ 7b0:	11 24       	eor	r1, r1
+ 7b2:	60 77       	andi	r22, 0x70	; 112
+ 7b4:	88 0f       	add	r24, r24
+ 7b6:	28 2f       	mov	r18, r24
+ 7b8:	22 0f       	add	r18, r18
+ 7ba:	22 0f       	add	r18, r18
+ 7bc:	82 0f       	add	r24, r18
+ 7be:	98 1b       	sub	r25, r24
+ 7c0:	69 2b       	or	r22, r25
+ 7c2:	82 e8       	ldi	r24, 0x82	; 130
+ 7c4:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+      rtc2_set_val(RTC2_SECONDS_WRITE, ptr->seconds);
+
+    if(fields & RTC2_MINUTES_FIELD)
+      rtc2_set_val(RTC2_MINUTES_WRITE, ptr->minutes);
+
+    if(fields & RTC2_HOURS_FIELD)
+ 7c8:	c2 ff       	sbrs	r28, 2
+ 7ca:	1d c0       	rjmp	.+58     	; 0x806 <rtc2_set+0x1f6>
+      rtc2_set_val(RTC2_HOURS_WRITE, (ptr->format | ptr->hours));
+ 7cc:	f8 01       	movw	r30, r16
+ 7ce:	67 81       	ldd	r22, Z+7	; 0x07
+ 7d0:	81 81       	ldd	r24, Z+1	; 0x01
+ 7d2:	86 2b       	or	r24, r22
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 7d4:	9d ec       	ldi	r25, 0xCD	; 205
+ 7d6:	89 9f       	mul	r24, r25
+ 7d8:	91 2d       	mov	r25, r1
+ 7da:	11 24       	eor	r1, r1
+ 7dc:	96 95       	lsr	r25
+ 7de:	96 95       	lsr	r25
+ 7e0:	96 95       	lsr	r25
+ 7e2:	f0 e1       	ldi	r31, 0x10	; 16
+ 7e4:	9f 9f       	mul	r25, r31
+ 7e6:	b0 01       	movw	r22, r0
+ 7e8:	11 24       	eor	r1, r1
+ 7ea:	60 71       	andi	r22, 0x10	; 16
+ 7ec:	38 2f       	mov	r19, r24
+ 7ee:	30 7a       	andi	r19, 0xA0	; 160
+ 7f0:	99 0f       	add	r25, r25
+ 7f2:	29 2f       	mov	r18, r25
+ 7f4:	22 0f       	add	r18, r18
+ 7f6:	22 0f       	add	r18, r18
+ 7f8:	92 0f       	add	r25, r18
+ 7fa:	89 1b       	sub	r24, r25
+ 7fc:	83 2b       	or	r24, r19
+ 7fe:	68 2b       	or	r22, r24
+ 800:	84 e8       	ldi	r24, 0x84	; 132
+ 802:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+      rtc2_set_val(RTC2_MINUTES_WRITE, ptr->minutes);
+
+    if(fields & RTC2_HOURS_FIELD)
+      rtc2_set_val(RTC2_HOURS_WRITE, (ptr->format | ptr->hours));
+
+    if(fields & RTC2_DATE_FIELD)
+ 806:	c3 ff       	sbrs	r28, 3
+ 808:	18 c0       	rjmp	.+48     	; 0x83a <rtc2_set+0x22a>
+      rtc2_set_val(RTC2_DATE_WRITE, ptr->date);
+ 80a:	f8 01       	movw	r30, r16
+ 80c:	94 81       	ldd	r25, Z+4	; 0x04
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 80e:	8d ec       	ldi	r24, 0xCD	; 205
+ 810:	98 9f       	mul	r25, r24
+ 812:	81 2d       	mov	r24, r1
+ 814:	11 24       	eor	r1, r1
+ 816:	86 95       	lsr	r24
+ 818:	86 95       	lsr	r24
+ 81a:	86 95       	lsr	r24
+ 81c:	f0 e1       	ldi	r31, 0x10	; 16
+ 81e:	8f 9f       	mul	r24, r31
+ 820:	b0 01       	movw	r22, r0
+ 822:	11 24       	eor	r1, r1
+ 824:	60 73       	andi	r22, 0x30	; 48
+ 826:	88 0f       	add	r24, r24
+ 828:	28 2f       	mov	r18, r24
+ 82a:	22 0f       	add	r18, r18
+ 82c:	22 0f       	add	r18, r18
+ 82e:	82 0f       	add	r24, r18
+ 830:	98 1b       	sub	r25, r24
+ 832:	69 2b       	or	r22, r25
+ 834:	86 e8       	ldi	r24, 0x86	; 134
+ 836:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+      rtc2_set_val(RTC2_HOURS_WRITE, (ptr->format | ptr->hours));
+
+    if(fields & RTC2_DATE_FIELD)
+      rtc2_set_val(RTC2_DATE_WRITE, ptr->date);
+
+    if(fields & RTC2_MONTH_FIELD)
+ 83a:	c4 ff       	sbrs	r28, 4
+ 83c:	18 c0       	rjmp	.+48     	; 0x86e <rtc2_set+0x25e>
+      rtc2_set_val(RTC2_MONTH_WRITE, ptr->month);
+ 83e:	f8 01       	movw	r30, r16
+ 840:	95 81       	ldd	r25, Z+5	; 0x05
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 842:	8d ec       	ldi	r24, 0xCD	; 205
+ 844:	98 9f       	mul	r25, r24
+ 846:	81 2d       	mov	r24, r1
+ 848:	11 24       	eor	r1, r1
+ 84a:	86 95       	lsr	r24
+ 84c:	86 95       	lsr	r24
+ 84e:	86 95       	lsr	r24
+ 850:	f0 e1       	ldi	r31, 0x10	; 16
+ 852:	8f 9f       	mul	r24, r31
+ 854:	b0 01       	movw	r22, r0
+ 856:	11 24       	eor	r1, r1
+ 858:	60 71       	andi	r22, 0x10	; 16
+ 85a:	88 0f       	add	r24, r24
+ 85c:	28 2f       	mov	r18, r24
+ 85e:	22 0f       	add	r18, r18
+ 860:	22 0f       	add	r18, r18
+ 862:	82 0f       	add	r24, r18
+ 864:	98 1b       	sub	r25, r24
+ 866:	69 2b       	or	r22, r25
+ 868:	88 e8       	ldi	r24, 0x88	; 136
+ 86a:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+      rtc2_set_val(RTC2_DATE_WRITE, ptr->date);
+
+    if(fields & RTC2_MONTH_FIELD)
+      rtc2_set_val(RTC2_MONTH_WRITE, ptr->month);
+
+    if(fields & RTC2_WDAY_FIELD)
+ 86e:	c5 ff       	sbrs	r28, 5
+ 870:	06 c0       	rjmp	.+12     	; 0x87e <rtc2_set+0x26e>
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 872:	f8 01       	movw	r30, r16
+ 874:	63 81       	ldd	r22, Z+3	; 0x03
+ 876:	63 70       	andi	r22, 0x03	; 3
+ 878:	8a e8       	ldi	r24, 0x8A	; 138
+ 87a:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+      rtc2_set_val(RTC2_MONTH_WRITE, ptr->month);
+
+    if(fields & RTC2_WDAY_FIELD)
+      rtc2_set_val(RTC2_WDAY_WRITE, ptr->wday);
+
+    if(fields & RTC2_YEAR_FIELD)
+ 87e:	c6 ff       	sbrs	r28, 6
+ 880:	17 c0       	rjmp	.+46     	; 0x8b0 <rtc2_set+0x2a0>
+      rtc2_set_val(RTC2_YEAR_WRITE, ptr->year);
+ 882:	f8 01       	movw	r30, r16
+ 884:	96 81       	ldd	r25, Z+6	; 0x06
+
+  return val;
+}
+
+static void rtc2_set_val(uint8_t field, uint8_t val){
+  rtc2_write(field, rtc2_store_field(field, val));
+ 886:	8d ec       	ldi	r24, 0xCD	; 205
+ 888:	98 9f       	mul	r25, r24
+ 88a:	81 2d       	mov	r24, r1
+ 88c:	11 24       	eor	r1, r1
+ 88e:	86 95       	lsr	r24
+ 890:	86 95       	lsr	r24
+ 892:	86 95       	lsr	r24
+ 894:	f0 e1       	ldi	r31, 0x10	; 16
+ 896:	8f 9f       	mul	r24, r31
+ 898:	b0 01       	movw	r22, r0
+ 89a:	11 24       	eor	r1, r1
+ 89c:	88 0f       	add	r24, r24
+ 89e:	28 2f       	mov	r18, r24
+ 8a0:	22 0f       	add	r18, r18
+ 8a2:	22 0f       	add	r18, r18
+ 8a4:	82 0f       	add	r24, r18
+ 8a6:	98 1b       	sub	r25, r24
+ 8a8:	69 2b       	or	r22, r25
+ 8aa:	8c e8       	ldi	r24, 0x8C	; 140
+ 8ac:	0e 94 d6 02 	call	0x5ac	; 0x5ac <rtc2_write>
+    if(fields & RTC2_YEAR_FIELD)
+      rtc2_set_val(RTC2_YEAR_WRITE, ptr->year);
+#if RTC2_BURST
+  }
+#endif
+}
+ 8b0:	cf 91       	pop	r28
+ 8b2:	1f 91       	pop	r17
+ 8b4:	0f 91       	pop	r16
+ 8b6:	08 95       	ret
+
+000008b8 <rtc2_preset>:
+
+// Writing (presetting clock stuff) {{{
+#if RTC2_WRITE
+
+void rtc2_preset(rtc2_datetime ptr){
+  rtc2_set(ptr, RTC2_ALL_FIELDS);
+ 8b8:	6f e7       	ldi	r22, 0x7F	; 127
+ 8ba:	0e 94 08 03 	call	0x610	; 0x610 <rtc2_set>
  8be:	08 95       	ret
 
-000008c0 <__fixsfsi>:
- 8c0:	0e 94 67 04 	call	0x8ce	; 0x8ce <__fixunssfsi>
- 8c4:	68 94       	set
- 8c6:	b1 11       	cpse	r27, r1
- 8c8:	0c 94 1e 05 	jmp	0xa3c	; 0xa3c <__fp_szero>
- 8cc:	08 95       	ret
+000008c0 <rtc2_get>:
 
-000008ce <__fixunssfsi>:
- 8ce:	0e 94 03 05 	call	0xa06	; 0xa06 <__fp_splitA>
- 8d2:	88 f0       	brcs	.+34     	; 0x8f6 <__fixunssfsi+0x28>
- 8d4:	9f 57       	subi	r25, 0x7F	; 127
- 8d6:	98 f0       	brcs	.+38     	; 0x8fe <__fixunssfsi+0x30>
- 8d8:	b9 2f       	mov	r27, r25
- 8da:	99 27       	eor	r25, r25
- 8dc:	b7 51       	subi	r27, 0x17	; 23
- 8de:	b0 f0       	brcs	.+44     	; 0x90c <__stack+0xd>
- 8e0:	e1 f0       	breq	.+56     	; 0x91a <__stack+0x1b>
- 8e2:	66 0f       	add	r22, r22
- 8e4:	77 1f       	adc	r23, r23
- 8e6:	88 1f       	adc	r24, r24
- 8e8:	99 1f       	adc	r25, r25
- 8ea:	1a f0       	brmi	.+6      	; 0x8f2 <__fixunssfsi+0x24>
- 8ec:	ba 95       	dec	r27
- 8ee:	c9 f7       	brne	.-14     	; 0x8e2 <__fixunssfsi+0x14>
- 8f0:	14 c0       	rjmp	.+40     	; 0x91a <__stack+0x1b>
- 8f2:	b1 30       	cpi	r27, 0x01	; 1
- 8f4:	91 f0       	breq	.+36     	; 0x91a <__stack+0x1b>
- 8f6:	0e 94 1d 05 	call	0xa3a	; 0xa3a <__fp_zero>
- 8fa:	b1 e0       	ldi	r27, 0x01	; 1
- 8fc:	08 95       	ret
- 8fe:	0c 94 1d 05 	jmp	0xa3a	; 0xa3a <__fp_zero>
- 902:	67 2f       	mov	r22, r23
- 904:	78 2f       	mov	r23, r24
- 906:	88 27       	eor	r24, r24
- 908:	b8 5f       	subi	r27, 0xF8	; 248
- 90a:	39 f0       	breq	.+14     	; 0x91a <__stack+0x1b>
- 90c:	b9 3f       	cpi	r27, 0xF9	; 249
- 90e:	cc f3       	brlt	.-14     	; 0x902 <__stack+0x3>
- 910:	86 95       	lsr	r24
- 912:	77 95       	ror	r23
- 914:	67 95       	ror	r22
- 916:	b3 95       	inc	r27
- 918:	d9 f7       	brne	.-10     	; 0x910 <__stack+0x11>
- 91a:	3e f4       	brtc	.+14     	; 0x92a <__stack+0x2b>
- 91c:	90 95       	com	r25
- 91e:	80 95       	com	r24
- 920:	70 95       	com	r23
- 922:	61 95       	neg	r22
- 924:	7f 4f       	sbci	r23, 0xFF	; 255
- 926:	8f 4f       	sbci	r24, 0xFF	; 255
- 928:	9f 4f       	sbci	r25, 0xFF	; 255
- 92a:	08 95       	ret
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+}
 
-0000092c <__floatunsisf>:
- 92c:	e8 94       	clt
- 92e:	09 c0       	rjmp	.+18     	; 0x942 <__floatsisf+0x12>
+void rtc2_get(rtc2_datetime ptr, uint8_t fields){
+ 8c0:	0f 93       	push	r16
+ 8c2:	1f 93       	push	r17
+ 8c4:	cf 93       	push	r28
+ 8c6:	8c 01       	movw	r16, r24
+ 8c8:	c6 2f       	mov	r28, r22
+#if RTC2_BURST
+  if(fields & RTC2_ALL_FIELDS){
+ 8ca:	86 2f       	mov	r24, r22
+ 8cc:	8f 77       	andi	r24, 0x7F	; 127
+ 8ce:	09 f4       	brne	.+2      	; 0x8d2 <rtc2_get+0x12>
+ 8d0:	6c c0       	rjmp	.+216    	; 0x9aa <__stack+0xab>
+}
+// }}}
 
-00000930 <__floatsisf>:
- 930:	97 fb       	bst	r25, 7
- 932:	3e f4       	brtc	.+14     	; 0x942 <__floatsisf+0x12>
- 934:	90 95       	com	r25
- 936:	80 95       	com	r24
- 938:	70 95       	com	r23
- 93a:	61 95       	neg	r22
- 93c:	7f 4f       	sbci	r23, 0xFF	; 255
- 93e:	8f 4f       	sbci	r24, 0xFF	; 255
- 940:	9f 4f       	sbci	r25, 0xFF	; 255
- 942:	99 23       	and	r25, r25
- 944:	a9 f0       	breq	.+42     	; 0x970 <__floatsisf+0x40>
- 946:	f9 2f       	mov	r31, r25
- 948:	96 e9       	ldi	r25, 0x96	; 150
- 94a:	bb 27       	eor	r27, r27
- 94c:	93 95       	inc	r25
- 94e:	f6 95       	lsr	r31
- 950:	87 95       	ror	r24
- 952:	77 95       	ror	r23
- 954:	67 95       	ror	r22
- 956:	b7 95       	ror	r27
- 958:	f1 11       	cpse	r31, r1
- 95a:	f8 cf       	rjmp	.-16     	; 0x94c <__floatsisf+0x1c>
- 95c:	fa f4       	brpl	.+62     	; 0x99c <__floatsisf+0x6c>
- 95e:	bb 0f       	add	r27, r27
- 960:	11 f4       	brne	.+4      	; 0x966 <__floatsisf+0x36>
- 962:	60 ff       	sbrs	r22, 0
- 964:	1b c0       	rjmp	.+54     	; 0x99c <__floatsisf+0x6c>
- 966:	6f 5f       	subi	r22, 0xFF	; 255
- 968:	7f 4f       	sbci	r23, 0xFF	; 255
- 96a:	8f 4f       	sbci	r24, 0xFF	; 255
- 96c:	9f 4f       	sbci	r25, 0xFF	; 255
- 96e:	16 c0       	rjmp	.+44     	; 0x99c <__floatsisf+0x6c>
- 970:	88 23       	and	r24, r24
- 972:	11 f0       	breq	.+4      	; 0x978 <__floatsisf+0x48>
- 974:	96 e9       	ldi	r25, 0x96	; 150
- 976:	11 c0       	rjmp	.+34     	; 0x99a <__floatsisf+0x6a>
- 978:	77 23       	and	r23, r23
- 97a:	21 f0       	breq	.+8      	; 0x984 <__floatsisf+0x54>
- 97c:	9e e8       	ldi	r25, 0x8E	; 142
- 97e:	87 2f       	mov	r24, r23
- 980:	76 2f       	mov	r23, r22
- 982:	05 c0       	rjmp	.+10     	; 0x98e <__floatsisf+0x5e>
- 984:	66 23       	and	r22, r22
- 986:	71 f0       	breq	.+28     	; 0x9a4 <__floatsisf+0x74>
- 988:	96 e8       	ldi	r25, 0x86	; 134
- 98a:	86 2f       	mov	r24, r22
- 98c:	70 e0       	ldi	r23, 0x00	; 0
- 98e:	60 e0       	ldi	r22, 0x00	; 0
- 990:	2a f0       	brmi	.+10     	; 0x99c <__floatsisf+0x6c>
- 992:	9a 95       	dec	r25
- 994:	66 0f       	add	r22, r22
- 996:	77 1f       	adc	r23, r23
- 998:	88 1f       	adc	r24, r24
- 99a:	da f7       	brpl	.-10     	; 0x992 <__floatsisf+0x62>
- 99c:	88 0f       	add	r24, r24
- 99e:	96 95       	lsr	r25
- 9a0:	87 95       	ror	r24
- 9a2:	97 f9       	bld	r25, 7
- 9a4:	08 95       	ret
+// Utility stuff used to reset current transfer state {{{
+static inline void rtc2_reset(void){
+  RTC2_STOP_TRANSMISSION;
+ 8d2:	43 98       	cbi	0x08, 3	; 8
+ 8d4:	45 98       	cbi	0x08, 5	; 8
+  RTC2_CE_HIGH;
+ 8d6:	43 9a       	sbi	0x08, 3	; 8
+void rtc2_get(rtc2_datetime ptr, uint8_t fields){
+#if RTC2_BURST
+  if(fields & RTC2_ALL_FIELDS){
+    uint8_t tmp;
 
-000009a6 <__fp_inf>:
- 9a6:	97 f9       	bld	r25, 7
- 9a8:	9f 67       	ori	r25, 0x7F	; 127
- 9aa:	80 e8       	ldi	r24, 0x80	; 128
- 9ac:	70 e0       	ldi	r23, 0x00	; 0
- 9ae:	60 e0       	ldi	r22, 0x00	; 0
- 9b0:	08 95       	ret
+    RTC2_START_TRANSMISSION(RTC2_BURST_READ);
+ 8d8:	8f eb       	ldi	r24, 0xBF	; 191
+ 8da:	0e 94 c7 02 	call	0x58e	; 0x58e <rtc2_write_byte>
 
-000009b2 <__fp_nan>:
- 9b2:	9f ef       	ldi	r25, 0xFF	; 255
- 9b4:	80 ec       	ldi	r24, 0xC0	; 192
- 9b6:	08 95       	ret
+    ptr->seconds = rtc2_parse_val(RTC2_SECONDS_READ, rtc2_read_byte());
+ 8de:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 8e2:	98 2f       	mov	r25, r24
+ 8e4:	90 77       	andi	r25, 0x70	; 112
+ 8e6:	96 95       	lsr	r25
+ 8e8:	96 95       	lsr	r25
+ 8ea:	96 95       	lsr	r25
+ 8ec:	29 2f       	mov	r18, r25
+ 8ee:	22 0f       	add	r18, r18
+ 8f0:	22 0f       	add	r18, r18
+ 8f2:	92 0f       	add	r25, r18
+ 8f4:	8f 70       	andi	r24, 0x0F	; 15
+ 8f6:	89 0f       	add	r24, r25
+ 8f8:	f8 01       	movw	r30, r16
+ 8fa:	80 83       	st	Z, r24
+    ptr->minutes = rtc2_parse_val(RTC2_MINUTES_READ, rtc2_read_byte());
+ 8fc:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 900:	98 2f       	mov	r25, r24
+ 902:	90 77       	andi	r25, 0x70	; 112
+ 904:	96 95       	lsr	r25
+ 906:	96 95       	lsr	r25
+ 908:	96 95       	lsr	r25
+ 90a:	29 2f       	mov	r18, r25
+ 90c:	22 0f       	add	r18, r18
+ 90e:	22 0f       	add	r18, r18
+ 910:	92 0f       	add	r25, r18
+ 912:	8f 70       	andi	r24, 0x0F	; 15
+ 914:	89 0f       	add	r24, r25
+ 916:	f8 01       	movw	r30, r16
+ 918:	82 83       	std	Z+2, r24	; 0x02
 
-000009b8 <__fp_pscA>:
- 9b8:	00 24       	eor	r0, r0
- 9ba:	0a 94       	dec	r0
- 9bc:	16 16       	cp	r1, r22
- 9be:	17 06       	cpc	r1, r23
- 9c0:	18 06       	cpc	r1, r24
- 9c2:	09 06       	cpc	r0, r25
- 9c4:	08 95       	ret
+    // hours format is passed along with the hour itself
+    tmp          = rtc2_parse_val(RTC2_HOURS_READ, rtc2_read_byte());
+ 91a:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+    case RTC2_MINUTES_READ:
+      val = (val & 0x0F) + ((val & 0x70) >> 4) * 10;
+      break;
+    case RTC2_HOURS_READ:
+      // hours format is passed along with the hour itself
+      val = (val & RTC2_FORMAT_PM) | ((val & 0x0F) + ((val & 0x10) >> 4) * 10);
+ 91e:	84 fb       	bst	r24, 4
+ 920:	99 27       	eor	r25, r25
+ 922:	90 f9       	bld	r25, 0
+ 924:	99 0f       	add	r25, r25
+ 926:	29 2f       	mov	r18, r25
+ 928:	22 0f       	add	r18, r18
+ 92a:	22 0f       	add	r18, r18
+ 92c:	92 0f       	add	r25, r18
+ 92e:	28 2f       	mov	r18, r24
+ 930:	2f 70       	andi	r18, 0x0F	; 15
+ 932:	92 0f       	add	r25, r18
+ 934:	80 7a       	andi	r24, 0xA0	; 160
+ 936:	89 2b       	or	r24, r25
+    ptr->seconds = rtc2_parse_val(RTC2_SECONDS_READ, rtc2_read_byte());
+    ptr->minutes = rtc2_parse_val(RTC2_MINUTES_READ, rtc2_read_byte());
 
-000009c6 <__fp_pscB>:
- 9c6:	00 24       	eor	r0, r0
- 9c8:	0a 94       	dec	r0
- 9ca:	12 16       	cp	r1, r18
- 9cc:	13 06       	cpc	r1, r19
- 9ce:	14 06       	cpc	r1, r20
- 9d0:	05 06       	cpc	r0, r21
- 9d2:	08 95       	ret
+    // hours format is passed along with the hour itself
+    tmp          = rtc2_parse_val(RTC2_HOURS_READ, rtc2_read_byte());
+    ptr->format  = tmp & RTC2_FORMAT_PM;
+ 938:	98 2f       	mov	r25, r24
+ 93a:	90 7a       	andi	r25, 0xA0	; 160
+ 93c:	f8 01       	movw	r30, r16
+ 93e:	97 83       	std	Z+7, r25	; 0x07
+    ptr->hours   = tmp & ~RTC2_FORMAT_PM;
+ 940:	8f 75       	andi	r24, 0x5F	; 95
+ 942:	81 83       	std	Z+1, r24	; 0x01
 
-000009d4 <__fp_round>:
- 9d4:	09 2e       	mov	r0, r25
- 9d6:	03 94       	inc	r0
- 9d8:	00 0c       	add	r0, r0
- 9da:	11 f4       	brne	.+4      	; 0x9e0 <__fp_round+0xc>
- 9dc:	88 23       	and	r24, r24
- 9de:	52 f0       	brmi	.+20     	; 0x9f4 <__fp_round+0x20>
- 9e0:	bb 0f       	add	r27, r27
- 9e2:	40 f4       	brcc	.+16     	; 0x9f4 <__fp_round+0x20>
- 9e4:	bf 2b       	or	r27, r31
- 9e6:	11 f4       	brne	.+4      	; 0x9ec <__fp_round+0x18>
- 9e8:	60 ff       	sbrs	r22, 0
- 9ea:	04 c0       	rjmp	.+8      	; 0x9f4 <__fp_round+0x20>
- 9ec:	6f 5f       	subi	r22, 0xFF	; 255
- 9ee:	7f 4f       	sbci	r23, 0xFF	; 255
- 9f0:	8f 4f       	sbci	r24, 0xFF	; 255
- 9f2:	9f 4f       	sbci	r25, 0xFF	; 255
- 9f4:	08 95       	ret
+    ptr->date    = rtc2_parse_val(RTC2_DATE_READ, rtc2_read_byte());
+ 944:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 948:	98 2f       	mov	r25, r24
+ 94a:	90 73       	andi	r25, 0x30	; 48
+ 94c:	96 95       	lsr	r25
+ 94e:	96 95       	lsr	r25
+ 950:	96 95       	lsr	r25
+ 952:	29 2f       	mov	r18, r25
+ 954:	22 0f       	add	r18, r18
+ 956:	22 0f       	add	r18, r18
+ 958:	92 0f       	add	r25, r18
+ 95a:	8f 70       	andi	r24, 0x0F	; 15
+ 95c:	89 0f       	add	r24, r25
+ 95e:	f8 01       	movw	r30, r16
+ 960:	84 83       	std	Z+4, r24	; 0x04
+    ptr->month   = rtc2_parse_val(RTC2_MONTH_READ, rtc2_read_byte());
+ 962:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 966:	84 fb       	bst	r24, 4
+ 968:	99 27       	eor	r25, r25
+ 96a:	90 f9       	bld	r25, 0
+ 96c:	99 0f       	add	r25, r25
+ 96e:	29 2f       	mov	r18, r25
+ 970:	22 0f       	add	r18, r18
+ 972:	22 0f       	add	r18, r18
+ 974:	92 0f       	add	r25, r18
+ 976:	8f 70       	andi	r24, 0x0F	; 15
+ 978:	89 0f       	add	r24, r25
+ 97a:	f8 01       	movw	r30, r16
+ 97c:	85 83       	std	Z+5, r24	; 0x05
+    ptr->wday    = rtc2_parse_val(RTC2_WDAY_READ, rtc2_read_byte());
+ 97e:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 982:	87 70       	andi	r24, 0x07	; 7
+ 984:	f8 01       	movw	r30, r16
+ 986:	83 83       	std	Z+3, r24	; 0x03
+    ptr->year    = rtc2_parse_val(RTC2_YEAR_READ, rtc2_read_byte());
+ 988:	0e 94 e4 02 	call	0x5c8	; 0x5c8 <rtc2_read_byte>
+ 98c:	98 2f       	mov	r25, r24
+ 98e:	92 95       	swap	r25
+ 990:	9f 70       	andi	r25, 0x0F	; 15
+ 992:	99 0f       	add	r25, r25
+ 994:	29 2f       	mov	r18, r25
+ 996:	22 0f       	add	r18, r18
+ 998:	22 0f       	add	r18, r18
+ 99a:	92 0f       	add	r25, r18
+ 99c:	8f 70       	andi	r24, 0x0F	; 15
+ 99e:	89 0f       	add	r24, r25
+ 9a0:	f8 01       	movw	r30, r16
+ 9a2:	86 83       	std	Z+6, r24	; 0x06
 
-000009f6 <__fp_split3>:
- 9f6:	57 fd       	sbrc	r21, 7
- 9f8:	90 58       	subi	r25, 0x80	; 128
- 9fa:	44 0f       	add	r20, r20
- 9fc:	55 1f       	adc	r21, r21
- 9fe:	59 f0       	breq	.+22     	; 0xa16 <__fp_splitA+0x10>
- a00:	5f 3f       	cpi	r21, 0xFF	; 255
- a02:	71 f0       	breq	.+28     	; 0xa20 <__fp_splitA+0x1a>
- a04:	47 95       	ror	r20
+    RTC2_STOP_TRANSMISSION;
+ 9a4:	43 98       	cbi	0x08, 3	; 8
+ 9a6:	45 98       	cbi	0x08, 5	; 8
+ 9a8:	78 c0       	rjmp	.+240    	; 0xa9a <__stack+0x19b>
+  }else{
+#endif
+    if(fields & RTC2_SECONDS_FIELD)
+ 9aa:	60 ff       	sbrs	r22, 0
+ 9ac:	10 c0       	rjmp	.+32     	; 0x9ce <__stack+0xcf>
 
-00000a06 <__fp_splitA>:
- a06:	88 0f       	add	r24, r24
- a08:	97 fb       	bst	r25, 7
- a0a:	99 1f       	adc	r25, r25
- a0c:	61 f0       	breq	.+24     	; 0xa26 <__fp_splitA+0x20>
- a0e:	9f 3f       	cpi	r25, 0xFF	; 255
- a10:	79 f0       	breq	.+30     	; 0xa30 <__fp_splitA+0x2a>
- a12:	87 95       	ror	r24
- a14:	08 95       	ret
- a16:	12 16       	cp	r1, r18
- a18:	13 06       	cpc	r1, r19
- a1a:	14 06       	cpc	r1, r20
- a1c:	55 1f       	adc	r21, r21
- a1e:	f2 cf       	rjmp	.-28     	; 0xa04 <__fp_split3+0xe>
- a20:	46 95       	lsr	r20
- a22:	f1 df       	rcall	.-30     	; 0xa06 <__fp_splitA>
- a24:	08 c0       	rjmp	.+16     	; 0xa36 <__fp_splitA+0x30>
- a26:	16 16       	cp	r1, r22
- a28:	17 06       	cpc	r1, r23
- a2a:	18 06       	cpc	r1, r24
- a2c:	99 1f       	adc	r25, r25
- a2e:	f1 cf       	rjmp	.-30     	; 0xa12 <__fp_splitA+0xc>
- a30:	86 95       	lsr	r24
- a32:	71 05       	cpc	r23, r1
- a34:	61 05       	cpc	r22, r1
- a36:	08 94       	sec
- a38:	08 95       	ret
+  return val;
+}
 
-00000a3a <__fp_zero>:
- a3a:	e8 94       	clt
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ 9ae:	81 e8       	ldi	r24, 0x81	; 129
+ 9b0:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
 
-00000a3c <__fp_szero>:
- a3c:	bb 27       	eor	r27, r27
- a3e:	66 27       	eor	r22, r22
- a40:	77 27       	eor	r23, r23
- a42:	cb 01       	movw	r24, r22
- a44:	97 f9       	bld	r25, 7
- a46:	08 95       	ret
+    RTC2_STOP_TRANSMISSION;
+  }else{
+#endif
+    if(fields & RTC2_SECONDS_FIELD)
+      ptr->seconds = rtc2_get_val(RTC2_SECONDS_READ);
+ 9b4:	98 2f       	mov	r25, r24
+ 9b6:	90 77       	andi	r25, 0x70	; 112
+ 9b8:	96 95       	lsr	r25
+ 9ba:	96 95       	lsr	r25
+ 9bc:	96 95       	lsr	r25
+ 9be:	29 2f       	mov	r18, r25
+ 9c0:	22 0f       	add	r18, r18
+ 9c2:	22 0f       	add	r18, r18
+ 9c4:	92 0f       	add	r25, r18
+ 9c6:	8f 70       	andi	r24, 0x0F	; 15
+ 9c8:	89 0f       	add	r24, r25
+ 9ca:	f8 01       	movw	r30, r16
+ 9cc:	80 83       	st	Z, r24
 
-00000a48 <__udivmodqi4>:
- a48:	99 1b       	sub	r25, r25
- a4a:	79 e0       	ldi	r23, 0x09	; 9
- a4c:	04 c0       	rjmp	.+8      	; 0xa56 <__udivmodqi4_ep>
+    if(fields & RTC2_MINUTES_FIELD)
+ 9ce:	c1 ff       	sbrs	r28, 1
+ 9d0:	10 c0       	rjmp	.+32     	; 0x9f2 <__stack+0xf3>
 
-00000a4e <__udivmodqi4_loop>:
- a4e:	99 1f       	adc	r25, r25
- a50:	96 17       	cp	r25, r22
- a52:	08 f0       	brcs	.+2      	; 0xa56 <__udivmodqi4_ep>
- a54:	96 1b       	sub	r25, r22
+  return val;
+}
 
-00000a56 <__udivmodqi4_ep>:
- a56:	88 1f       	adc	r24, r24
- a58:	7a 95       	dec	r23
- a5a:	c9 f7       	brne	.-14     	; 0xa4e <__udivmodqi4_loop>
- a5c:	80 95       	com	r24
- a5e:	08 95       	ret
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ 9d2:	83 e8       	ldi	r24, 0x83	; 131
+ 9d4:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+#endif
+    if(fields & RTC2_SECONDS_FIELD)
+      ptr->seconds = rtc2_get_val(RTC2_SECONDS_READ);
 
-00000a60 <__itoa_ncheck>:
- a60:	bb 27       	eor	r27, r27
- a62:	4a 30       	cpi	r20, 0x0A	; 10
- a64:	31 f4       	brne	.+12     	; 0xa72 <__itoa_ncheck+0x12>
- a66:	99 23       	and	r25, r25
- a68:	22 f4       	brpl	.+8      	; 0xa72 <__itoa_ncheck+0x12>
- a6a:	bd e2       	ldi	r27, 0x2D	; 45
- a6c:	90 95       	com	r25
- a6e:	81 95       	neg	r24
- a70:	9f 4f       	sbci	r25, 0xFF	; 255
- a72:	0c 94 3c 05 	jmp	0xa78	; 0xa78 <__utoa_common>
+    if(fields & RTC2_MINUTES_FIELD)
+      ptr->minutes = rtc2_get_val(RTC2_MINUTES_READ);
+ 9d8:	98 2f       	mov	r25, r24
+ 9da:	90 77       	andi	r25, 0x70	; 112
+ 9dc:	96 95       	lsr	r25
+ 9de:	96 95       	lsr	r25
+ 9e0:	96 95       	lsr	r25
+ 9e2:	29 2f       	mov	r18, r25
+ 9e4:	22 0f       	add	r18, r18
+ 9e6:	22 0f       	add	r18, r18
+ 9e8:	92 0f       	add	r25, r18
+ 9ea:	8f 70       	andi	r24, 0x0F	; 15
+ 9ec:	89 0f       	add	r24, r25
+ 9ee:	f8 01       	movw	r30, r16
+ 9f0:	82 83       	std	Z+2, r24	; 0x02
 
-00000a76 <__utoa_ncheck>:
- a76:	bb 27       	eor	r27, r27
+    if(fields & RTC2_HOURS_FIELD){
+ 9f2:	c2 ff       	sbrs	r28, 2
+ 9f4:	16 c0       	rjmp	.+44     	; 0xa22 <__stack+0x123>
 
-00000a78 <__utoa_common>:
- a78:	fb 01       	movw	r30, r22
- a7a:	55 27       	eor	r21, r21
- a7c:	aa 27       	eor	r26, r26
- a7e:	88 0f       	add	r24, r24
- a80:	99 1f       	adc	r25, r25
- a82:	aa 1f       	adc	r26, r26
- a84:	a4 17       	cp	r26, r20
- a86:	10 f0       	brcs	.+4      	; 0xa8c <__utoa_common+0x14>
- a88:	a4 1b       	sub	r26, r20
- a8a:	83 95       	inc	r24
- a8c:	50 51       	subi	r21, 0x10	; 16
- a8e:	b9 f7       	brne	.-18     	; 0xa7e <__utoa_common+0x6>
- a90:	a0 5d       	subi	r26, 0xD0	; 208
- a92:	aa 33       	cpi	r26, 0x3A	; 58
- a94:	08 f0       	brcs	.+2      	; 0xa98 <__utoa_common+0x20>
- a96:	a9 5d       	subi	r26, 0xD9	; 217
- a98:	a1 93       	st	Z+, r26
- a9a:	00 97       	sbiw	r24, 0x00	; 0
- a9c:	79 f7       	brne	.-34     	; 0xa7c <__utoa_common+0x4>
- a9e:	b1 11       	cpse	r27, r1
- aa0:	b1 93       	st	Z+, r27
- aa2:	11 92       	st	Z+, r1
- aa4:	cb 01       	movw	r24, r22
- aa6:	0c 94 55 05 	jmp	0xaaa	; 0xaaa <strrev>
+  return val;
+}
 
-00000aaa <strrev>:
- aaa:	dc 01       	movw	r26, r24
- aac:	fc 01       	movw	r30, r24
- aae:	67 2f       	mov	r22, r23
- ab0:	71 91       	ld	r23, Z+
- ab2:	77 23       	and	r23, r23
- ab4:	e1 f7       	brne	.-8      	; 0xaae <strrev+0x4>
- ab6:	32 97       	sbiw	r30, 0x02	; 2
- ab8:	04 c0       	rjmp	.+8      	; 0xac2 <strrev+0x18>
- aba:	7c 91       	ld	r23, X
- abc:	6d 93       	st	X+, r22
- abe:	70 83       	st	Z, r23
- ac0:	62 91       	ld	r22, -Z
- ac2:	ae 17       	cp	r26, r30
- ac4:	bf 07       	cpc	r27, r31
- ac6:	c8 f3       	brcs	.-14     	; 0xaba <strrev+0x10>
- ac8:	08 95       	ret
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ 9f6:	85 e8       	ldi	r24, 0x85	; 133
+ 9f8:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+    case RTC2_MINUTES_READ:
+      val = (val & 0x0F) + ((val & 0x70) >> 4) * 10;
+      break;
+    case RTC2_HOURS_READ:
+      // hours format is passed along with the hour itself
+      val = (val & RTC2_FORMAT_PM) | ((val & 0x0F) + ((val & 0x10) >> 4) * 10);
+ 9fc:	84 fb       	bst	r24, 4
+ 9fe:	99 27       	eor	r25, r25
+ a00:	90 f9       	bld	r25, 0
+ a02:	99 0f       	add	r25, r25
+ a04:	29 2f       	mov	r18, r25
+ a06:	22 0f       	add	r18, r18
+ a08:	22 0f       	add	r18, r18
+ a0a:	92 0f       	add	r25, r18
+ a0c:	28 2f       	mov	r18, r24
+ a0e:	2f 70       	andi	r18, 0x0F	; 15
+ a10:	92 0f       	add	r25, r18
+ a12:	80 7a       	andi	r24, 0xA0	; 160
+ a14:	89 2b       	or	r24, r25
+    if(fields & RTC2_MINUTES_FIELD)
+      ptr->minutes = rtc2_get_val(RTC2_MINUTES_READ);
 
-00000aca <_exit>:
- aca:	f8 94       	cli
+    if(fields & RTC2_HOURS_FIELD){
+      uint8_t tmp = rtc2_get_val(RTC2_HOURS_READ);
+      ptr->format = tmp & RTC2_FORMAT_PM;
+ a16:	98 2f       	mov	r25, r24
+ a18:	90 7a       	andi	r25, 0xA0	; 160
+ a1a:	f8 01       	movw	r30, r16
+ a1c:	97 83       	std	Z+7, r25	; 0x07
+      ptr->hours = tmp & ~RTC2_FORMAT_PM;
+ a1e:	8f 75       	andi	r24, 0x5F	; 95
+ a20:	81 83       	std	Z+1, r24	; 0x01
+    }
 
-00000acc <__stop_program>:
- acc:	ff cf       	rjmp	.-2      	; 0xacc <__stop_program>
+    if(fields & RTC2_DATE_FIELD)
+ a22:	c3 ff       	sbrs	r28, 3
+ a24:	10 c0       	rjmp	.+32     	; 0xa46 <__stack+0x147>
+
+  return val;
+}
+
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ a26:	87 e8       	ldi	r24, 0x87	; 135
+ a28:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+      ptr->format = tmp & RTC2_FORMAT_PM;
+      ptr->hours = tmp & ~RTC2_FORMAT_PM;
+    }
+
+    if(fields & RTC2_DATE_FIELD)
+      ptr->date = rtc2_get_val(RTC2_DATE_READ);
+ a2c:	98 2f       	mov	r25, r24
+ a2e:	90 73       	andi	r25, 0x30	; 48
+ a30:	96 95       	lsr	r25
+ a32:	96 95       	lsr	r25
+ a34:	96 95       	lsr	r25
+ a36:	29 2f       	mov	r18, r25
+ a38:	22 0f       	add	r18, r18
+ a3a:	22 0f       	add	r18, r18
+ a3c:	92 0f       	add	r25, r18
+ a3e:	8f 70       	andi	r24, 0x0F	; 15
+ a40:	89 0f       	add	r24, r25
+ a42:	f8 01       	movw	r30, r16
+ a44:	84 83       	std	Z+4, r24	; 0x04
+
+    if(fields & RTC2_MONTH_FIELD)
+ a46:	c4 ff       	sbrs	r28, 4
+ a48:	0f c0       	rjmp	.+30     	; 0xa68 <__stack+0x169>
+
+  return val;
+}
+
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ a4a:	89 e8       	ldi	r24, 0x89	; 137
+ a4c:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+
+    if(fields & RTC2_DATE_FIELD)
+      ptr->date = rtc2_get_val(RTC2_DATE_READ);
+
+    if(fields & RTC2_MONTH_FIELD)
+      ptr->month = rtc2_get_val(RTC2_MONTH_READ);
+ a50:	84 fb       	bst	r24, 4
+ a52:	99 27       	eor	r25, r25
+ a54:	90 f9       	bld	r25, 0
+ a56:	99 0f       	add	r25, r25
+ a58:	29 2f       	mov	r18, r25
+ a5a:	22 0f       	add	r18, r18
+ a5c:	22 0f       	add	r18, r18
+ a5e:	92 0f       	add	r25, r18
+ a60:	8f 70       	andi	r24, 0x0F	; 15
+ a62:	89 0f       	add	r24, r25
+ a64:	f8 01       	movw	r30, r16
+ a66:	85 83       	std	Z+5, r24	; 0x05
+
+    if(fields & RTC2_WDAY_FIELD)
+ a68:	c5 ff       	sbrs	r28, 5
+ a6a:	06 c0       	rjmp	.+12     	; 0xa78 <__stack+0x179>
+
+  return val;
+}
+
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ a6c:	8b e8       	ldi	r24, 0x8B	; 139
+ a6e:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+
+    if(fields & RTC2_MONTH_FIELD)
+      ptr->month = rtc2_get_val(RTC2_MONTH_READ);
+
+    if(fields & RTC2_WDAY_FIELD)
+      ptr->wday = rtc2_get_val(RTC2_WDAY_READ);
+ a72:	87 70       	andi	r24, 0x07	; 7
+ a74:	f8 01       	movw	r30, r16
+ a76:	83 83       	std	Z+3, r24	; 0x03
+
+    if(fields & RTC2_YEAR_FIELD)
+ a78:	c6 ff       	sbrs	r28, 6
+ a7a:	0f c0       	rjmp	.+30     	; 0xa9a <__stack+0x19b>
+
+  return val;
+}
+
+static uint8_t rtc2_get_val(uint8_t field){
+  return rtc2_parse_val(field, rtc2_read(field));
+ a7c:	8d e8       	ldi	r24, 0x8D	; 141
+ a7e:	0e 94 f1 02 	call	0x5e2	; 0x5e2 <rtc2_read>
+
+    if(fields & RTC2_WDAY_FIELD)
+      ptr->wday = rtc2_get_val(RTC2_WDAY_READ);
+
+    if(fields & RTC2_YEAR_FIELD)
+      ptr->year = rtc2_get_val(RTC2_YEAR_READ);
+ a82:	98 2f       	mov	r25, r24
+ a84:	92 95       	swap	r25
+ a86:	9f 70       	andi	r25, 0x0F	; 15
+ a88:	99 0f       	add	r25, r25
+ a8a:	29 2f       	mov	r18, r25
+ a8c:	22 0f       	add	r18, r18
+ a8e:	22 0f       	add	r18, r18
+ a90:	92 0f       	add	r25, r18
+ a92:	8f 70       	andi	r24, 0x0F	; 15
+ a94:	89 0f       	add	r24, r25
+ a96:	f8 01       	movw	r30, r16
+ a98:	86 83       	std	Z+6, r24	; 0x06
+#if RTC2_BURST
+  }
+#endif
+}
+ a9a:	cf 91       	pop	r28
+ a9c:	1f 91       	pop	r17
+ a9e:	0f 91       	pop	r16
+ aa0:	08 95       	ret
+
+00000aa2 <rtc2_update>:
+
+// High level decoding and reading (updating) functions {{{
+#if RTC2_READ
+
+void rtc2_update(rtc2_datetime ptr){
+  rtc2_get(ptr, RTC2_ALL_FIELDS);
+ aa2:	6f e7       	ldi	r22, 0x7F	; 127
+ aa4:	0e 94 60 04 	call	0x8c0	; 0x8c0 <rtc2_get>
+ aa8:	08 95       	ret
+
+00000aaa <drawImage>:
+	_delay_ms(100);
+	}
+	while(1) {}
+}
+
+void drawImage(const unsigned char img[504]){
+ aaa:	2f 92       	push	r2
+ aac:	3f 92       	push	r3
+ aae:	4f 92       	push	r4
+ ab0:	5f 92       	push	r5
+ ab2:	6f 92       	push	r6
+ ab4:	7f 92       	push	r7
+ ab6:	8f 92       	push	r8
+ ab8:	9f 92       	push	r9
+ aba:	af 92       	push	r10
+ abc:	bf 92       	push	r11
+ abe:	cf 92       	push	r12
+ ac0:	df 92       	push	r13
+ ac2:	ef 92       	push	r14
+ ac4:	ff 92       	push	r15
+ ac6:	0f 93       	push	r16
+ ac8:	1f 93       	push	r17
+ aca:	cf 93       	push	r28
+ acc:	df 93       	push	r29
+ ace:	cd b7       	in	r28, 0x3d	; 61
+ ad0:	de b7       	in	r29, 0x3e	; 62
+ ad2:	60 97       	sbiw	r28, 0x10	; 16
+ ad4:	0f b6       	in	r0, 0x3f	; 63
+ ad6:	f8 94       	cli
+ ad8:	de bf       	out	0x3e, r29	; 62
+ ada:	0f be       	out	0x3f, r0	; 63
+ adc:	cd bf       	out	0x3d, r28	; 61
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			counter++;
+		}
+		else{
+			i = 0;
+ ade:	31 2c       	mov	r3, r1
+ ae0:	21 e0       	ldi	r18, 0x01	; 1
+ ae2:	30 e0       	ldi	r19, 0x00	; 0
+ ae4:	3b 87       	std	Y+11, r19	; 0x0b
+ ae6:	2a 87       	std	Y+10, r18	; 0x0a
+}
+
+void drawImage(const unsigned char img[504]){
+	int y = 0;
+	int i = 0;
+	int counter = 0;
+ ae8:	41 2c       	mov	r4, r1
+ aea:	51 2c       	mov	r5, r1
+	while(1) {}
+}
+
+void drawImage(const unsigned char img[504]){
+	int y = 0;
+	int i = 0;
+ aec:	18 8a       	std	Y+16, r1	; 0x10
+ aee:	20 e0       	ldi	r18, 0x00	; 0
+ af0:	9f 87       	std	Y+15, r25	; 0x0f
+ af2:	8e 87       	std	Y+14, r24	; 0x0e
+ af4:	d3 2c       	mov	r13, r3
+ af6:	b4 c0       	rjmp	.+360    	; 0xc60 <drawImage+0x1b6>
+ af8:	1d 87       	std	Y+13, r17	; 0x0d
+ afa:	0c 87       	std	Y+12, r16	; 0x0c
+	int counter = 0;
+	while(y != 48){
+		while(i <= 79){
+			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
+ afc:	f8 01       	movw	r30, r16
+ afe:	80 81       	ld	r24, Z
+ b00:	88 23       	and	r24, r24
+ b02:	34 f4       	brge	.+12     	; 0xb10 <drawImage+0x66>
+ b04:	41 e0       	ldi	r20, 0x01	; 1
+ b06:	6d 2d       	mov	r22, r13
+ b08:	89 81       	ldd	r24, Y+1	; 0x01
+ b0a:	8c 0d       	add	r24, r12
+ b0c:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b10:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b12:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b14:	80 81       	ld	r24, Z
+ b16:	86 ff       	sbrs	r24, 6
+ b18:	06 c0       	rjmp	.+12     	; 0xb26 <drawImage+0x7c>
+ b1a:	41 e0       	ldi	r20, 0x01	; 1
+ b1c:	6d 2d       	mov	r22, r13
+ b1e:	89 81       	ldd	r24, Y+1	; 0x01
+ b20:	88 0d       	add	r24, r8
+ b22:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b26:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b28:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b2a:	80 81       	ld	r24, Z
+ b2c:	85 ff       	sbrs	r24, 5
+ b2e:	06 c0       	rjmp	.+12     	; 0xb3c <drawImage+0x92>
+ b30:	41 e0       	ldi	r20, 0x01	; 1
+ b32:	6d 2d       	mov	r22, r13
+ b34:	89 81       	ldd	r24, Y+1	; 0x01
+ b36:	86 0d       	add	r24, r6
+ b38:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b3c:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b3e:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b40:	80 81       	ld	r24, Z
+ b42:	84 ff       	sbrs	r24, 4
+ b44:	09 c0       	rjmp	.+18     	; 0xb58 <drawImage+0xae>
+ b46:	41 e0       	ldi	r20, 0x01	; 1
+ b48:	6d 2d       	mov	r22, r13
+ b4a:	89 81       	ldd	r24, Y+1	; 0x01
+ b4c:	82 0d       	add	r24, r2
+ b4e:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+ b52:	c7 01       	movw	r24, r14
+ b54:	04 96       	adiw	r24, 0x04	; 4
+ b56:	02 c0       	rjmp	.+4      	; 0xb5c <drawImage+0xb2>
+ b58:	c7 01       	movw	r24, r14
+ b5a:	04 96       	adiw	r24, 0x04	; 4
+			else {i++;}
+			if(i == 84){break;}
+ b5c:	84 35       	cpi	r24, 0x54	; 84
+ b5e:	91 05       	cpc	r25, r1
+ b60:	09 f4       	brne	.+2      	; 0xb64 <drawImage+0xba>
+ b62:	ac c0       	rjmp	.+344    	; 0xcbc <drawImage+0x212>
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b64:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b66:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b68:	80 81       	ld	r24, Z
+ b6a:	83 ff       	sbrs	r24, 3
+ b6c:	07 c0       	rjmp	.+14     	; 0xb7c <drawImage+0xd2>
+ b6e:	41 e0       	ldi	r20, 0x01	; 1
+ b70:	6d 2d       	mov	r22, r13
+ b72:	89 81       	ldd	r24, Y+1	; 0x01
+ b74:	fc 81       	ldd	r31, Y+4	; 0x04
+ b76:	8f 0f       	add	r24, r31
+ b78:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b7c:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b7e:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b80:	80 81       	ld	r24, Z
+ b82:	82 ff       	sbrs	r24, 2
+ b84:	07 c0       	rjmp	.+14     	; 0xb94 <drawImage+0xea>
+ b86:	41 e0       	ldi	r20, 0x01	; 1
+ b88:	6d 2d       	mov	r22, r13
+ b8a:	89 81       	ldd	r24, Y+1	; 0x01
+ b8c:	fe 81       	ldd	r31, Y+6	; 0x06
+ b8e:	8f 0f       	add	r24, r31
+ b90:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
+ b94:	ec 85       	ldd	r30, Y+12	; 0x0c
+ b96:	fd 85       	ldd	r31, Y+13	; 0x0d
+ b98:	80 81       	ld	r24, Z
+ b9a:	81 ff       	sbrs	r24, 1
+ b9c:	07 c0       	rjmp	.+14     	; 0xbac <drawImage+0x102>
+ b9e:	41 e0       	ldi	r20, 0x01	; 1
+ ba0:	6d 2d       	mov	r22, r13
+ ba2:	89 81       	ldd	r24, Y+1	; 0x01
+ ba4:	f8 85       	ldd	r31, Y+8	; 0x08
+ ba6:	8f 0f       	add	r24, r31
+ ba8:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+ bac:	ec 85       	ldd	r30, Y+12	; 0x0c
+ bae:	fd 85       	ldd	r31, Y+13	; 0x0d
+ bb0:	80 81       	ld	r24, Z
+ bb2:	80 ff       	sbrs	r24, 0
+ bb4:	09 c0       	rjmp	.+18     	; 0xbc8 <drawImage+0x11e>
+ bb6:	41 e0       	ldi	r20, 0x01	; 1
+ bb8:	6d 2d       	mov	r22, r13
+ bba:	89 81       	ldd	r24, Y+1	; 0x01
+ bbc:	fa 81       	ldd	r31, Y+2	; 0x02
+ bbe:	8f 0f       	add	r24, r31
+ bc0:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+ bc4:	c5 01       	movw	r24, r10
+ bc6:	01 c0       	rjmp	.+2      	; 0xbca <drawImage+0x120>
+			else {i++;}
+ bc8:	c5 01       	movw	r24, r10
+			if(i == 84){break;}
+ bca:	84 35       	cpi	r24, 0x54	; 84
+ bcc:	91 05       	cpc	r25, r1
+ bce:	09 f4       	brne	.+2      	; 0xbd2 <drawImage+0x128>
+ bd0:	75 c0       	rjmp	.+234    	; 0xcbc <drawImage+0x212>
+			counter++;
+ bd2:	2f ef       	ldi	r18, 0xFF	; 255
+ bd4:	42 1a       	sub	r4, r18
+ bd6:	52 0a       	sbc	r5, r18
+ bd8:	0f 5f       	subi	r16, 0xFF	; 255
+ bda:	1f 4f       	sbci	r17, 0xFF	; 255
+ bdc:	38 e0       	ldi	r19, 0x08	; 8
+ bde:	a3 0e       	add	r10, r19
+ be0:	b1 1c       	adc	r11, r1
+ be2:	e8 e0       	ldi	r30, 0x08	; 8
+ be4:	ee 0e       	add	r14, r30
+ be6:	f1 1c       	adc	r15, r1
+ be8:	f9 81       	ldd	r31, Y+1	; 0x01
+ bea:	f8 5f       	subi	r31, 0xF8	; 248
+ bec:	f9 83       	std	Y+1, r31	; 0x01
+void drawImage(const unsigned char img[504]){
+	int y = 0;
+	int i = 0;
+	int counter = 0;
+	while(y != 48){
+		while(i <= 79){
+ bee:	80 35       	cpi	r24, 0x50	; 80
+ bf0:	91 05       	cpc	r25, r1
+ bf2:	0c f4       	brge	.+2      	; 0xbf6 <drawImage+0x14c>
+ bf4:	81 cf       	rjmp	.-254    	; 0xaf8 <drawImage+0x4e>
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			counter++;
+		}
+		else{
+			i = 0;
+ bf6:	18 8a       	std	Y+16, r1	; 0x10
+ bf8:	20 e0       	ldi	r18, 0x00	; 0
+ bfa:	29 c0       	rjmp	.+82     	; 0xc4e <drawImage+0x1a4>
+
+		}
+		if(i == 84){
+			y++;
+			i = 0;
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+ bfc:	41 e0       	ldi	r20, 0x01	; 1
+ bfe:	6a 85       	ldd	r22, Y+10	; 0x0a
+ c00:	80 e0       	ldi	r24, 0x00	; 0
+ c02:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c06:	ea 81       	ldd	r30, Y+2	; 0x02
+ c08:	fb 81       	ldd	r31, Y+3	; 0x03
+ c0a:	80 81       	ld	r24, Z
+ c0c:	82 ff       	sbrs	r24, 2
+ c0e:	05 c0       	rjmp	.+10     	; 0xc1a <drawImage+0x170>
+ c10:	41 e0       	ldi	r20, 0x01	; 1
+ c12:	6a 85       	ldd	r22, Y+10	; 0x0a
+ c14:	81 e0       	ldi	r24, 0x01	; 1
+ c16:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c1a:	ea 81       	ldd	r30, Y+2	; 0x02
+ c1c:	fb 81       	ldd	r31, Y+3	; 0x03
+ c1e:	80 81       	ld	r24, Z
+ c20:	81 ff       	sbrs	r24, 1
+ c22:	05 c0       	rjmp	.+10     	; 0xc2e <drawImage+0x184>
+ c24:	41 e0       	ldi	r20, 0x01	; 1
+ c26:	6a 85       	ldd	r22, Y+10	; 0x0a
+ c28:	82 e0       	ldi	r24, 0x02	; 2
+ c2a:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c2e:	ea 81       	ldd	r30, Y+2	; 0x02
+ c30:	fb 81       	ldd	r31, Y+3	; 0x03
+ c32:	80 81       	ld	r24, Z
+ c34:	80 ff       	sbrs	r24, 0
+ c36:	05 c0       	rjmp	.+10     	; 0xc42 <drawImage+0x198>
+ c38:	41 e0       	ldi	r20, 0x01	; 1
+ c3a:	6a 85       	ldd	r22, Y+10	; 0x0a
+ c3c:	83 e0       	ldi	r24, 0x03	; 3
+ c3e:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+			else {i++;}
+			counter++;
+ c42:	ff ef       	ldi	r31, 0xFF	; 255
+ c44:	4f 1a       	sub	r4, r31
+ c46:	5f 0a       	sbc	r5, r31
+ c48:	24 e0       	ldi	r18, 0x04	; 4
+ c4a:	28 8b       	std	Y+16, r18	; 0x10
+ c4c:	20 e0       	ldi	r18, 0x00	; 0
+ c4e:	8a 85       	ldd	r24, Y+10	; 0x0a
+ c50:	9b 85       	ldd	r25, Y+11	; 0x0b
+ c52:	01 96       	adiw	r24, 0x01	; 1
+ c54:	9b 87       	std	Y+11, r25	; 0x0b
+ c56:	8a 87       	std	Y+10, r24	; 0x0a
+ c58:	d3 94       	inc	r13
+
+void drawImage(const unsigned char img[504]){
+	int y = 0;
+	int i = 0;
+	int counter = 0;
+	while(y != 48){
+ c5a:	90 e3       	ldi	r25, 0x30	; 48
+ c5c:	d9 16       	cp	r13, r25
+ c5e:	c9 f1       	breq	.+114    	; 0xcd2 <drawImage+0x228>
+ c60:	0e 85       	ldd	r16, Y+14	; 0x0e
+ c62:	1f 85       	ldd	r17, Y+15	; 0x0f
+ c64:	04 0d       	add	r16, r4
+ c66:	15 1d       	adc	r17, r5
+ c68:	88 89       	ldd	r24, Y+16	; 0x10
+ c6a:	92 2f       	mov	r25, r18
+ c6c:	5c 01       	movw	r10, r24
+ c6e:	e8 e0       	ldi	r30, 0x08	; 8
+ c70:	ae 0e       	add	r10, r30
+ c72:	b1 1c       	adc	r11, r1
+ c74:	9c 01       	movw	r18, r24
+ c76:	29 5f       	subi	r18, 0xF9	; 249
+ c78:	3f 4f       	sbci	r19, 0xFF	; 255
+ c7a:	3b 83       	std	Y+3, r19	; 0x03
+ c7c:	2a 83       	std	Y+2, r18	; 0x02
+	_delay_ms(100);
+	}
+	while(1) {}
+}
+
+void drawImage(const unsigned char img[504]){
+ c7e:	7c 01       	movw	r14, r24
+ c80:	91 2c       	mov	r9, r1
+	while(y != 48){
+		while(i <= 79){
+			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c82:	fc 01       	movw	r30, r24
+ c84:	31 96       	adiw	r30, 0x01	; 1
+ c86:	fd 87       	std	Y+13, r31	; 0x0d
+ c88:	ec 87       	std	Y+12, r30	; 0x0c
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c8a:	3c 01       	movw	r6, r24
+ c8c:	f2 e0       	ldi	r31, 0x02	; 2
+ c8e:	6f 0e       	add	r6, r31
+ c90:	71 1c       	adc	r7, r1
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c92:	1c 01       	movw	r2, r24
+ c94:	23 e0       	ldi	r18, 0x03	; 3
+ c96:	22 0e       	add	r2, r18
+ c98:	31 1c       	adc	r3, r1
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+ c9a:	fc 01       	movw	r30, r24
+ c9c:	34 96       	adiw	r30, 0x04	; 4
+ c9e:	fd 83       	std	Y+5, r31	; 0x05
+ ca0:	ec 83       	std	Y+4, r30	; 0x04
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
+ ca2:	9c 01       	movw	r18, r24
+ ca4:	2b 5f       	subi	r18, 0xFB	; 251
+ ca6:	3f 4f       	sbci	r19, 0xFF	; 255
+ ca8:	3f 83       	std	Y+7, r19	; 0x07
+ caa:	2e 83       	std	Y+6, r18	; 0x06
+			else {i++;}
+			if(i == 84){break;}
+			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
+ cac:	32 96       	adiw	r30, 0x02	; 2
+ cae:	f9 87       	std	Y+9, r31	; 0x09
+ cb0:	e8 87       	std	Y+8, r30	; 0x08
+ cb2:	99 82       	std	Y+1, r9	; 0x01
+ cb4:	c8 2e       	mov	r12, r24
+ cb6:	8c 84       	ldd	r8, Y+12	; 0x0c
+ cb8:	9d 84       	ldd	r9, Y+13	; 0x0d
+ cba:	1e cf       	rjmp	.-452    	; 0xaf8 <drawImage+0x4e>
+
+		}
+		if(i == 84){
+			y++;
+			i = 0;
+			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
+ cbc:	2e 85       	ldd	r18, Y+14	; 0x0e
+ cbe:	3f 85       	ldd	r19, Y+15	; 0x0f
+ cc0:	24 0d       	add	r18, r4
+ cc2:	35 1d       	adc	r19, r5
+ cc4:	3b 83       	std	Y+3, r19	; 0x03
+ cc6:	2a 83       	std	Y+2, r18	; 0x02
+ cc8:	f9 01       	movw	r30, r18
+ cca:	80 81       	ld	r24, Z
+ ccc:	83 ff       	sbrs	r24, 3
+ cce:	9b cf       	rjmp	.-202    	; 0xc06 <drawImage+0x15c>
+ cd0:	95 cf       	rjmp	.-214    	; 0xbfc <drawImage+0x152>
+		else{
+			i = 0;
+		y++;}
+
+	}
+ cd2:	60 96       	adiw	r28, 0x10	; 16
+ cd4:	0f b6       	in	r0, 0x3f	; 63
+ cd6:	f8 94       	cli
+ cd8:	de bf       	out	0x3e, r29	; 62
+ cda:	0f be       	out	0x3f, r0	; 63
+ cdc:	cd bf       	out	0x3d, r28	; 61
+ cde:	df 91       	pop	r29
+ ce0:	cf 91       	pop	r28
+ ce2:	1f 91       	pop	r17
+ ce4:	0f 91       	pop	r16
+ ce6:	ff 90       	pop	r15
+ ce8:	ef 90       	pop	r14
+ cea:	df 90       	pop	r13
+ cec:	cf 90       	pop	r12
+ cee:	bf 90       	pop	r11
+ cf0:	af 90       	pop	r10
+ cf2:	9f 90       	pop	r9
+ cf4:	8f 90       	pop	r8
+ cf6:	7f 90       	pop	r7
+ cf8:	6f 90       	pop	r6
+ cfa:	5f 90       	pop	r5
+ cfc:	4f 90       	pop	r4
+ cfe:	3f 90       	pop	r3
+ d00:	2f 90       	pop	r2
+ d02:	08 95       	ret
+
+00000d04 <main>:
+
+
+
+
+int main(void)
+{	
+ d04:	cf 93       	push	r28
+ d06:	df 93       	push	r29
+ d08:	cd b7       	in	r28, 0x3d	; 61
+ d0a:	de b7       	in	r29, 0x3e	; 62
+ d0c:	2a 97       	sbiw	r28, 0x0a	; 10
+ d0e:	0f b6       	in	r0, 0x3f	; 63
+ d10:	f8 94       	cli
+ d12:	de bf       	out	0x3e, r29	; 62
+ d14:	0f be       	out	0x3f, r0	; 63
+ d16:	cd bf       	out	0x3d, r28	; 61
+	//sei();
+	nokia_lcd_init();
+ d18:	0e 94 65 01 	call	0x2ca	; 0x2ca <nokia_lcd_init>
+	nokia_lcd_clear();
+ d1c:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+	//char *test1 = "Hey this is a number %u";
+	//int test = 2;
+	char buf[10] = {0};
+ d20:	fe 01       	movw	r30, r28
+ d22:	31 96       	adiw	r30, 0x01	; 1
+ d24:	8a e0       	ldi	r24, 0x0A	; 10
+ d26:	df 01       	movw	r26, r30
+ d28:	1d 92       	st	X+, r1
+ d2a:	8a 95       	dec	r24
+ d2c:	e9 f7       	brne	.-6      	; 0xd28 <main+0x24>
+	
+	_delay_ms(1000);
+	nokia_lcd_clear();
+	}
+	*/
+	rtc2_init();
+ d2e:	0e 94 fb 02 	call	0x5f6	; 0x5f6 <rtc2_init>
+	
+	RTC2_VALUE->seconds = 1;
+ d32:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d36:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d3a:	81 e0       	ldi	r24, 0x01	; 1
+ d3c:	80 83       	st	Z, r24
+	RTC2_VALUE->minutes = 43;
+ d3e:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d42:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d46:	8b e2       	ldi	r24, 0x2B	; 43
+ d48:	82 83       	std	Z+2, r24	; 0x02
+	RTC2_VALUE->hours = 12;
+ d4a:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d4e:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d52:	8c e0       	ldi	r24, 0x0C	; 12
+ d54:	81 83       	std	Z+1, r24	; 0x01
+	RTC2_VALUE->date = 3;
+ d56:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d5a:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d5e:	83 e0       	ldi	r24, 0x03	; 3
+ d60:	84 83       	std	Z+4, r24	; 0x04
+	RTC2_VALUE->month = 3;
+ d62:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d66:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d6a:	85 83       	std	Z+5, r24	; 0x05
+	RTC2_VALUE->year = 14;
+ d6c:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d70:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d74:	8e e0       	ldi	r24, 0x0E	; 14
+ d76:	86 83       	std	Z+6, r24	; 0x06
+	RTC2_VALUE->format = RTC2_FORMAT_PM;
+ d78:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d7c:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d80:	80 ea       	ldi	r24, 0xA0	; 160
+ d82:	87 83       	std	Z+7, r24	; 0x07
+	rtc2_preset(RTC2_VALUE);
+ d84:	80 91 fe 04 	lds	r24, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d88:	90 91 ff 04 	lds	r25, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ d8c:	0e 94 5c 04 	call	0x8b8	; 0x8b8 <rtc2_preset>
+	
+	while(1){
+	drawImage(img);
+ d90:	84 e0       	ldi	r24, 0x04	; 4
+ d92:	91 e0       	ldi	r25, 0x01	; 1
+ d94:	0e 94 55 05 	call	0xaaa	; 0xaaa <drawImage>
+	rtc2_update(RTC2_VALUE);
+ d98:	80 91 fe 04 	lds	r24, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ d9c:	90 91 ff 04 	lds	r25, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ da0:	0e 94 51 05 	call	0xaa2	; 0xaa2 <rtc2_update>
+	nokia_lcd_set_cursor(5, 7);
+ da4:	67 e0       	ldi	r22, 0x07	; 7
+ da6:	85 e0       	ldi	r24, 0x05	; 5
+ da8:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);
+ dac:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ db0:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__itoa_ncheck (int, char *, unsigned char);
+	return __itoa_ncheck (__val, __s, __radix);
+ db4:	81 81       	ldd	r24, Z+1	; 0x01
+ db6:	4a e0       	ldi	r20, 0x0A	; 10
+ db8:	be 01       	movw	r22, r28
+ dba:	6f 5f       	subi	r22, 0xFF	; 255
+ dbc:	7f 4f       	sbci	r23, 0xFF	; 255
+ dbe:	90 e0       	ldi	r25, 0x00	; 0
+ dc0:	0e 94 33 07 	call	0xe66	; 0xe66 <__itoa_ncheck>
+ dc4:	61 e0       	ldi	r22, 0x01	; 1
+ dc6:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_write_string(":",1);
+ dca:	61 e0       	ldi	r22, 0x01	; 1
+ dcc:	80 e0       	ldi	r24, 0x00	; 0
+ dce:	91 e0       	ldi	r25, 0x01	; 1
+ dd0:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_write_string(itoa(RTC2_VALUE->minutes,buf,10),1);
+ dd4:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ dd8:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ ddc:	82 81       	ldd	r24, Z+2	; 0x02
+ dde:	4a e0       	ldi	r20, 0x0A	; 10
+ de0:	be 01       	movw	r22, r28
+ de2:	6f 5f       	subi	r22, 0xFF	; 255
+ de4:	7f 4f       	sbci	r23, 0xFF	; 255
+ de6:	90 e0       	ldi	r25, 0x00	; 0
+ de8:	0e 94 33 07 	call	0xe66	; 0xe66 <__itoa_ncheck>
+ dec:	61 e0       	ldi	r22, 0x01	; 1
+ dee:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_write_string(":",1);
+ df2:	61 e0       	ldi	r22, 0x01	; 1
+ df4:	80 e0       	ldi	r24, 0x00	; 0
+ df6:	91 e0       	ldi	r25, 0x01	; 1
+ df8:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
+ dfc:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ e00:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ e04:	80 81       	ld	r24, Z
+ e06:	8a 30       	cpi	r24, 0x0A	; 10
+ e08:	28 f4       	brcc	.+10     	; 0xe14 <main+0x110>
+ e0a:	61 e0       	ldi	r22, 0x01	; 1
+ e0c:	82 e0       	ldi	r24, 0x02	; 2
+ e0e:	91 e0       	ldi	r25, 0x01	; 1
+ e10:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
+ e14:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
+ e18:	f0 91 ff 04 	lds	r31, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
+ e1c:	80 81       	ld	r24, Z
+ e1e:	4a e0       	ldi	r20, 0x0A	; 10
+ e20:	be 01       	movw	r22, r28
+ e22:	6f 5f       	subi	r22, 0xFF	; 255
+ e24:	7f 4f       	sbci	r23, 0xFF	; 255
+ e26:	90 e0       	ldi	r25, 0x00	; 0
+ e28:	0e 94 33 07 	call	0xe66	; 0xe66 <__itoa_ncheck>
+ e2c:	61 e0       	ldi	r22, 0x01	; 1
+ e2e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_render();
+ e32:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+	nokia_lcd_clear();
+ e36:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ e3a:	bf ef       	ldi	r27, 0xFF	; 255
+ e3c:	20 e7       	ldi	r18, 0x70	; 112
+ e3e:	82 e0       	ldi	r24, 0x02	; 2
+ e40:	b1 50       	subi	r27, 0x01	; 1
+ e42:	20 40       	sbci	r18, 0x00	; 0
+ e44:	80 40       	sbci	r24, 0x00	; 0
+ e46:	e1 f7       	brne	.-8      	; 0xe40 <main+0x13c>
+ e48:	00 c0       	rjmp	.+0      	; 0xe4a <main+0x146>
+ e4a:	00 00       	nop
+ e4c:	a1 cf       	rjmp	.-190    	; 0xd90 <main+0x8c>
+
+00000e4e <__udivmodqi4>:
+ e4e:	99 1b       	sub	r25, r25
+ e50:	79 e0       	ldi	r23, 0x09	; 9
+ e52:	04 c0       	rjmp	.+8      	; 0xe5c <__udivmodqi4_ep>
+
+00000e54 <__udivmodqi4_loop>:
+ e54:	99 1f       	adc	r25, r25
+ e56:	96 17       	cp	r25, r22
+ e58:	08 f0       	brcs	.+2      	; 0xe5c <__udivmodqi4_ep>
+ e5a:	96 1b       	sub	r25, r22
+
+00000e5c <__udivmodqi4_ep>:
+ e5c:	88 1f       	adc	r24, r24
+ e5e:	7a 95       	dec	r23
+ e60:	c9 f7       	brne	.-14     	; 0xe54 <__udivmodqi4_loop>
+ e62:	80 95       	com	r24
+ e64:	08 95       	ret
+
+00000e66 <__itoa_ncheck>:
+ e66:	bb 27       	eor	r27, r27
+ e68:	4a 30       	cpi	r20, 0x0A	; 10
+ e6a:	31 f4       	brne	.+12     	; 0xe78 <__itoa_ncheck+0x12>
+ e6c:	99 23       	and	r25, r25
+ e6e:	22 f4       	brpl	.+8      	; 0xe78 <__itoa_ncheck+0x12>
+ e70:	bd e2       	ldi	r27, 0x2D	; 45
+ e72:	90 95       	com	r25
+ e74:	81 95       	neg	r24
+ e76:	9f 4f       	sbci	r25, 0xFF	; 255
+ e78:	0c 94 3f 07 	jmp	0xe7e	; 0xe7e <__utoa_common>
+
+00000e7c <__utoa_ncheck>:
+ e7c:	bb 27       	eor	r27, r27
+
+00000e7e <__utoa_common>:
+ e7e:	fb 01       	movw	r30, r22
+ e80:	55 27       	eor	r21, r21
+ e82:	aa 27       	eor	r26, r26
+ e84:	88 0f       	add	r24, r24
+ e86:	99 1f       	adc	r25, r25
+ e88:	aa 1f       	adc	r26, r26
+ e8a:	a4 17       	cp	r26, r20
+ e8c:	10 f0       	brcs	.+4      	; 0xe92 <__utoa_common+0x14>
+ e8e:	a4 1b       	sub	r26, r20
+ e90:	83 95       	inc	r24
+ e92:	50 51       	subi	r21, 0x10	; 16
+ e94:	b9 f7       	brne	.-18     	; 0xe84 <__utoa_common+0x6>
+ e96:	a0 5d       	subi	r26, 0xD0	; 208
+ e98:	aa 33       	cpi	r26, 0x3A	; 58
+ e9a:	08 f0       	brcs	.+2      	; 0xe9e <__utoa_common+0x20>
+ e9c:	a9 5d       	subi	r26, 0xD9	; 217
+ e9e:	a1 93       	st	Z+, r26
+ ea0:	00 97       	sbiw	r24, 0x00	; 0
+ ea2:	79 f7       	brne	.-34     	; 0xe82 <__utoa_common+0x4>
+ ea4:	b1 11       	cpse	r27, r1
+ ea6:	b1 93       	st	Z+, r27
+ ea8:	11 92       	st	Z+, r1
+ eaa:	cb 01       	movw	r24, r22
+ eac:	0c 94 58 07 	jmp	0xeb0	; 0xeb0 <strrev>
+
+00000eb0 <strrev>:
+ eb0:	dc 01       	movw	r26, r24
+ eb2:	fc 01       	movw	r30, r24
+ eb4:	67 2f       	mov	r22, r23
+ eb6:	71 91       	ld	r23, Z+
+ eb8:	77 23       	and	r23, r23
+ eba:	e1 f7       	brne	.-8      	; 0xeb4 <strrev+0x4>
+ ebc:	32 97       	sbiw	r30, 0x02	; 2
+ ebe:	04 c0       	rjmp	.+8      	; 0xec8 <strrev+0x18>
+ ec0:	7c 91       	ld	r23, X
+ ec2:	6d 93       	st	X+, r22
+ ec4:	70 83       	st	Z, r23
+ ec6:	62 91       	ld	r22, -Z
+ ec8:	ae 17       	cp	r26, r30
+ eca:	bf 07       	cpc	r27, r31
+ ecc:	c8 f3       	brcs	.-14     	; 0xec0 <strrev+0x10>
+ ece:	08 95       	ret
+
+00000ed0 <_exit>:
+ ed0:	f8 94       	cli
+
+00000ed2 <__stop_program>:
+ ed2:	ff cf       	rjmp	.-2      	; 0xed2 <__stop_program>

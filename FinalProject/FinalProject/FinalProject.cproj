@@ -118,24 +118,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Drivers\aux_globals.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\aux_globals.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\dht.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\dht.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\hw_dht11.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Drivers\hw_dht11.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Drivers\nokia5110.c">
       <SubType>compile</SubType>
     </Compile>
@@ -145,10 +127,13 @@
     <Compile Include="Drivers\nokia5110_chars.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Drivers\uart.c">
+    <Compile Include="Drivers\rtc2.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Drivers\uart.h">
+    <Compile Include="Drivers\rtc2.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Drivers\rtc2_config.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
