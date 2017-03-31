@@ -19,7 +19,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00000daa  00000000  00000000  00003503  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   0000115a  00000000  00000000  000042ad  2**0
+  8 .debug_line   0000115b  00000000  00000000  000042ad  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  0000045c  00000000  00000000  00005408  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -2167,9 +2167,9 @@ int main(void)
  d98:	80 91 fe 04 	lds	r24, 0x04FE	; 0x8004fe <RTC2_VALUE>
  d9c:	90 91 ff 04 	lds	r25, 0x04FF	; 0x8004ff <RTC2_VALUE+0x1>
  da0:	0e 94 51 05 	call	0xaa2	; 0xaa2 <rtc2_update>
-	nokia_lcd_set_cursor(5, 7);
- da4:	67 e0       	ldi	r22, 0x07	; 7
- da6:	85 e0       	ldi	r24, 0x05	; 5
+	nokia_lcd_set_cursor(6, 6);
+ da4:	66 e0       	ldi	r22, 0x06	; 6
+ da6:	86 e0       	ldi	r24, 0x06	; 6
  da8:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);
  dac:	e0 91 fe 04 	lds	r30, 0x04FE	; 0x8004fe <RTC2_VALUE>
