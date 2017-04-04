@@ -65,6 +65,9 @@ int main(void)
 	char cursorBlink = 0;
 	char timeMinutes = 0;
 	char timeHours = 0;
+	char timeMonth = 1;
+	char timeDay = 1;
+	char timeYear = 2017;
 	char slash = 0x5C;
 	
 	rtc2_init();
@@ -74,7 +77,7 @@ int main(void)
 	RTC2_VALUE->hours = 13;
 	RTC2_VALUE->date = 3;
 	RTC2_VALUE->month = 31;
-	RTC2_VALUE->year = 17;
+	RTC2_VALUE->year = 2017;
 	RTC2_VALUE->format = RTC2_FORMAT_PM;
 	rtc2_preset(RTC2_VALUE);
 	
@@ -109,6 +112,38 @@ int main(void)
 	RTC2_VALUE->seconds = 0;
 	RTC2_VALUE->minutes = timeMinutes;
 	RTC2_VALUE->hours = timeHours;
+	
+	nokia_lcd_clear();
+	nokia_lcd_set_cursor(10,20);
+	nokia_lcd_write_string("Please Enter",1);
+	nokia_lcd_set_cursor(17,28);
+	nokia_lcd_write_string("The Date.",1);
+	nokia_lcd_render();
+	nokia_lcd_clear();
+	_delay_ms(2000);
+	
+	while(1){
+		if(cursorPosition == 3){break;}
+		if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
+		if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
+		if(cursorPosition == 2){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
+		nokia_lcd_set_cursor(5,16);
+		if(timeMonth < 10) {nokia_lcd_write_string("0",2);}
+		nokia_lcd_write_string(itoa(timeMonth,buf,10), 2);
+		nokia_lcd_write_string("/",2);
+		if(timeDay < 10) {nokia_lcd_write_string("0",2);}
+		nokia_lcd_write_string(itoa(timeDay,buf,10), 2);
+		nokia_lcd_write_string("/",2);
+		nokia_lcd_write_string(itoa(timeYear,buf,10), 2);
+		nokia_lcd_render();
+		if ((PIND & 0x01) && (cursorPosition == 0)){timeMonth++; _delay_ms(200);}
+		else if ((PIND & 0x01) && (cursorPosition == 1)){timeDay++; _delay_ms(200);}
+		else if ((PIND & 0x01) && (cursorPosition == 2)){timeYear++; _delay_ms(200);}
+		if (PIND & 0x02){cursorPosition++; _delay_ms(200);}
+		nokia_lcd_clear();
+		if (timeMinutes >= 60){timeMinutes = 0;}
+		if (timeHours >= 24){timeHours = 0;}
+	}
 	
 	rtc2_preset(RTC2_VALUE);
 	
