@@ -78,41 +78,9 @@ int main(void)
 	RTC2_VALUE->date = 3;
 	RTC2_VALUE->month = 31;
 	RTC2_VALUE->year = 2017;
-	RTC2_VALUE->format = RTC2_FORMAT_PM;
+	RTC2_VALUE->format = RTC2_FORMAT_24;
 	rtc2_preset(RTC2_VALUE);
 	
-	nokia_lcd_clear();
-	nokia_lcd_set_cursor(10,20);
-	nokia_lcd_write_string("Please Enter",1);
-	nokia_lcd_set_cursor(17,28);
-	nokia_lcd_write_string("The Time.",1);
-	nokia_lcd_render();
-	nokia_lcd_clear();
-	_delay_ms(2000);
-			
-	while(1){
-			if(cursorPosition == 2){break;}
-			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
-			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
-			nokia_lcd_set_cursor(5,16);
-			if(timeHours < 10) {nokia_lcd_write_string("0",3);}
-			nokia_lcd_write_string(itoa(timeHours,buf,10), 3);
-			nokia_lcd_write_string(":",3);
-			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);}
-			nokia_lcd_write_string(itoa(timeMinutes,buf,10), 3);
-			nokia_lcd_render();
-			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);}
-			else if ((PIND & 0x01) && (cursorPosition == 1)){timeMinutes++; _delay_ms(200);}
-			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}
-			nokia_lcd_clear();
-			if (timeMinutes >= 60){timeMinutes = 0;}
-			if (timeHours >= 24){timeHours = 0;}
-	}
-	
-	RTC2_VALUE->seconds = 0;
-	RTC2_VALUE->minutes = timeMinutes;
-	RTC2_VALUE->hours = timeHours;
-	/*
 	nokia_lcd_clear();
 	nokia_lcd_set_cursor(10,20);
 	nokia_lcd_write_string("Please Enter",1);
@@ -154,10 +122,44 @@ int main(void)
 		if (timeYear > 30){ timeYear = 10;}
 	}
 	
+	nokia_lcd_clear();
+	nokia_lcd_set_cursor(10,20);
+	nokia_lcd_write_string("Please Enter",1);
+	nokia_lcd_set_cursor(17,28);
+	nokia_lcd_write_string("The Time.",1);
+	nokia_lcd_render();
+	nokia_lcd_clear();
+	_delay_ms(2000);
+	cursorPosition = 0;		
+	while(1){
+			if(cursorPosition == 2){break;}
+			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
+			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
+			nokia_lcd_set_cursor(5,16);
+			if(timeHours < 10) {nokia_lcd_write_string("0",3);}
+			nokia_lcd_write_string(itoa(timeHours,buf,10), 3);
+			nokia_lcd_write_string(":",3);
+			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);}
+			nokia_lcd_write_string(itoa(timeMinutes,buf,10), 3);
+			nokia_lcd_render();
+			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);}
+			else if ((PIND & 0x01) && (cursorPosition == 1)){timeMinutes++; _delay_ms(200);}
+			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}
+			nokia_lcd_clear();
+			if (timeMinutes >= 60){timeMinutes = 0;}
+			if (timeHours >= 24){timeHours = 0;}
+	}
+	
+	RTC2_VALUE->seconds = 0;
+	RTC2_VALUE->minutes = timeMinutes;
+	RTC2_VALUE->hours = timeHours;
+	
+	
+	
 	RTC2_VALUE->date = timeDay;
 	RTC2_VALUE->month = timeMonth;
-	RTC2_VALUE->year = timeYear + 2000;
-	*/
+	RTC2_VALUE->year = timeYear ;
+	
 	RTC2_VALUE->seconds = 0;
 	RTC2_VALUE->minutes = timeMinutes;
 	RTC2_VALUE->hours = timeHours;
