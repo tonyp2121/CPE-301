@@ -214,8 +214,25 @@ int main(void)
 			if (alarmMinutes >= 60){alarmMinutes = 0;}
 			if (alarmHours >= 24){alarmHours = 0;}
 		}
-		
+		nokia_lcd_clear();
+		nokia_lcd_set_cursor(10,20);
+		nokia_lcd_write_string("Alarm Set",1);
+		nokia_lcd_set_cursor(4,28);
+		nokia_lcd_render();
+		_delay_ms(2000);
 		ButtonBTime = 0;
+	}
+	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
+		nokia_lcd_clear();
+		nokia_lcd_set_cursor(10,20);
+		nokia_lcd_write_string("ITS TIME",1);
+		nokia_lcd_set_cursor(4,28);
+		nokia_lcd_render();
+		while(1){
+			
+		}
+		alarmHours = 25;
+		alarmMinutes = 61;
 	}
 	nokia_lcd_render();
 	nokia_lcd_clear();
