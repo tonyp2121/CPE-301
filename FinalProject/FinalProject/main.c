@@ -61,6 +61,7 @@ int main(void)
 	nokia_lcd_clear();
 	DDRD |= 0b00000011;
 	char buf[10] = {0};
+	char ButtonBTime = 0;
 	char cursorPosition = 0;
 	char cursorBlink = 0;
 	char timeMinutes = 0;
@@ -69,6 +70,8 @@ int main(void)
 	char timeDay = 1;
 	char timeYear = 2017;
 	char slash = 0x5C;
+	char alarmHours = 25;
+	char alarmMinutes = 61;
 	
 	rtc2_init();
 	
@@ -80,7 +83,7 @@ int main(void)
 	RTC2_VALUE->year = 2017;
 	RTC2_VALUE->format = RTC2_FORMAT_24;
 	rtc2_preset(RTC2_VALUE);
-	
+	/*
 	nokia_lcd_clear();
 	nokia_lcd_set_cursor(10,20);
 	nokia_lcd_write_string("Please Enter",1);
@@ -121,7 +124,7 @@ int main(void)
 		if (timeMonth > 12){timeMonth = 1;}
 		if (timeYear > 30){ timeYear = 10;}
 	}
-	
+	*/
 	nokia_lcd_clear();
 	nokia_lcd_set_cursor(10,20);
 	nokia_lcd_write_string("Please Enter",1);
@@ -142,9 +145,9 @@ int main(void)
 			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);}
 			nokia_lcd_write_string(itoa(timeMinutes,buf,10), 3);
 			nokia_lcd_render();
-			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);}
+			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);} // left button
 			else if ((PIND & 0x01) && (cursorPosition == 1)){timeMinutes++; _delay_ms(200);}
-			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}
+			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // right button
 			nokia_lcd_clear();
 			if (timeMinutes >= 60){timeMinutes = 0;}
 			if (timeHours >= 24){timeHours = 0;}
@@ -178,6 +181,42 @@ int main(void)
 	nokia_lcd_write_string(":",1);
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
+	if (PIND & 0x02){ButtonBTime++;}
+	else{ButtonBTime = 0;}
+	if(ButtonBTime >= 100) // this time might need to be changed
+	{
+			nokia_lcd_clear();
+			nokia_lcd_set_cursor(10,20);
+			nokia_lcd_write_string("Please Enter",1);
+			nokia_lcd_set_cursor(4,28);
+			nokia_lcd_write_string("Your Alarm Time.",1);
+			nokia_lcd_render();
+			nokia_lcd_clear();
+			_delay_ms(2000);
+			cursorPosition = 0;
+			alarmHours = 0;
+			alarmMinutes = 0;
+		while(1){
+			if(cursorPosition == 2){break;}
+			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
+			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
+			nokia_lcd_set_cursor(5,16);
+			if(alarmHours < 10) {nokia_lcd_write_string("0",3);}
+			nokia_lcd_write_string(itoa(alarmHours,buf,10), 3);
+			nokia_lcd_write_string(":",3);
+			if(alarmMinutes < 10) {nokia_lcd_write_string("0",3);}
+			nokia_lcd_write_string(itoa(alarmMinutes,buf,10), 3);
+			nokia_lcd_render();
+			if ((PIND & 0x01) && (cursorPosition == 0)){alarmHours++; _delay_ms(200);} // left button
+			else if ((PIND & 0x01) && (cursorPosition == 1)){alarmMinutes++; _delay_ms(200);}
+			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // right button
+			nokia_lcd_clear();
+			if (alarmMinutes >= 60){alarmMinutes = 0;}
+			if (alarmHours >= 24){alarmHours = 0;}
+		}
+		
+		ButtonBTime = 0;
+	}
 	nokia_lcd_render();
 	nokia_lcd_clear();
 	_delay_ms(100);
