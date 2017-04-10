@@ -56,10 +56,13 @@ const unsigned char img[504] = {
 
 
 int main(void)
-{	
+{
+	DDRD = 0xE0;
+	char PinTracker;
 	nokia_lcd_init();
 	nokia_lcd_clear();
 	DDRD |= 0b00000011;
+	int delayTimeBetweenBeeps = 300;
 	char buf[10] = {0};
 	char ButtonBTime = 0;
 	char cursorPosition = 0;
@@ -72,9 +75,9 @@ int main(void)
 	char slash = 0x5C;
 	char alarmHours = 25;
 	char alarmMinutes = 61;
-	
+
 	rtc2_init();
-	
+
 	RTC2_VALUE->seconds = 1;
 	RTC2_VALUE->minutes = 31;
 	RTC2_VALUE->hours = 13;
@@ -94,7 +97,7 @@ int main(void)
 	_delay_ms(2000);
 	cursorPosition = 0;
 	timeYear = 17;
-	
+
 	while(1){
 		if(cursorPosition == 3){break;}
 		if(cursorPosition == 0){ nokia_lcd_set_cursor(0,2); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(8,2); nokia_lcd_write_char(slash,2);}
@@ -133,7 +136,7 @@ int main(void)
 	nokia_lcd_render();
 	nokia_lcd_clear();
 	_delay_ms(2000);
-	cursorPosition = 0;		
+	cursorPosition = 0;
 	while(1){
 			if(cursorPosition == 2){break;}
 			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
@@ -152,23 +155,23 @@ int main(void)
 			if (timeMinutes >= 60){timeMinutes = 0;}
 			if (timeHours >= 24){timeHours = 0;}
 	}
-	
+
 	RTC2_VALUE->seconds = 0;
 	RTC2_VALUE->minutes = timeMinutes;
 	RTC2_VALUE->hours = timeHours;
-	
-	
-	
+
+
+
 	RTC2_VALUE->date = timeDay;
 	RTC2_VALUE->month = timeMonth;
 	RTC2_VALUE->year = timeYear ;
-	
+
 	RTC2_VALUE->seconds = 0;
 	RTC2_VALUE->minutes = timeMinutes;
 	RTC2_VALUE->hours = timeHours;
-	
+
 	rtc2_preset(RTC2_VALUE);
-	
+
 	while(1){
 	drawImage(img);
 	rtc2_update(RTC2_VALUE);
@@ -225,12 +228,191 @@ int main(void)
 	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
 		nokia_lcd_clear();
 		nokia_lcd_set_cursor(10,20);
-		nokia_lcd_write_string("ITS TIME",1);
-		nokia_lcd_set_cursor(4,28);
+		nokia_lcd_write_string("ITS TIME!",1);
 		nokia_lcd_render();
+		PinTracker = PIND; // I save it for later so I can keep the pins and have them go back to what they were originally.
 		while(1){
-			
+			PIND = 0x83; // PD 8 = low PD 7 = mid PD 6 = high  (higher they are the lower the resistor)
+			if (PIND & 0x01){break;} // this is ugly but basically its checking to see if someone
+			if (PIND & 0x02){break;} // pressed a button often enough so it can be caught any time during the song
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x23;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x03;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x83;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x23;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x03;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x83;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x23;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x23;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x23;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x43;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			PIND = 0x03;
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
+			if (PIND & 0x01){break;}
+			if (PIND & 0x02){break;}
+			_delay_ms(delayTimeBetweenBeeps/3);
 		}
+		PIND = PinTracker;
 		alarmHours = 25;
 		alarmMinutes = 61;
 	}
