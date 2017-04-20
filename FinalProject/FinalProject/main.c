@@ -61,7 +61,7 @@ int main(void)
 	char PinTracker;
 	nokia_lcd_init();
 	nokia_lcd_clear();
-	DDRD |= 0b00000011;
+	DDRD |= 0b10000011;
 	int delayTimeBetweenBeeps = 300;
 	char buf[10] = {0};
 	char ButtonBTime = 0;
@@ -137,6 +137,7 @@ int main(void)
 	nokia_lcd_clear();
 	_delay_ms(2000);
 	cursorPosition = 0;
+	int Alarm;
 	while(1){
 			if(cursorPosition == 2){break;}
 			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
@@ -186,13 +187,13 @@ int main(void)
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
 	if (PIND & 0x02){ButtonBTime++;}
 	else{ButtonBTime = 0;}
-	if(ButtonBTime >= 100) // this time might need to be changed
+	if(ButtonBTime >= 15) // this time might need to be changed
 	{
 			nokia_lcd_clear();
 			nokia_lcd_set_cursor(10,20);
 			nokia_lcd_write_string("Please Enter",1);
 			nokia_lcd_set_cursor(4,28);
-			nokia_lcd_write_string("Your Alarm Time.",1);
+			nokia_lcd_write_string("Alarm Time.",1);
 			nokia_lcd_render();
 			nokia_lcd_clear();
 			_delay_ms(2000);
@@ -226,18 +227,45 @@ int main(void)
 		ButtonBTime = 0;
 	}
 	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
+		Alarm = 0;
+		PinTracker = PORTD; // I save it for later so I can keep the pins and have them go back to what they were originally. 
+		_delay_ms(1000);
+		PORTD ^= 0x80; 
+		_delay_ms(100);
 		nokia_lcd_clear();
 		nokia_lcd_set_cursor(10,20);
 		nokia_lcd_write_string("ITS TIME!",1);
 		nokia_lcd_render();
-		PinTracker = PIND; // I save it for later so I can keep the pins and have them go back to what they were originally.
-		while(1){
-			PIND = 0x83; // PD 8 = low PD 7 = mid PD 6 = high  (higher they are the lower the resistor)
-			if (PIND & 0x01){break;} // this is ugly but basically its checking to see if someone
-			if (PIND & 0x02){break;} // pressed a button often enough so it can be caught any time during the song
-			_delay_ms(5000);
+		while(1){	
+			if(Alarm == 1) {
+				PORTD ^= 0x80; 
+				_delay_ms(100);
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;} 
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
+				_delay_ms(100);
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;}
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
+				_delay_ms(100);
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;}
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
+				Alarm = 0;}
+			if(Alarm == 0) {
+				PORTD ^= 0x80; 
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				_delay_ms(100);
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				_delay_ms(100);
+				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
+				Alarm = 1;
+				}
+			
+			if (PIND & 0x01){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
+			else if (PIND & 0x02){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
 		}
-		PIND = PinTracker;
+		_delay_ms(100);
 		alarmHours = 25;
 		alarmMinutes = 61;
 	}
