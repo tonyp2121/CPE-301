@@ -319,7 +319,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x159c
+.text           0x00000000     0x16c0
  *(.vectors)
  .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -459,26 +459,32 @@ END GROUP
  .text.drawImage
                 0x00000aaa      0x25a main.o
                 0x00000aaa                drawImage
- .text.main     0x00000d04      0x812 main.o
-                0x00000d04                main
+ .text.read_dht11_dat
+                0x00000d04       0x38 main.o
+                0x00000d04                read_dht11_dat
+ .text.temp_setup
+                0x00000d3c        0x6 main.o
+                0x00000d3c                temp_setup
+ .text.main     0x00000d42      0x8f8 main.o
+                0x00000d42                main
  .text.libgcc.div
-                0x00001516       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodqi4.o)
-                0x00001516                __udivmodqi4
+                0x0000163a       0x18 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodqi4.o)
+                0x0000163a                __udivmodqi4
  .text.avr-libc
-                0x0000152e       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x0000152e                __itoa_ncheck
+                0x00001652       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x00001652                __itoa_ncheck
  .text.avr-libc
-                0x00001544       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00001544                __utoa_ncheck
-                0x00001546                __utoa_common
+                0x00001668       0x34 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00001668                __utoa_ncheck
+                0x0000166a                __utoa_common
  .text.avr-libc
-                0x00001578       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00001578                strrev
-                0x00001598                . = ALIGN (0x2)
+                0x0000169c       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x0000169c                strrev
+                0x000016bc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00001598        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00001598                _exit
-                0x00001598                exit
+ .fini9         0x000016bc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000016bc                _exit
+                0x000016bc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -497,46 +503,45 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00001598        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000016bc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000159c                _etext = .
+                0x000016c0                _etext = .
 
-.data           0x00800100      0x236 load address 0x0000159c
+.data           0x00800100      0x23a load address 0x000016c0
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800100       0x3d main.o
- .rodata.img    0x0080013d      0x1f8 main.o
-                0x0080013d                img
+                0x00800100       0x42 main.o
+ .rodata.img    0x00800142      0x1f8 main.o
+                0x00800142                img
  *(.gnu.linkonce.d*)
-                0x00800336                . = ALIGN (0x2)
- *fill*         0x00800335        0x1 
-                0x00800336                _edata = .
-                0x00800336                PROVIDE (__data_end, .)
+                0x0080033a                . = ALIGN (0x2)
+                0x0080033a                _edata = .
+                0x0080033a                PROVIDE (__data_end, .)
 
-.bss            0x00800336      0x204
-                0x00800336                PROVIDE (__bss_start, .)
+.bss            0x0080033a      0x204
+                0x0080033a                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.nokia_lcd
-                0x00800336      0x1fa Drivers/nokia5110.o
+                0x0080033a      0x1fa Drivers/nokia5110.o
  .bss.rtc2_default
-                0x00800530        0x8 Drivers/rtc2.o
+                0x00800534        0x8 Drivers/rtc2.o
  *(COMMON)
- COMMON         0x00800538        0x2 Drivers/rtc2.o
-                0x00800538                RTC2_VALUE
-                0x0080053a                PROVIDE (__bss_end, .)
-                0x0000159c                __data_load_start = LOADADDR (.data)
-                0x000017d2                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080053c        0x2 Drivers/rtc2.o
+                0x0080053c                RTC2_VALUE
+                0x0080053e                PROVIDE (__bss_end, .)
+                0x000016c0                __data_load_start = LOADADDR (.data)
+                0x000018fa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080053a        0x0
+.noinit         0x0080053e        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x0080053a                _end = .
+                0x0080053e                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -603,60 +608,60 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x168
+.debug_aranges  0x00000000      0x178
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x68 Drivers/nokia5110.o
  .debug_aranges
                 0x00000068       0xd8 Drivers/rtc2.o
  .debug_aranges
-                0x00000140       0x28 main.o
+                0x00000140       0x38 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x31d2
+.debug_info     0x00000000     0x3621
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x5ea Drivers/nokia5110.o
  .debug_info    0x00000bde      0xebf Drivers/rtc2.o
- .debug_info    0x00001a9d     0x1735 main.o
+ .debug_info    0x00001a9d     0x1b84 main.o
 
-.debug_abbrev   0x00000000      0xe00
+.debug_abbrev   0x00000000      0xe83
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x5a2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_abbrev  0x000005a2      0x1e6 Drivers/nokia5110.o
  .debug_abbrev  0x00000788      0x3a5 Drivers/rtc2.o
- .debug_abbrev  0x00000b2d      0x2d3 main.o
+ .debug_abbrev  0x00000b2d      0x356 main.o
 
-.debug_line     0x00000000     0x1715
+.debug_line     0x00000000     0x1884
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x3e3 Drivers/nokia5110.o
  .debug_line    0x00000516      0x8e3 Drivers/rtc2.o
- .debug_line    0x00000df9      0x91c main.o
+ .debug_line    0x00000df9      0xa8b main.o
 
-.debug_frame    0x00000000      0x45c
+.debug_frame    0x00000000      0x47c
  *(.debug_frame)
  .debug_frame   0x00000000      0x130 Drivers/nokia5110.o
  .debug_frame   0x00000130      0x288 Drivers/rtc2.o
- .debug_frame   0x000003b8       0xa4 main.o
+ .debug_frame   0x000003b8       0xc4 main.o
 
-.debug_str      0x00000000      0x7e8
+.debug_str      0x00000000      0x83b
  *(.debug_str)
  .debug_str     0x00000000      0x208 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_str     0x00000208      0x2a9 Drivers/nokia5110.o
                                 0x2f2 (size before relaxing)
  .debug_str     0x000004b1      0x254 Drivers/rtc2.o
                                 0x424 (size before relaxing)
- .debug_str     0x00000705       0xe3 main.o
-                                0x3a6 (size before relaxing)
+ .debug_str     0x00000705      0x136 main.o
+                                0x419 (size before relaxing)
 
-.debug_loc      0x00000000     0x2729
+.debug_loc      0x00000000     0x2a8b
  *(.debug_loc)
  .debug_loc     0x00000000      0x55b Drivers/nokia5110.o
  .debug_loc     0x0000055b     0x1069 Drivers/rtc2.o
- .debug_loc     0x000015c4     0x1165 main.o
+ .debug_loc     0x000015c4     0x14c7 main.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -676,11 +681,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x158
+.debug_ranges   0x00000000      0x168
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x78 Drivers/nokia5110.o
  .debug_ranges  0x00000078       0xc8 Drivers/rtc2.o
- .debug_ranges  0x00000140       0x18 main.o
+ .debug_ranges  0x00000140       0x28 main.o
 
 .debug_macro
  *(.debug_macro)

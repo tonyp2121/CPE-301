@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
+#include <math.h>
 #include <avr/interrupt.h>
 
 #define F_CPU 8000000L
@@ -10,6 +11,10 @@
 #include "Drivers/nokia5110.h"
 #include "Drivers/rtc2.h"
 #define UART_BAUD_RATE 9600
+#define DHT11_PIN 0
+
+void temp_setup();
+int read_dht11_dat();
 // itoa can print numbers
 // char * stringName = "What we want in the string"
 
@@ -75,7 +80,15 @@ int main(void)
 	char slash = 0x5C;
 	char alarmHours = 25;
 	char alarmMinutes = 61;
-
+	temp_setup();
+	int avgtemp=0;
+	int avghumid=0;
+	int thumid=0;
+	int ttemper=0;
+	int n=0;
+	int dht11_dat[5];
+	int dht11_in;
+	int i;
 	rtc2_init();
 
 	RTC2_VALUE->seconds = 1;
@@ -185,6 +198,35 @@ int main(void)
 	nokia_lcd_write_string(":",1);
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
+	while(PIND & 0x01){
+		nokia_lcd_clear();
+		drawImage(img);
+		PORTC &= ~_BV(DHT11_PIN);    // 1. pull-down i/o pin for 18ms
+		_delay_ms(18);
+		PORTC |= _BV(DHT11_PIN);     // 2. pull-up i/o pin for 40us
+		_delay_us(1);
+		DDRC &= ~_BV(DHT11_PIN);     //let analog port 0 be input port
+		_delay_us(40);
+
+		dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
+		_delay_us(80);
+		dht11_in = PINC & _BV(DHT11_PIN); 
+		_delay_us(80);// now ready for data reception
+		for (i=0; i<5; i++)
+		{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
+
+		DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
+		PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
+		int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
+		nokia_lcd_set_cursor(9, 6);
+		nokia_lcd_write_string(itoa(dht11_dat[2],buf, 10),1);
+		nokia_lcd_write_string("C ",1);
+		nokia_lcd_write_string(itoa(dht11_dat[0],buf, 10),1);
+		nokia_lcd_write_string("%",1);
+		nokia_lcd_render();
+		_delay_ms(300);
+		
+	}
 	if (PIND & 0x02){ButtonBTime++;}
 	else{ButtonBTime = 0;}
 	if(ButtonBTime >= 15) // this time might need to be changed
@@ -226,6 +268,7 @@ int main(void)
 		_delay_ms(2000);
 		ButtonBTime = 0;
 	}
+	// this is when the alarm must go off.
 	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
 		Alarm = 0;
 		PinTracker = PORTD; // I save it for later so I can keep the pins and have them go back to what they were originally. 
@@ -325,4 +368,25 @@ void drawImage(const unsigned char img[504]){
 		y++;}
 
 	}
+}
+int read_dht11_dat()
+{
+	int i = 0;
+	int result=0;
+	for(i=0; i< 8; i++)
+	{
+		while(!(PINC & _BV(DHT11_PIN)));
+		_delay_us(30); // wait  forever until anlog input port 0 is '1'   (NOTICE: PINC reads all the analog input ports
+		//and  _BV(X) is the macro operation which pull up positon 'X'to '1' and the rest positions to '0'. it is equivalent to 1<    delayMicroseconds(30);
+		if(PINC & _BV(DHT11_PIN))  //if analog input port 0 is still '1' after 30 us
+		result |=(1<<(7-i));     //this position is 1
+		while((PINC & _BV(DHT11_PIN)));  // wait '1' finish
+	}
+	return result;
+}
+
+void temp_setup()
+{
+	DDRC |= _BV(DHT11_PIN);   //let analog port 0 be output port
+	PORTC |= _BV(DHT11_PIN);  //let the initial value of this port be '1'
 }
