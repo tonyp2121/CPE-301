@@ -15,11 +15,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000178  00000000  00000000  00001a00  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00003621  00000000  00000000  00001b78  2**0
+  6 .debug_info   00003622  00000000  00000000  00001b78  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000e83  00000000  00000000  00005199  2**0
+  7 .debug_abbrev 00000e83  00000000  00000000  0000519a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001884  00000000  00000000  0000601c  2**0
+  8 .debug_line   00001882  00000000  00000000  0000601d  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  0000047c  00000000  00000000  000078a0  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -2559,6 +2559,7 @@ int main(void)
      fd8:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
      fdc:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
      fe0:	0e 94 51 05 	call	0xaa2	; 0xaa2 <rtc2_update>
+	
 	nokia_lcd_set_cursor(6, 6);
      fe4:	66 e0       	ldi	r22, 0x06	; 6
      fe6:	86 e0       	ldi	r24, 0x06	; 6
@@ -2639,6 +2640,7 @@ int main(void)
     1098:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
     109c:	61 e0       	ldi	r22, 0x01	; 1
     109e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	
 	while(PIND & 0x01){
     10a2:	48 9b       	sbis	0x09, 0	; 9
     10a4:	62 c0       	rjmp	.+196    	; 0x116a <main+0x428>
@@ -2771,11 +2773,11 @@ int main(void)
     1160:	e1 f7       	brne	.-8      	; 0x115a <main+0x418>
     1162:	00 c0       	rjmp	.+0      	; 0x1164 <main+0x422>
     1164:	00 00       	nop
-	if(RTC2_VALUE->minutes < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->minutes,buf,10),1);
 	nokia_lcd_write_string(":",1);
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
+	
 	while(PIND & 0x01){
     1166:	48 99       	sbic	0x09, 0	; 9
     1168:	9e cf       	rjmp	.-196    	; 0x10a6 <main+0x364>

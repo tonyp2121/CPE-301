@@ -99,7 +99,7 @@ int main(void)
 	RTC2_VALUE->year = 2017;
 	RTC2_VALUE->format = RTC2_FORMAT_24;
 	rtc2_preset(RTC2_VALUE);
-	/*
+	/* // code to implement knowing what day it is but when uploaded to the clock it produced errors, since it was an extra feature we cut it out of the final design
 	nokia_lcd_clear();
 	nokia_lcd_set_cursor(10,20);
 	nokia_lcd_write_string("Please Enter",1);
@@ -189,6 +189,7 @@ int main(void)
 	while(1){
 	drawImage(img);
 	rtc2_update(RTC2_VALUE);
+	
 	nokia_lcd_set_cursor(6, 6);
 	if(RTC2_VALUE->hours < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);
@@ -198,6 +199,7 @@ int main(void)
 	nokia_lcd_write_string(":",1);
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
+	
 	while(PIND & 0x01){
 		nokia_lcd_clear();
 		drawImage(img);

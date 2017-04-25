@@ -620,12 +620,12 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x3621
+.debug_info     0x00000000     0x3622
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x5f4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_info    0x000005f4      0x5ea Drivers/nokia5110.o
  .debug_info    0x00000bde      0xebf Drivers/rtc2.o
- .debug_info    0x00001a9d     0x1b84 main.o
+ .debug_info    0x00001a9d     0x1b85 main.o
 
 .debug_abbrev   0x00000000      0xe83
  *(.debug_abbrev)
@@ -634,12 +634,12 @@ END GROUP
  .debug_abbrev  0x00000788      0x3a5 Drivers/rtc2.o
  .debug_abbrev  0x00000b2d      0x356 main.o
 
-.debug_line     0x00000000     0x1884
+.debug_line     0x00000000     0x1882
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x133 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.132/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .debug_line    0x00000133      0x3e3 Drivers/nokia5110.o
  .debug_line    0x00000516      0x8e3 Drivers/rtc2.o
- .debug_line    0x00000df9      0xa8b main.o
+ .debug_line    0x00000df9      0xa89 main.o
 
 .debug_frame    0x00000000      0x47c
  *(.debug_frame)
