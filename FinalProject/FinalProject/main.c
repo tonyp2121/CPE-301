@@ -62,85 +62,35 @@ const unsigned char img[504] = {
 
 int main(void)
 {
-	DDRD = 0xE0;
-	char PinTracker;
-	nokia_lcd_init();
-	nokia_lcd_clear();
-	DDRD |= 0b10000011;
-	int delayTimeBetweenBeeps = 300;
-	char buf[10] = {0};
-	char ButtonBTime = 0;
-	char cursorPosition = 0;
-	char cursorBlink = 0;
-	char timeMinutes = 0;
-	char timeHours = 0;
-	char timeMonth = 1;
+	char PinTracker; // used later on to keep track of pins so we dont turn anything on or off
+	nokia_lcd_init(); // start up the lcd
+	nokia_lcd_clear(); // clear the lcd
+	DDRD |= 0b10000011; // set the DDRD so the pins can be used for the buzzer and the 
+	char buf[10] = {0}; // buffer for writing characters to for itoa.
+	char ButtonBTime = 0; // how long button B was held down
+	char cursorPosition = 0; // where the user is when inputting code
+	char timeMinutes = 0; // used for when the user inputs it in the next section
+	char timeHours = 0;   
+	char timeMonth = 1;   // the month, year, and day arent being used but need to be put in the clock for writing to it.
 	char timeDay = 1;
 	char timeYear = 2017;
-	char slash = 0x5C;
-	char alarmHours = 25;
+	char slash = 0x5C;   // this is here because I couldnt type / in text without it thinking I was talking about something 
+						 // else and saying I was missing something so here it is in the hex code
+	char alarmHours = 25; // it has to be at an area that is unreachable because its not initially set
 	char alarmMinutes = 61;
-	temp_setup();
-	int avgtemp=0;
+	temp_setup(); // set up the temperature sensor
+	int avgtemp=0; // keep these variables for comparison lator
 	int avghumid=0;
 	int thumid=0;
 	int ttemper=0;
 	int n=0;
-	int dht11_dat[5];
+	int dht11_dat[5]; // where the data is stored from reading from the sensor
 	int dht11_in;
 	int i;
 	rtc2_init();
 
-	RTC2_VALUE->seconds = 1;
-	RTC2_VALUE->minutes = 31;
-	RTC2_VALUE->hours = 13;
-	RTC2_VALUE->date = 3;
-	RTC2_VALUE->month = 31;
-	RTC2_VALUE->year = 2017;
-	RTC2_VALUE->format = RTC2_FORMAT_24;
+	RTC2_VALUE->format = RTC2_FORMAT_24; // prompt the user to input the time.
 	rtc2_preset(RTC2_VALUE);
-	/* // code to implement knowing what day it is but when uploaded to the clock it produced errors, since it was an extra feature we cut it out of the final design
-	nokia_lcd_clear();
-	nokia_lcd_set_cursor(10,20);
-	nokia_lcd_write_string("Please Enter",1);
-	nokia_lcd_set_cursor(17,28);
-	nokia_lcd_write_string("The Date.",1);
-	nokia_lcd_render();
-	nokia_lcd_clear();
-	_delay_ms(2000);
-	cursorPosition = 0;
-	timeYear = 17;
-
-	while(1){
-		if(cursorPosition == 3){break;}
-		if(cursorPosition == 0){ nokia_lcd_set_cursor(0,2); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(8,2); nokia_lcd_write_char(slash,2);}
-		if(cursorPosition == 1){ nokia_lcd_set_cursor(32,2); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(40,2); nokia_lcd_write_char(slash,2);}
-		if(cursorPosition == 2){ nokia_lcd_set_cursor(65,2); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(73,2); nokia_lcd_write_char(slash,2);}
-		nokia_lcd_set_cursor(0,16);
-		if(timeMonth < 10) {nokia_lcd_write_string("0",2);}
-		nokia_lcd_write_string(itoa(timeMonth,buf,10), 2);
-		//nokia_lcd_write_string("|",2);
-		nokia_lcd_set_cursor(32,16);
-		if(timeDay < 10) {nokia_lcd_write_string("0",2);}
-		nokia_lcd_write_string(itoa(timeDay,buf,10), 2);
-		nokia_lcd_set_cursor(63,16);
-		nokia_lcd_write_string(itoa((timeYear),buf,10), 2);
-		nokia_lcd_set_cursor(2,35);
-		nokia_lcd_write_string("M  D  Y",2);
-		nokia_lcd_render();
-		if ((PIND & 0x01) && (cursorPosition == 0)){timeMonth++; _delay_ms(200);}
-		else if ((PIND & 0x01) && (cursorPosition == 1)){timeDay++; _delay_ms(200);}
-		else if ((PIND & 0x01) && (cursorPosition == 2)){timeYear++; _delay_ms(200);}
-		if (PIND & 0x02){cursorPosition++; _delay_ms(200);}
-		nokia_lcd_clear();
-		if (timeDay > 31){timeDay = 1;}
-		if (timeDay > 30 && (timeMonth == 4 || timeMonth == 6 || timeMonth == 8 || timeMonth == 10)){timeDay = 1;}
-		if (timeDay > 28 && timeMonth == 2 && (timeMonth%4!=0)){timeDay = 1;}
-		if (timeDay > 29 && timeMonth == 2 && (timeMonth%4==0)){timeDay = 1;}
-		if (timeMonth > 12){timeMonth = 1;}
-		if (timeYear > 30){ timeYear = 10;}
-	}
-	*/
 	nokia_lcd_clear();
 	nokia_lcd_set_cursor(10,20);
 	nokia_lcd_write_string("Please Enter",1);
@@ -152,47 +102,40 @@ int main(void)
 	cursorPosition = 0;
 	int Alarm;
 	while(1){
-			if(cursorPosition == 2){break;}
-			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
+			if(cursorPosition == 2){break;} // when the user is in position 2 that means that theyve entered both the hours and minutes and we can leave this otherwise infinite loop
+			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);} // this is where I use slash
 			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
 			nokia_lcd_set_cursor(5,16);
-			if(timeHours < 10) {nokia_lcd_write_string("0",3);}
+			if(timeHours < 10) {nokia_lcd_write_string("0",3);} // if its less than 10 we want a 0 to be in front of it like 08:04.
 			nokia_lcd_write_string(itoa(timeHours,buf,10), 3);
 			nokia_lcd_write_string(":",3);
-			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);}
+			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);} // same for minutes
 			nokia_lcd_write_string(itoa(timeMinutes,buf,10), 3);
 			nokia_lcd_render();
-			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);} // left button
+			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);} // if they hit the left button
 			else if ((PIND & 0x01) && (cursorPosition == 1)){timeMinutes++; _delay_ms(200);}
-			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // right button
+			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // if they hit the right button
 			nokia_lcd_clear();
-			if (timeMinutes >= 60){timeMinutes = 0;}
+			if (timeMinutes >= 60){timeMinutes = 0;} // then reset it in in case its ever above 60 or 24
 			if (timeHours >= 24){timeHours = 0;}
 	}
 
-	RTC2_VALUE->seconds = 0;
+	RTC2_VALUE->seconds = 0; // we set seconds at 0 then set the minutes as the user entered minutes and hours
 	RTC2_VALUE->minutes = timeMinutes;
-	RTC2_VALUE->hours = timeHours;
-
-
-
+	RTC2_VALUE->hours = timeHours; 
 	RTC2_VALUE->date = timeDay;
 	RTC2_VALUE->month = timeMonth;
 	RTC2_VALUE->year = timeYear ;
 
-	RTC2_VALUE->seconds = 0;
-	RTC2_VALUE->minutes = timeMinutes;
-	RTC2_VALUE->hours = timeHours;
-
-	rtc2_preset(RTC2_VALUE);
+	rtc2_preset(RTC2_VALUE); // then we write to the clock sensor so it uses what we give them from now on
 
 	while(1){
-	drawImage(img);
-	rtc2_update(RTC2_VALUE);
+	drawImage(img); // this calls the draw image function to set the image
+	rtc2_update(RTC2_VALUE); // update the time from the clock.
 	
 	nokia_lcd_set_cursor(6, 6);
-	if(RTC2_VALUE->hours < 10){nokia_lcd_write_string("0",1);}
-	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);
+	if(RTC2_VALUE->hours < 10){nokia_lcd_write_string("0",1);} // if the time is below 10 we want to add a 0 before it so everything fits nice and flush
+	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);  // write the time to the LCD
 	nokia_lcd_write_string(":",1);
 	if(RTC2_VALUE->minutes < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->minutes,buf,10),1);
@@ -200,26 +143,30 @@ int main(void)
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
 	
-	while(PIND & 0x01){
+	// this is for checking the temperature from the sensor
+	
+	PORTC &= ~_BV(DHT11_PIN);    // 1. pull-down i/o pin for 18ms
+	_delay_ms(18);
+	PORTC |= _BV(DHT11_PIN);     // 2. pull-up i/o pin for 40us
+	_delay_us(1);
+	DDRC &= ~_BV(DHT11_PIN);     //let analog port 0 be input port
+	_delay_us(40);
+
+	dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
+	_delay_us(80);
+	dht11_in = PINC & _BV(DHT11_PIN);
+	_delay_us(80);// now ready for data reception
+	for (i=0; i<5; i++)
+	{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
+
+	DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
+	PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
+	int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
+	
+	if(PIND & 0x01){ // if someone is holding down button 1 show the temperature instead of time.
 		nokia_lcd_clear();
 		drawImage(img);
-		PORTC &= ~_BV(DHT11_PIN);    // 1. pull-down i/o pin for 18ms
-		_delay_ms(18);
-		PORTC |= _BV(DHT11_PIN);     // 2. pull-up i/o pin for 40us
-		_delay_us(1);
-		DDRC &= ~_BV(DHT11_PIN);     //let analog port 0 be input port
-		_delay_us(40);
-
-		dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
-		_delay_us(80);
-		dht11_in = PINC & _BV(DHT11_PIN); 
-		_delay_us(80);// now ready for data reception
-		for (i=0; i<5; i++)
-		{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
-
-		DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
-		PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
-		int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
+		
 		nokia_lcd_set_cursor(9, 6);
 		nokia_lcd_write_string(itoa(dht11_dat[2],buf, 10),1);
 		nokia_lcd_write_string("C ",1);
@@ -229,9 +176,9 @@ int main(void)
 		_delay_ms(300);
 		
 	}
-	if (PIND & 0x02){ButtonBTime++;}
+	if (PIND & 0x02){ButtonBTime++;} // if someones holding down the right button add to the counter otherwise set it to 0
 	else{ButtonBTime = 0;}
-	if(ButtonBTime >= 15) // this time might need to be changed
+	if(ButtonBTime >= 15) // if its been held for 15 consecutive cycles have the user input the time
 	{
 			nokia_lcd_clear();
 			nokia_lcd_set_cursor(10,20);
@@ -242,10 +189,10 @@ int main(void)
 			nokia_lcd_clear();
 			_delay_ms(2000);
 			cursorPosition = 0;
-			alarmHours = 0;
-			alarmMinutes = 0;
+			alarmHours = 0;	// set alarm time to be 0 so it starts over
+			alarmMinutes = 0; 
 		while(1){
-			if(cursorPosition == 2){break;}
+			if(cursorPosition == 2){break;} // exact same setup as entering the time just with the Alarm Instead
 			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
 			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
 			nokia_lcd_set_cursor(5,16);
@@ -264,15 +211,14 @@ int main(void)
 		}
 		nokia_lcd_clear();
 		nokia_lcd_set_cursor(10,20);
-		nokia_lcd_write_string("Alarm Set",1);
-		nokia_lcd_set_cursor(4,28);
+		nokia_lcd_write_string("Alarm Set",1); // then we tell the user the alarm is set and exit
 		nokia_lcd_render();
 		_delay_ms(2000);
 		ButtonBTime = 0;
 	}
 	// this is when the alarm must go off.
-	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
-		Alarm = 0;
+	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){ // if its time for the alarm to go off we enter this if statement
+		
 		PinTracker = PORTD; // I save it for later so I can keep the pins and have them go back to what they were originally. 
 		_delay_ms(1000);
 		PORTD ^= 0x80; 
@@ -282,8 +228,7 @@ int main(void)
 		nokia_lcd_write_string("ITS TIME!",1);
 		nokia_lcd_render();
 		while(1){	
-			if(Alarm == 1) {
-				PORTD ^= 0x80; 
+				PORTD ^= 0x80;  // this turns the alarm on and off forever until a button is pressed.
 				_delay_ms(100);
 				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;} 
 				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
@@ -293,25 +238,11 @@ int main(void)
 				_delay_ms(100);
 				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;}
 				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
-				Alarm = 0;}
-			if(Alarm == 0) {
-				PORTD ^= 0x80; 
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				_delay_ms(100);
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				_delay_ms(100);
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				Alarm = 1;
+				Alarm = 0;
 				}
-			
-			if (PIND & 0x01){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-			else if (PIND & 0x02){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-		}
+		
 		_delay_ms(100);
-		alarmHours = 25;
+		alarmHours = 25; // then we say the alarm is done and it will not go off again until it is set again by the user.
 		alarmMinutes = 61;
 	}
 	nokia_lcd_render();
@@ -322,52 +253,32 @@ int main(void)
 
 void drawImage(const unsigned char img[504]){
 	int y = 0;
-	int i = 0;
+	int i = 0; 
 	int counter = 0;
-	while(y != 48){
+	while(y != 48){ // these numbers are limited here because it is a 48 x 84 lcd screen
 		while(i <= 79){
 			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
 			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
 			else {i++;}
-			if(i == 84){break;}
 			counter++;
 
 		}
-		if(i == 84){
-			y++;
-			i = 0;
-			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			counter++;
-		}
-		else{
-			i = 0;
-		y++;}
+		
+		i = 0;
+		y++; // now we move onto the next row
 
 	}
 }

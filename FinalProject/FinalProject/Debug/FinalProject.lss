@@ -3,31 +3,31 @@ FinalProject.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         0000023a  00800100  000016c0  00001754  2**0
+  0 .data         0000023a  00800100  00001318  000013ac  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000016c0  00000000  00000000  00000094  2**1
+  1 .text         00001318  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000204  0080033a  0080033a  0000198e  2**0
+  2 .bss          00000204  0080033a  0080033a  000015e6  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000198e  2**0
+  3 .comment      00000030  00000000  00000000  000015e6  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  000019c0  2**2
+  4 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  00001618  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000178  00000000  00000000  00001a00  2**0
+  5 .debug_aranges 00000178  00000000  00000000  00001658  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00003622  00000000  00000000  00001b78  2**0
+  6 .debug_info   000030f1  00000000  00000000  000017d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000e83  00000000  00000000  0000519a  2**0
+  7 .debug_abbrev 00000e63  00000000  00000000  000048c1  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00001882  00000000  00000000  0000601d  2**0
+  8 .debug_line   00001646  00000000  00000000  00005724  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  0000047c  00000000  00000000  000078a0  2**2
+  9 .debug_frame  00000444  00000000  00000000  00006d6c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000083b  00000000  00000000  00007d1c  2**0
+ 10 .debug_str    00000819  00000000  00000000  000071b0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00002a8b  00000000  00000000  00008557  2**0
+ 11 .debug_loc    000023b6  00000000  00000000  000079c9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000168  00000000  00000000  0000afe2  2**0
+ 12 .debug_ranges 00000168  00000000  00000000  00009d7f  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -104,8 +104,8 @@ Disassembly of section .text:
      254:	13 e0       	ldi	r17, 0x03	; 3
      256:	a0 e0       	ldi	r26, 0x00	; 0
      258:	b1 e0       	ldi	r27, 0x01	; 1
-     25a:	e0 ec       	ldi	r30, 0xC0	; 192
-     25c:	f6 e1       	ldi	r31, 0x16	; 22
+     25a:	e8 e1       	ldi	r30, 0x18	; 24
+     25c:	f3 e1       	ldi	r31, 0x13	; 19
      25e:	02 c0       	rjmp	.+4      	; 0x264 <__do_copy_data+0x10>
      260:	05 90       	lpm	r0, Z+
      262:	0d 92       	st	X+, r0
@@ -126,8 +126,8 @@ Disassembly of section .text:
      274:	ae 33       	cpi	r26, 0x3E	; 62
      276:	b2 07       	cpc	r27, r18
      278:	e1 f7       	brne	.-8      	; 0x272 <.do_clear_bss_loop>
-     27a:	0e 94 a1 06 	call	0xd42	; 0xd42 <main>
-     27e:	0c 94 5e 0b 	jmp	0x16bc	; 0x16bc <_exit>
+     27a:	0e 94 e0 05 	call	0xbc0	; 0xbc0 <main>
+     27e:	0c 94 8a 09 	jmp	0x1314	; 0x1314 <_exit>
 
 00000282 <__bad_interrupt>:
      282:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -392,7 +392,7 @@ void nokia_lcd_write_char(char code, uint8_t scale)
      450:	30 e0       	ldi	r19, 0x00	; 0
      452:	87 2d       	mov	r24, r7
      454:	65 2d       	mov	r22, r5
-     456:	0e 94 1d 0b 	call	0x163a	; 0x163a <__udivmodqi4>
+     456:	0e 94 49 09 	call	0x1292	; 0x1292 <__udivmodqi4>
      45a:	02 c0       	rjmp	.+4      	; 0x460 <__LOCK_REGION_LENGTH__+0x60>
      45c:	35 95       	asr	r19
      45e:	27 95       	ror	r18
@@ -451,7 +451,7 @@ void nokia_lcd_write_char(char code, uint8_t scale)
 			if (pgm_read_byte(&CHARSET[code-32][x/scale]) & (1 << y/scale))
      4ac:	86 2d       	mov	r24, r6
      4ae:	65 2d       	mov	r22, r5
-     4b0:	0e 94 1d 0b 	call	0x163a	; 0x163a <__udivmodqi4>
+     4b0:	0e 94 49 09 	call	0x1292	; 0x1292 <__udivmodqi4>
      4b4:	e5 01       	movw	r28, r10
      4b6:	c8 0f       	add	r28, r24
      4b8:	d1 1d       	adc	r29, r1
@@ -1674,1901 +1674,1330 @@ void rtc2_update(rtc2_datetime ptr){
 }
 
 void drawImage(const unsigned char img[504]){
-     aaa:	2f 92       	push	r2
-     aac:	3f 92       	push	r3
-     aae:	4f 92       	push	r4
-     ab0:	5f 92       	push	r5
-     ab2:	6f 92       	push	r6
-     ab4:	7f 92       	push	r7
-     ab6:	8f 92       	push	r8
-     ab8:	9f 92       	push	r9
-     aba:	af 92       	push	r10
-     abc:	bf 92       	push	r11
-     abe:	cf 92       	push	r12
-     ac0:	df 92       	push	r13
-     ac2:	ef 92       	push	r14
-     ac4:	ff 92       	push	r15
-     ac6:	0f 93       	push	r16
-     ac8:	1f 93       	push	r17
-     aca:	cf 93       	push	r28
-     acc:	df 93       	push	r29
-     ace:	cd b7       	in	r28, 0x3d	; 61
-     ad0:	de b7       	in	r29, 0x3e	; 62
-     ad2:	60 97       	sbiw	r28, 0x10	; 16
-     ad4:	0f b6       	in	r0, 0x3f	; 63
-     ad6:	f8 94       	cli
-     ad8:	de bf       	out	0x3e, r29	; 62
-     ada:	0f be       	out	0x3f, r0	; 63
-     adc:	cd bf       	out	0x3d, r28	; 61
-			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			counter++;
-		}
-		else{
-			i = 0;
-     ade:	31 2c       	mov	r3, r1
-     ae0:	21 e0       	ldi	r18, 0x01	; 1
-     ae2:	30 e0       	ldi	r19, 0x00	; 0
-     ae4:	3b 87       	std	Y+11, r19	; 0x0b
-     ae6:	2a 87       	std	Y+10, r18	; 0x0a
-}
-
-void drawImage(const unsigned char img[504]){
+     aaa:	cf 92       	push	r12
+     aac:	df 92       	push	r13
+     aae:	ef 92       	push	r14
+     ab0:	ff 92       	push	r15
+     ab2:	0f 93       	push	r16
+     ab4:	1f 93       	push	r17
+     ab6:	cf 93       	push	r28
+     ab8:	df 93       	push	r29
+     aba:	6c 01       	movw	r12, r24
+     abc:	00 e0       	ldi	r16, 0x00	; 0
+     abe:	55 c0       	rjmp	.+170    	; 0xb6a <drawImage+0xc0>
+     ac0:	e7 01       	movw	r28, r14
 	int y = 0;
-	int i = 0;
+	int i = 0; 
 	int counter = 0;
-     ae8:	41 2c       	mov	r4, r1
-     aea:	51 2c       	mov	r5, r1
-	}
-}
-
-void drawImage(const unsigned char img[504]){
-	int y = 0;
-	int i = 0;
-     aec:	18 8a       	std	Y+16, r1	; 0x10
-     aee:	20 e0       	ldi	r18, 0x00	; 0
-     af0:	9f 87       	std	Y+15, r25	; 0x0f
-     af2:	8e 87       	std	Y+14, r24	; 0x0e
-     af4:	d3 2c       	mov	r13, r3
-     af6:	b4 c0       	rjmp	.+360    	; 0xc60 <drawImage+0x1b6>
-     af8:	1d 87       	std	Y+13, r17	; 0x0d
-     afa:	0c 87       	std	Y+12, r16	; 0x0c
-	int counter = 0;
-	while(y != 48){
+	while(y != 48){ // these numbers are limited here because it is a 48 x 84 lcd screen
 		while(i <= 79){
 			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
-     afc:	f8 01       	movw	r30, r16
-     afe:	80 81       	ld	r24, Z
-     b00:	88 23       	and	r24, r24
-     b02:	34 f4       	brge	.+12     	; 0xb10 <drawImage+0x66>
-     b04:	41 e0       	ldi	r20, 0x01	; 1
-     b06:	6d 2d       	mov	r22, r13
-     b08:	89 81       	ldd	r24, Y+1	; 0x01
-     b0a:	8c 0d       	add	r24, r12
-     b0c:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     ac2:	88 81       	ld	r24, Y
+     ac4:	88 23       	and	r24, r24
+     ac6:	2c f4       	brge	.+10     	; 0xad2 <drawImage+0x28>
+     ac8:	41 e0       	ldi	r20, 0x01	; 1
+     aca:	60 2f       	mov	r22, r16
+     acc:	81 2f       	mov	r24, r17
+     ace:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b10:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b12:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b14:	80 81       	ld	r24, Z
-     b16:	86 ff       	sbrs	r24, 6
-     b18:	06 c0       	rjmp	.+12     	; 0xb26 <drawImage+0x7c>
-     b1a:	41 e0       	ldi	r20, 0x01	; 1
-     b1c:	6d 2d       	mov	r22, r13
-     b1e:	89 81       	ldd	r24, Y+1	; 0x01
-     b20:	88 0d       	add	r24, r8
-     b22:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     ad2:	88 81       	ld	r24, Y
+     ad4:	86 ff       	sbrs	r24, 6
+     ad6:	06 c0       	rjmp	.+12     	; 0xae4 <drawImage+0x3a>
+     ad8:	41 e0       	ldi	r20, 0x01	; 1
+     ada:	60 2f       	mov	r22, r16
+     adc:	81 e0       	ldi	r24, 0x01	; 1
+     ade:	81 0f       	add	r24, r17
+     ae0:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b26:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b28:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b2a:	80 81       	ld	r24, Z
-     b2c:	85 ff       	sbrs	r24, 5
-     b2e:	06 c0       	rjmp	.+12     	; 0xb3c <drawImage+0x92>
-     b30:	41 e0       	ldi	r20, 0x01	; 1
-     b32:	6d 2d       	mov	r22, r13
-     b34:	89 81       	ldd	r24, Y+1	; 0x01
-     b36:	86 0d       	add	r24, r6
-     b38:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     ae4:	88 81       	ld	r24, Y
+     ae6:	85 ff       	sbrs	r24, 5
+     ae8:	06 c0       	rjmp	.+12     	; 0xaf6 <drawImage+0x4c>
+     aea:	41 e0       	ldi	r20, 0x01	; 1
+     aec:	60 2f       	mov	r22, r16
+     aee:	82 e0       	ldi	r24, 0x02	; 2
+     af0:	81 0f       	add	r24, r17
+     af2:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b3c:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b3e:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b40:	80 81       	ld	r24, Z
-     b42:	84 ff       	sbrs	r24, 4
-     b44:	09 c0       	rjmp	.+18     	; 0xb58 <drawImage+0xae>
-     b46:	41 e0       	ldi	r20, 0x01	; 1
-     b48:	6d 2d       	mov	r22, r13
-     b4a:	89 81       	ldd	r24, Y+1	; 0x01
-     b4c:	82 0d       	add	r24, r2
-     b4e:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-     b52:	c7 01       	movw	r24, r14
-     b54:	04 96       	adiw	r24, 0x04	; 4
-     b56:	02 c0       	rjmp	.+4      	; 0xb5c <drawImage+0xb2>
-     b58:	c7 01       	movw	r24, r14
-     b5a:	04 96       	adiw	r24, 0x04	; 4
+     af6:	88 81       	ld	r24, Y
+     af8:	84 ff       	sbrs	r24, 4
+     afa:	06 c0       	rjmp	.+12     	; 0xb08 <drawImage+0x5e>
+     afc:	41 e0       	ldi	r20, 0x01	; 1
+     afe:	60 2f       	mov	r22, r16
+     b00:	83 e0       	ldi	r24, 0x03	; 3
+     b02:	81 0f       	add	r24, r17
+     b04:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
-     b5c:	84 35       	cpi	r24, 0x54	; 84
-     b5e:	91 05       	cpc	r25, r1
-     b60:	09 f4       	brne	.+2      	; 0xb64 <drawImage+0xba>
-     b62:	ac c0       	rjmp	.+344    	; 0xcbc <drawImage+0x212>
 			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b64:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b66:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b68:	80 81       	ld	r24, Z
-     b6a:	83 ff       	sbrs	r24, 3
-     b6c:	07 c0       	rjmp	.+14     	; 0xb7c <drawImage+0xd2>
-     b6e:	41 e0       	ldi	r20, 0x01	; 1
-     b70:	6d 2d       	mov	r22, r13
-     b72:	89 81       	ldd	r24, Y+1	; 0x01
-     b74:	fc 81       	ldd	r31, Y+4	; 0x04
-     b76:	8f 0f       	add	r24, r31
-     b78:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     b08:	88 81       	ld	r24, Y
+     b0a:	83 ff       	sbrs	r24, 3
+     b0c:	06 c0       	rjmp	.+12     	; 0xb1a <drawImage+0x70>
+     b0e:	41 e0       	ldi	r20, 0x01	; 1
+     b10:	60 2f       	mov	r22, r16
+     b12:	84 e0       	ldi	r24, 0x04	; 4
+     b14:	81 0f       	add	r24, r17
+     b16:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b7c:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b7e:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b80:	80 81       	ld	r24, Z
-     b82:	82 ff       	sbrs	r24, 2
-     b84:	07 c0       	rjmp	.+14     	; 0xb94 <drawImage+0xea>
-     b86:	41 e0       	ldi	r20, 0x01	; 1
-     b88:	6d 2d       	mov	r22, r13
-     b8a:	89 81       	ldd	r24, Y+1	; 0x01
-     b8c:	fe 81       	ldd	r31, Y+6	; 0x06
-     b8e:	8f 0f       	add	r24, r31
-     b90:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     b1a:	88 81       	ld	r24, Y
+     b1c:	82 ff       	sbrs	r24, 2
+     b1e:	06 c0       	rjmp	.+12     	; 0xb2c <drawImage+0x82>
+     b20:	41 e0       	ldi	r20, 0x01	; 1
+     b22:	60 2f       	mov	r22, r16
+     b24:	85 e0       	ldi	r24, 0x05	; 5
+     b26:	81 0f       	add	r24, r17
+     b28:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
-			if(i == 84){break;}
 			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
-     b94:	ec 85       	ldd	r30, Y+12	; 0x0c
-     b96:	fd 85       	ldd	r31, Y+13	; 0x0d
-     b98:	80 81       	ld	r24, Z
-     b9a:	81 ff       	sbrs	r24, 1
-     b9c:	07 c0       	rjmp	.+14     	; 0xbac <drawImage+0x102>
-     b9e:	41 e0       	ldi	r20, 0x01	; 1
-     ba0:	6d 2d       	mov	r22, r13
-     ba2:	89 81       	ldd	r24, Y+1	; 0x01
-     ba4:	f8 85       	ldd	r31, Y+8	; 0x08
-     ba6:	8f 0f       	add	r24, r31
-     ba8:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     b2c:	88 81       	ld	r24, Y
+     b2e:	81 ff       	sbrs	r24, 1
+     b30:	06 c0       	rjmp	.+12     	; 0xb3e <drawImage+0x94>
+     b32:	41 e0       	ldi	r20, 0x01	; 1
+     b34:	60 2f       	mov	r22, r16
+     b36:	86 e0       	ldi	r24, 0x06	; 6
+     b38:	81 0f       	add	r24, r17
+     b3a:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
 			else {i++;}
 			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
-     bac:	ec 85       	ldd	r30, Y+12	; 0x0c
-     bae:	fd 85       	ldd	r31, Y+13	; 0x0d
-     bb0:	80 81       	ld	r24, Z
-     bb2:	80 ff       	sbrs	r24, 0
-     bb4:	09 c0       	rjmp	.+18     	; 0xbc8 <drawImage+0x11e>
-     bb6:	41 e0       	ldi	r20, 0x01	; 1
-     bb8:	6d 2d       	mov	r22, r13
-     bba:	89 81       	ldd	r24, Y+1	; 0x01
-     bbc:	fa 81       	ldd	r31, Y+2	; 0x02
-     bbe:	8f 0f       	add	r24, r31
-     bc0:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-     bc4:	c5 01       	movw	r24, r10
-     bc6:	01 c0       	rjmp	.+2      	; 0xbca <drawImage+0x120>
-			else {i++;}
-     bc8:	c5 01       	movw	r24, r10
-			if(i == 84){break;}
-     bca:	84 35       	cpi	r24, 0x54	; 84
-     bcc:	91 05       	cpc	r25, r1
-     bce:	09 f4       	brne	.+2      	; 0xbd2 <drawImage+0x128>
-     bd0:	75 c0       	rjmp	.+234    	; 0xcbc <drawImage+0x212>
-			counter++;
-     bd2:	2f ef       	ldi	r18, 0xFF	; 255
-     bd4:	42 1a       	sub	r4, r18
-     bd6:	52 0a       	sbc	r5, r18
-     bd8:	0f 5f       	subi	r16, 0xFF	; 255
-     bda:	1f 4f       	sbci	r17, 0xFF	; 255
-     bdc:	38 e0       	ldi	r19, 0x08	; 8
-     bde:	a3 0e       	add	r10, r19
-     be0:	b1 1c       	adc	r11, r1
-     be2:	e8 e0       	ldi	r30, 0x08	; 8
-     be4:	ee 0e       	add	r14, r30
-     be6:	f1 1c       	adc	r15, r1
-     be8:	f9 81       	ldd	r31, Y+1	; 0x01
-     bea:	f8 5f       	subi	r31, 0xF8	; 248
-     bec:	f9 83       	std	Y+1, r31	; 0x01
+     b3e:	88 81       	ld	r24, Y
+     b40:	80 ff       	sbrs	r24, 0
+     b42:	06 c0       	rjmp	.+12     	; 0xb50 <drawImage+0xa6>
+     b44:	41 e0       	ldi	r20, 0x01	; 1
+     b46:	60 2f       	mov	r22, r16
+     b48:	87 e0       	ldi	r24, 0x07	; 7
+     b4a:	81 0f       	add	r24, r17
+     b4c:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
+     b50:	8f ef       	ldi	r24, 0xFF	; 255
+     b52:	e8 1a       	sub	r14, r24
+     b54:	f8 0a       	sbc	r15, r24
+     b56:	18 5f       	subi	r17, 0xF8	; 248
 void drawImage(const unsigned char img[504]){
 	int y = 0;
-	int i = 0;
+	int i = 0; 
 	int counter = 0;
-	while(y != 48){
+	while(y != 48){ // these numbers are limited here because it is a 48 x 84 lcd screen
 		while(i <= 79){
-     bee:	80 35       	cpi	r24, 0x50	; 80
-     bf0:	91 05       	cpc	r25, r1
-     bf2:	0c f4       	brge	.+2      	; 0xbf6 <drawImage+0x14c>
-     bf4:	81 cf       	rjmp	.-254    	; 0xaf8 <drawImage+0x4e>
-			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			counter++;
-		}
-		else{
-			i = 0;
-     bf6:	18 8a       	std	Y+16, r1	; 0x10
-     bf8:	20 e0       	ldi	r18, 0x00	; 0
-     bfa:	29 c0       	rjmp	.+82     	; 0xc4e <drawImage+0x1a4>
-
-		}
-		if(i == 84){
-			y++;
-			i = 0;
-			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
-     bfc:	41 e0       	ldi	r20, 0x01	; 1
-     bfe:	6a 85       	ldd	r22, Y+10	; 0x0a
-     c00:	80 e0       	ldi	r24, 0x00	; 0
-     c02:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-			else {i++;}
-			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c06:	ea 81       	ldd	r30, Y+2	; 0x02
-     c08:	fb 81       	ldd	r31, Y+3	; 0x03
-     c0a:	80 81       	ld	r24, Z
-     c0c:	82 ff       	sbrs	r24, 2
-     c0e:	05 c0       	rjmp	.+10     	; 0xc1a <drawImage+0x170>
-     c10:	41 e0       	ldi	r20, 0x01	; 1
-     c12:	6a 85       	ldd	r22, Y+10	; 0x0a
-     c14:	81 e0       	ldi	r24, 0x01	; 1
-     c16:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-			else {i++;}
-			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c1a:	ea 81       	ldd	r30, Y+2	; 0x02
-     c1c:	fb 81       	ldd	r31, Y+3	; 0x03
-     c1e:	80 81       	ld	r24, Z
-     c20:	81 ff       	sbrs	r24, 1
-     c22:	05 c0       	rjmp	.+10     	; 0xc2e <drawImage+0x184>
-     c24:	41 e0       	ldi	r20, 0x01	; 1
-     c26:	6a 85       	ldd	r22, Y+10	; 0x0a
-     c28:	82 e0       	ldi	r24, 0x02	; 2
-     c2a:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-			else {i++;}
-			if(img[counter] & 0x01){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c2e:	ea 81       	ldd	r30, Y+2	; 0x02
-     c30:	fb 81       	ldd	r31, Y+3	; 0x03
-     c32:	80 81       	ld	r24, Z
-     c34:	80 ff       	sbrs	r24, 0
-     c36:	05 c0       	rjmp	.+10     	; 0xc42 <drawImage+0x198>
-     c38:	41 e0       	ldi	r20, 0x01	; 1
-     c3a:	6a 85       	ldd	r22, Y+10	; 0x0a
-     c3c:	83 e0       	ldi	r24, 0x03	; 3
-     c3e:	0e 94 bc 01 	call	0x378	; 0x378 <nokia_lcd_set_pixel>
-			else {i++;}
-			counter++;
-     c42:	ff ef       	ldi	r31, 0xFF	; 255
-     c44:	4f 1a       	sub	r4, r31
-     c46:	5f 0a       	sbc	r5, r31
-     c48:	24 e0       	ldi	r18, 0x04	; 4
-     c4a:	28 8b       	std	Y+16, r18	; 0x10
-     c4c:	20 e0       	ldi	r18, 0x00	; 0
-     c4e:	8a 85       	ldd	r24, Y+10	; 0x0a
-     c50:	9b 85       	ldd	r25, Y+11	; 0x0b
-     c52:	01 96       	adiw	r24, 0x01	; 1
-     c54:	9b 87       	std	Y+11, r25	; 0x0b
-     c56:	8a 87       	std	Y+10, r24	; 0x0a
-     c58:	d3 94       	inc	r13
+     b58:	10 35       	cpi	r17, 0x50	; 80
+     b5a:	09 f0       	breq	.+2      	; 0xb5e <drawImage+0xb4>
+     b5c:	b1 cf       	rjmp	.-158    	; 0xac0 <drawImage+0x16>
+     b5e:	0f 5f       	subi	r16, 0xFF	; 255
+     b60:	ea e0       	ldi	r30, 0x0A	; 10
+     b62:	ce 0e       	add	r12, r30
+     b64:	d1 1c       	adc	r13, r1
 
 void drawImage(const unsigned char img[504]){
 	int y = 0;
-	int i = 0;
+	int i = 0; 
 	int counter = 0;
-	while(y != 48){
-     c5a:	90 e3       	ldi	r25, 0x30	; 48
-     c5c:	d9 16       	cp	r13, r25
-     c5e:	c9 f1       	breq	.+114    	; 0xcd2 <drawImage+0x228>
-     c60:	0e 85       	ldd	r16, Y+14	; 0x0e
-     c62:	1f 85       	ldd	r17, Y+15	; 0x0f
-     c64:	04 0d       	add	r16, r4
-     c66:	15 1d       	adc	r17, r5
-     c68:	88 89       	ldd	r24, Y+16	; 0x10
-     c6a:	92 2f       	mov	r25, r18
-     c6c:	5c 01       	movw	r10, r24
-     c6e:	e8 e0       	ldi	r30, 0x08	; 8
-     c70:	ae 0e       	add	r10, r30
-     c72:	b1 1c       	adc	r11, r1
-     c74:	9c 01       	movw	r18, r24
-     c76:	29 5f       	subi	r18, 0xF9	; 249
-     c78:	3f 4f       	sbci	r19, 0xFF	; 255
-     c7a:	3b 83       	std	Y+3, r19	; 0x03
-     c7c:	2a 83       	std	Y+2, r18	; 0x02
+	while(y != 48){ // these numbers are limited here because it is a 48 x 84 lcd screen
+     b66:	00 33       	cpi	r16, 0x30	; 48
+     b68:	19 f0       	breq	.+6      	; 0xb70 <drawImage+0xc6>
 	nokia_lcd_clear();
 	_delay_ms(100);
 	}
 }
 
 void drawImage(const unsigned char img[504]){
-     c7e:	7c 01       	movw	r14, r24
-     c80:	91 2c       	mov	r9, r1
-	while(y != 48){
-		while(i <= 79){
-			if(img[counter] & 0x80){nokia_lcd_set_pixel(i, y, 1); i++;}
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x40){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c82:	fc 01       	movw	r30, r24
-     c84:	31 96       	adiw	r30, 0x01	; 1
-     c86:	fd 87       	std	Y+13, r31	; 0x0d
-     c88:	ec 87       	std	Y+12, r30	; 0x0c
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x20){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c8a:	3c 01       	movw	r6, r24
-     c8c:	f2 e0       	ldi	r31, 0x02	; 2
-     c8e:	6f 0e       	add	r6, r31
-     c90:	71 1c       	adc	r7, r1
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x10){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c92:	1c 01       	movw	r2, r24
-     c94:	23 e0       	ldi	r18, 0x03	; 3
-     c96:	22 0e       	add	r2, r18
-     c98:	31 1c       	adc	r3, r1
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
-     c9a:	fc 01       	movw	r30, r24
-     c9c:	34 96       	adiw	r30, 0x04	; 4
-     c9e:	fd 83       	std	Y+5, r31	; 0x05
-     ca0:	ec 83       	std	Y+4, r30	; 0x04
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x04){nokia_lcd_set_pixel(i, y, 1); i++;}
-     ca2:	9c 01       	movw	r18, r24
-     ca4:	2b 5f       	subi	r18, 0xFB	; 251
-     ca6:	3f 4f       	sbci	r19, 0xFF	; 255
-     ca8:	3f 83       	std	Y+7, r19	; 0x07
-     caa:	2e 83       	std	Y+6, r18	; 0x06
-			else {i++;}
-			if(i == 84){break;}
-			if(img[counter] & 0x02){nokia_lcd_set_pixel(i, y, 1); i++;}
-     cac:	32 96       	adiw	r30, 0x02	; 2
-     cae:	f9 87       	std	Y+9, r31	; 0x09
-     cb0:	e8 87       	std	Y+8, r30	; 0x08
-     cb2:	99 82       	std	Y+1, r9	; 0x01
-     cb4:	c8 2e       	mov	r12, r24
-     cb6:	8c 84       	ldd	r8, Y+12	; 0x0c
-     cb8:	9d 84       	ldd	r9, Y+13	; 0x0d
-     cba:	1e cf       	rjmp	.-452    	; 0xaf8 <drawImage+0x4e>
-
-		}
-		if(i == 84){
-			y++;
-			i = 0;
-			if(img[counter] & 0x08){nokia_lcd_set_pixel(i, y, 1); i++;}
-     cbc:	2e 85       	ldd	r18, Y+14	; 0x0e
-     cbe:	3f 85       	ldd	r19, Y+15	; 0x0f
-     cc0:	24 0d       	add	r18, r4
-     cc2:	35 1d       	adc	r19, r5
-     cc4:	3b 83       	std	Y+3, r19	; 0x03
-     cc6:	2a 83       	std	Y+2, r18	; 0x02
-     cc8:	f9 01       	movw	r30, r18
-     cca:	80 81       	ld	r24, Z
-     ccc:	83 ff       	sbrs	r24, 3
-     cce:	9b cf       	rjmp	.-202    	; 0xc06 <drawImage+0x15c>
-     cd0:	95 cf       	rjmp	.-214    	; 0xbfc <drawImage+0x152>
-		else{
-			i = 0;
-		y++;}
+     b6a:	76 01       	movw	r14, r12
+     b6c:	10 e0       	ldi	r17, 0x00	; 0
+     b6e:	a8 cf       	rjmp	.-176    	; 0xac0 <drawImage+0x16>
+		
+		i = 0;
+		y++; // now we move onto the next row
 
 	}
 }
-     cd2:	60 96       	adiw	r28, 0x10	; 16
-     cd4:	0f b6       	in	r0, 0x3f	; 63
-     cd6:	f8 94       	cli
-     cd8:	de bf       	out	0x3e, r29	; 62
-     cda:	0f be       	out	0x3f, r0	; 63
-     cdc:	cd bf       	out	0x3d, r28	; 61
-     cde:	df 91       	pop	r29
-     ce0:	cf 91       	pop	r28
-     ce2:	1f 91       	pop	r17
-     ce4:	0f 91       	pop	r16
-     ce6:	ff 90       	pop	r15
-     ce8:	ef 90       	pop	r14
-     cea:	df 90       	pop	r13
-     cec:	cf 90       	pop	r12
-     cee:	bf 90       	pop	r11
-     cf0:	af 90       	pop	r10
-     cf2:	9f 90       	pop	r9
-     cf4:	8f 90       	pop	r8
-     cf6:	7f 90       	pop	r7
-     cf8:	6f 90       	pop	r6
-     cfa:	5f 90       	pop	r5
-     cfc:	4f 90       	pop	r4
-     cfe:	3f 90       	pop	r3
-     d00:	2f 90       	pop	r2
-     d02:	08 95       	ret
+     b70:	df 91       	pop	r29
+     b72:	cf 91       	pop	r28
+     b74:	1f 91       	pop	r17
+     b76:	0f 91       	pop	r16
+     b78:	ff 90       	pop	r15
+     b7a:	ef 90       	pop	r14
+     b7c:	df 90       	pop	r13
+     b7e:	cf 90       	pop	r12
+     b80:	08 95       	ret
 
-00000d04 <read_dht11_dat>:
+00000b82 <read_dht11_dat>:
 int read_dht11_dat()
 {
-     d04:	27 e0       	ldi	r18, 0x07	; 7
-     d06:	30 e0       	ldi	r19, 0x00	; 0
+     b82:	27 e0       	ldi	r18, 0x07	; 7
+     b84:	30 e0       	ldi	r19, 0x00	; 0
 	int i = 0;
 	int result=0;
-     d08:	80 e0       	ldi	r24, 0x00	; 0
-     d0a:	90 e0       	ldi	r25, 0x00	; 0
+     b86:	80 e0       	ldi	r24, 0x00	; 0
+     b88:	90 e0       	ldi	r25, 0x00	; 0
 	{
 		while(!(PINC & _BV(DHT11_PIN)));
 		_delay_us(30); // wait  forever until anlog input port 0 is '1'   (NOTICE: PINC reads all the analog input ports
 		//and  _BV(X) is the macro operation which pull up positon 'X'to '1' and the rest positions to '0'. it is equivalent to 1<    delayMicroseconds(30);
 		if(PINC & _BV(DHT11_PIN))  //if analog input port 0 is still '1' after 30 us
 		result |=(1<<(7-i));     //this position is 1
-     d0c:	61 e0       	ldi	r22, 0x01	; 1
-     d0e:	70 e0       	ldi	r23, 0x00	; 0
+     b8a:	61 e0       	ldi	r22, 0x01	; 1
+     b8c:	70 e0       	ldi	r23, 0x00	; 0
 {
 	int i = 0;
 	int result=0;
 	for(i=0; i< 8; i++)
 	{
 		while(!(PINC & _BV(DHT11_PIN)));
-     d10:	30 9b       	sbis	0x06, 0	; 6
-     d12:	fe cf       	rjmp	.-4      	; 0xd10 <read_dht11_dat+0xc>
-     d14:	40 e5       	ldi	r20, 0x50	; 80
-     d16:	4a 95       	dec	r20
-     d18:	f1 f7       	brne	.-4      	; 0xd16 <read_dht11_dat+0x12>
+     b8e:	30 9b       	sbis	0x06, 0	; 6
+     b90:	fe cf       	rjmp	.-4      	; 0xb8e <read_dht11_dat+0xc>
+     b92:	40 e5       	ldi	r20, 0x50	; 80
+     b94:	4a 95       	dec	r20
+     b96:	f1 f7       	brne	.-4      	; 0xb94 <read_dht11_dat+0x12>
 		_delay_us(30); // wait  forever until anlog input port 0 is '1'   (NOTICE: PINC reads all the analog input ports
 		//and  _BV(X) is the macro operation which pull up positon 'X'to '1' and the rest positions to '0'. it is equivalent to 1<    delayMicroseconds(30);
 		if(PINC & _BV(DHT11_PIN))  //if analog input port 0 is still '1' after 30 us
-     d1a:	30 9b       	sbis	0x06, 0	; 6
-     d1c:	09 c0       	rjmp	.+18     	; 0xd30 <read_dht11_dat+0x2c>
+     b98:	30 9b       	sbis	0x06, 0	; 6
+     b9a:	09 c0       	rjmp	.+18     	; 0xbae <read_dht11_dat+0x2c>
 		result |=(1<<(7-i));     //this position is 1
-     d1e:	ab 01       	movw	r20, r22
-     d20:	02 2e       	mov	r0, r18
-     d22:	02 c0       	rjmp	.+4      	; 0xd28 <read_dht11_dat+0x24>
-     d24:	44 0f       	add	r20, r20
-     d26:	55 1f       	adc	r21, r21
-     d28:	0a 94       	dec	r0
-     d2a:	e2 f7       	brpl	.-8      	; 0xd24 <read_dht11_dat+0x20>
-     d2c:	84 2b       	or	r24, r20
-     d2e:	95 2b       	or	r25, r21
+     b9c:	ab 01       	movw	r20, r22
+     b9e:	02 2e       	mov	r0, r18
+     ba0:	02 c0       	rjmp	.+4      	; 0xba6 <read_dht11_dat+0x24>
+     ba2:	44 0f       	add	r20, r20
+     ba4:	55 1f       	adc	r21, r21
+     ba6:	0a 94       	dec	r0
+     ba8:	e2 f7       	brpl	.-8      	; 0xba2 <read_dht11_dat+0x20>
+     baa:	84 2b       	or	r24, r20
+     bac:	95 2b       	or	r25, r21
 		while((PINC & _BV(DHT11_PIN)));  // wait '1' finish
-     d30:	30 99       	sbic	0x06, 0	; 6
-     d32:	fe cf       	rjmp	.-4      	; 0xd30 <read_dht11_dat+0x2c>
-     d34:	21 50       	subi	r18, 0x01	; 1
-     d36:	31 09       	sbc	r19, r1
-     d38:	58 f7       	brcc	.-42     	; 0xd10 <read_dht11_dat+0xc>
+     bae:	30 99       	sbic	0x06, 0	; 6
+     bb0:	fe cf       	rjmp	.-4      	; 0xbae <read_dht11_dat+0x2c>
+     bb2:	21 50       	subi	r18, 0x01	; 1
+     bb4:	31 09       	sbc	r19, r1
+     bb6:	58 f7       	brcc	.-42     	; 0xb8e <read_dht11_dat+0xc>
 	}
 	return result;
 }
-     d3a:	08 95       	ret
+     bb8:	08 95       	ret
 
-00000d3c <temp_setup>:
+00000bba <temp_setup>:
 
 void temp_setup()
 {
 	DDRC |= _BV(DHT11_PIN);   //let analog port 0 be output port
-     d3c:	38 9a       	sbi	0x07, 0	; 7
+     bba:	38 9a       	sbi	0x07, 0	; 7
 	PORTC |= _BV(DHT11_PIN);  //let the initial value of this port be '1'
-     d3e:	40 9a       	sbi	0x08, 0	; 8
-     d40:	08 95       	ret
+     bbc:	40 9a       	sbi	0x08, 0	; 8
+     bbe:	08 95       	ret
 
-00000d42 <main>:
+00000bc0 <main>:
 
 
 
 
 int main(void)
 {
-     d42:	cf 93       	push	r28
-     d44:	df 93       	push	r29
-     d46:	cd b7       	in	r28, 0x3d	; 61
-     d48:	de b7       	in	r29, 0x3e	; 62
-     d4a:	64 97       	sbiw	r28, 0x14	; 20
-     d4c:	0f b6       	in	r0, 0x3f	; 63
-     d4e:	f8 94       	cli
-     d50:	de bf       	out	0x3e, r29	; 62
-     d52:	0f be       	out	0x3f, r0	; 63
-     d54:	cd bf       	out	0x3d, r28	; 61
-	DDRD = 0xE0;
-     d56:	80 ee       	ldi	r24, 0xE0	; 224
-     d58:	8a b9       	out	0x0a, r24	; 10
-	char PinTracker;
-	nokia_lcd_init();
-     d5a:	0e 94 65 01 	call	0x2ca	; 0x2ca <nokia_lcd_init>
-	nokia_lcd_clear();
-     d5e:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
-	DDRD |= 0b10000011;
-     d62:	8a b1       	in	r24, 0x0a	; 10
-     d64:	83 68       	ori	r24, 0x83	; 131
-     d66:	8a b9       	out	0x0a, r24	; 10
-	int delayTimeBetweenBeeps = 300;
-	char buf[10] = {0};
-     d68:	fe 01       	movw	r30, r28
-     d6a:	31 96       	adiw	r30, 0x01	; 1
-     d6c:	8a e0       	ldi	r24, 0x0A	; 10
-     d6e:	df 01       	movw	r26, r30
-     d70:	1d 92       	st	X+, r1
-     d72:	8a 95       	dec	r24
-     d74:	e9 f7       	brne	.-6      	; 0xd70 <main+0x2e>
-	char timeDay = 1;
+     bc0:	cf 93       	push	r28
+     bc2:	df 93       	push	r29
+     bc4:	cd b7       	in	r28, 0x3d	; 61
+     bc6:	de b7       	in	r29, 0x3e	; 62
+     bc8:	64 97       	sbiw	r28, 0x14	; 20
+     bca:	0f b6       	in	r0, 0x3f	; 63
+     bcc:	f8 94       	cli
+     bce:	de bf       	out	0x3e, r29	; 62
+     bd0:	0f be       	out	0x3f, r0	; 63
+     bd2:	cd bf       	out	0x3d, r28	; 61
+	char PinTracker; // used later on to keep track of pins so we dont turn anything on or off
+	nokia_lcd_init(); // start up the lcd
+     bd4:	0e 94 65 01 	call	0x2ca	; 0x2ca <nokia_lcd_init>
+	nokia_lcd_clear(); // clear the lcd
+     bd8:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+	DDRD |= 0b10000011; // set the DDRD so the pins can be used for the buzzer and the 
+     bdc:	8a b1       	in	r24, 0x0a	; 10
+     bde:	83 68       	ori	r24, 0x83	; 131
+     be0:	8a b9       	out	0x0a, r24	; 10
+	char buf[10] = {0}; // buffer for writing characters to for itoa.
+     be2:	fe 01       	movw	r30, r28
+     be4:	31 96       	adiw	r30, 0x01	; 1
+     be6:	8a e0       	ldi	r24, 0x0A	; 10
+     be8:	df 01       	movw	r26, r30
+     bea:	1d 92       	st	X+, r1
+     bec:	8a 95       	dec	r24
+     bee:	e9 f7       	brne	.-6      	; 0xbea <main+0x2a>
 	char timeYear = 2017;
-	char slash = 0x5C;
-	char alarmHours = 25;
+	char slash = 0x5C;   // this is here because I couldnt type / in text without it thinking I was talking about something 
+						 // else and saying I was missing something so here it is in the hex code
+	char alarmHours = 25; // it has to be at an area that is unreachable because its not initially set
 	char alarmMinutes = 61;
-	temp_setup();
-     d76:	0e 94 9e 06 	call	0xd3c	; 0xd3c <temp_setup>
+	temp_setup(); // set up the temperature sensor
+     bf0:	0e 94 dd 05 	call	0xbba	; 0xbba <temp_setup>
 	int ttemper=0;
 	int n=0;
-	int dht11_dat[5];
+	int dht11_dat[5]; // where the data is stored from reading from the sensor
 	int dht11_in;
 	int i;
 	rtc2_init();
-     d7a:	0e 94 fb 02 	call	0x5f6	; 0x5f6 <rtc2_init>
+     bf4:	0e 94 fb 02 	call	0x5f6	; 0x5f6 <rtc2_init>
 
-	RTC2_VALUE->seconds = 1;
-     d7e:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     d82:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     d86:	81 e0       	ldi	r24, 0x01	; 1
-     d88:	80 83       	st	Z, r24
-	RTC2_VALUE->minutes = 31;
-     d8a:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     d8e:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     d92:	8f e1       	ldi	r24, 0x1F	; 31
-     d94:	82 83       	std	Z+2, r24	; 0x02
-	RTC2_VALUE->hours = 13;
-     d96:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     d9a:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     d9e:	9d e0       	ldi	r25, 0x0D	; 13
-     da0:	91 83       	std	Z+1, r25	; 0x01
-	RTC2_VALUE->date = 3;
-     da2:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     da6:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     daa:	93 e0       	ldi	r25, 0x03	; 3
-     dac:	94 83       	std	Z+4, r25	; 0x04
-	RTC2_VALUE->month = 31;
-     dae:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     db2:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     db6:	85 83       	std	Z+5, r24	; 0x05
-	RTC2_VALUE->year = 2017;
-     db8:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     dbc:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     dc0:	81 ee       	ldi	r24, 0xE1	; 225
-     dc2:	86 83       	std	Z+6, r24	; 0x06
-	RTC2_VALUE->format = RTC2_FORMAT_24;
-     dc4:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     dc8:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     dcc:	17 82       	std	Z+7, r1	; 0x07
+	RTC2_VALUE->format = RTC2_FORMAT_24; // prompt the user to input the time.
+     bf8:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     bfc:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     c00:	17 82       	std	Z+7, r1	; 0x07
 	rtc2_preset(RTC2_VALUE);
-     dce:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
-     dd2:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     dd6:	0e 94 5c 04 	call	0x8b8	; 0x8b8 <rtc2_preset>
-		if (timeDay > 29 && timeMonth == 2 && (timeMonth%4==0)){timeDay = 1;}
-		if (timeMonth > 12){timeMonth = 1;}
-		if (timeYear > 30){ timeYear = 10;}
-	}
-	*/
+     c02:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
+     c06:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     c0a:	0e 94 5c 04 	call	0x8b8	; 0x8b8 <rtc2_preset>
 	nokia_lcd_clear();
-     dda:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+     c0e:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 	nokia_lcd_set_cursor(10,20);
-     dde:	64 e1       	ldi	r22, 0x14	; 20
-     de0:	8a e0       	ldi	r24, 0x0A	; 10
-     de2:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     c12:	64 e1       	ldi	r22, 0x14	; 20
+     c14:	8a e0       	ldi	r24, 0x0A	; 10
+     c16:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 	nokia_lcd_write_string("Please Enter",1);
-     de6:	61 e0       	ldi	r22, 0x01	; 1
-     de8:	80 e0       	ldi	r24, 0x00	; 0
-     dea:	91 e0       	ldi	r25, 0x01	; 1
-     dec:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     c1a:	61 e0       	ldi	r22, 0x01	; 1
+     c1c:	80 e0       	ldi	r24, 0x00	; 0
+     c1e:	91 e0       	ldi	r25, 0x01	; 1
+     c20:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_set_cursor(17,28);
-     df0:	6c e1       	ldi	r22, 0x1C	; 28
-     df2:	81 e1       	ldi	r24, 0x11	; 17
-     df4:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     c24:	6c e1       	ldi	r22, 0x1C	; 28
+     c26:	81 e1       	ldi	r24, 0x11	; 17
+     c28:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 	nokia_lcd_write_string("The Time.",1);
-     df8:	61 e0       	ldi	r22, 0x01	; 1
-     dfa:	8d e0       	ldi	r24, 0x0D	; 13
-     dfc:	91 e0       	ldi	r25, 0x01	; 1
-     dfe:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     c2c:	61 e0       	ldi	r22, 0x01	; 1
+     c2e:	8d e0       	ldi	r24, 0x0D	; 13
+     c30:	91 e0       	ldi	r25, 0x01	; 1
+     c32:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_render();
-     e02:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+     c36:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 	nokia_lcd_clear();
-     e06:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+     c3a:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-     e0a:	bf ef       	ldi	r27, 0xFF	; 255
-     e0c:	e3 ed       	ldi	r30, 0xD3	; 211
-     e0e:	f0 e3       	ldi	r31, 0x30	; 48
-     e10:	b1 50       	subi	r27, 0x01	; 1
-     e12:	e0 40       	sbci	r30, 0x00	; 0
-     e14:	f0 40       	sbci	r31, 0x00	; 0
-     e16:	e1 f7       	brne	.-8      	; 0xe10 <main+0xce>
-     e18:	00 c0       	rjmp	.+0      	; 0xe1a <main+0xd8>
-     e1a:	00 00       	nop
-	char buf[10] = {0};
-	char ButtonBTime = 0;
-	char cursorPosition = 0;
-	char cursorBlink = 0;
-	char timeMinutes = 0;
-	char timeHours = 0;
-     e1c:	10 e0       	ldi	r17, 0x00	; 0
-	int delayTimeBetweenBeeps = 300;
-	char buf[10] = {0};
-	char ButtonBTime = 0;
-	char cursorPosition = 0;
-	char cursorBlink = 0;
-	char timeMinutes = 0;
-     e1e:	00 e0       	ldi	r16, 0x00	; 0
+     c3e:	bf ef       	ldi	r27, 0xFF	; 255
+     c40:	e3 ed       	ldi	r30, 0xD3	; 211
+     c42:	f0 e3       	ldi	r31, 0x30	; 48
+     c44:	b1 50       	subi	r27, 0x01	; 1
+     c46:	e0 40       	sbci	r30, 0x00	; 0
+     c48:	f0 40       	sbci	r31, 0x00	; 0
+     c4a:	e1 f7       	brne	.-8      	; 0xc44 <main+0x84>
+     c4c:	00 c0       	rjmp	.+0      	; 0xc4e <main+0x8e>
+     c4e:	00 00       	nop
+	DDRD |= 0b10000011; // set the DDRD so the pins can be used for the buzzer and the 
+	char buf[10] = {0}; // buffer for writing characters to for itoa.
+	char ButtonBTime = 0; // how long button B was held down
+	char cursorPosition = 0; // where the user is when inputting code
+	char timeMinutes = 0; // used for when the user inputs it in the next section
+	char timeHours = 0;   
+     c50:	10 e0       	ldi	r17, 0x00	; 0
+	nokia_lcd_clear(); // clear the lcd
+	DDRD |= 0b10000011; // set the DDRD so the pins can be used for the buzzer and the 
+	char buf[10] = {0}; // buffer for writing characters to for itoa.
+	char ButtonBTime = 0; // how long button B was held down
+	char cursorPosition = 0; // where the user is when inputting code
+	char timeMinutes = 0; // used for when the user inputs it in the next section
+     c52:	00 e0       	ldi	r16, 0x00	; 0
 	nokia_lcd_set_cursor(17,28);
 	nokia_lcd_write_string("The Time.",1);
 	nokia_lcd_render();
 	nokia_lcd_clear();
 	_delay_ms(2000);
 	cursorPosition = 0;
-     e20:	f1 2c       	mov	r15, r1
-     e22:	04 c0       	rjmp	.+8      	; 0xe2c <main+0xea>
+     c54:	f1 2c       	mov	r15, r1
+     c56:	04 c0       	rjmp	.+8      	; 0xc60 <main+0xa0>
 	int Alarm;
 	while(1){
-			if(cursorPosition == 2){break;}
-     e24:	22 e0       	ldi	r18, 0x02	; 2
-     e26:	f2 16       	cp	r15, r18
-     e28:	09 f4       	brne	.+2      	; 0xe2c <main+0xea>
-     e2a:	8b c0       	rjmp	.+278    	; 0xf42 <main+0x200>
-			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
-     e2c:	f1 10       	cpse	r15, r1
-     e2e:	12 c0       	rjmp	.+36     	; 0xe54 <main+0x112>
-     e30:	60 e0       	ldi	r22, 0x00	; 0
-     e32:	8c e0       	ldi	r24, 0x0C	; 12
-     e34:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-     e38:	62 e0       	ldi	r22, 0x02	; 2
-     e3a:	87 e1       	ldi	r24, 0x17	; 23
-     e3c:	91 e0       	ldi	r25, 0x01	; 1
-     e3e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-     e42:	60 e0       	ldi	r22, 0x00	; 0
-     e44:	84 e1       	ldi	r24, 0x14	; 20
-     e46:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-     e4a:	62 e0       	ldi	r22, 0x02	; 2
-     e4c:	8c e5       	ldi	r24, 0x5C	; 92
-     e4e:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
-     e52:	14 c0       	rjmp	.+40     	; 0xe7c <main+0x13a>
+			if(cursorPosition == 2){break;} // when the user is in position 2 that means that theyve entered both the hours and minutes and we can leave this otherwise infinite loop
+     c58:	22 e0       	ldi	r18, 0x02	; 2
+     c5a:	f2 16       	cp	r15, r18
+     c5c:	09 f4       	brne	.+2      	; 0xc60 <main+0xa0>
+     c5e:	8b c0       	rjmp	.+278    	; 0xd76 <main+0x1b6>
+			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);} // this is where I use slash
+     c60:	f1 10       	cpse	r15, r1
+     c62:	12 c0       	rjmp	.+36     	; 0xc88 <main+0xc8>
+     c64:	60 e0       	ldi	r22, 0x00	; 0
+     c66:	8c e0       	ldi	r24, 0x0C	; 12
+     c68:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     c6c:	62 e0       	ldi	r22, 0x02	; 2
+     c6e:	87 e1       	ldi	r24, 0x17	; 23
+     c70:	91 e0       	ldi	r25, 0x01	; 1
+     c72:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     c76:	60 e0       	ldi	r22, 0x00	; 0
+     c78:	84 e1       	ldi	r24, 0x14	; 20
+     c7a:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     c7e:	62 e0       	ldi	r22, 0x02	; 2
+     c80:	8c e5       	ldi	r24, 0x5C	; 92
+     c82:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
+     c86:	14 c0       	rjmp	.+40     	; 0xcb0 <main+0xf0>
 			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
-     e54:	81 e0       	ldi	r24, 0x01	; 1
-     e56:	f8 12       	cpse	r15, r24
-     e58:	11 c0       	rjmp	.+34     	; 0xe7c <main+0x13a>
-     e5a:	60 e0       	ldi	r22, 0x00	; 0
-     e5c:	8a e3       	ldi	r24, 0x3A	; 58
-     e5e:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-     e62:	62 e0       	ldi	r22, 0x02	; 2
-     e64:	87 e1       	ldi	r24, 0x17	; 23
-     e66:	91 e0       	ldi	r25, 0x01	; 1
-     e68:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-     e6c:	60 e0       	ldi	r22, 0x00	; 0
-     e6e:	82 e4       	ldi	r24, 0x42	; 66
-     e70:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-     e74:	62 e0       	ldi	r22, 0x02	; 2
-     e76:	8c e5       	ldi	r24, 0x5C	; 92
-     e78:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
+     c88:	81 e0       	ldi	r24, 0x01	; 1
+     c8a:	f8 12       	cpse	r15, r24
+     c8c:	11 c0       	rjmp	.+34     	; 0xcb0 <main+0xf0>
+     c8e:	60 e0       	ldi	r22, 0x00	; 0
+     c90:	8a e3       	ldi	r24, 0x3A	; 58
+     c92:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     c96:	62 e0       	ldi	r22, 0x02	; 2
+     c98:	87 e1       	ldi	r24, 0x17	; 23
+     c9a:	91 e0       	ldi	r25, 0x01	; 1
+     c9c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     ca0:	60 e0       	ldi	r22, 0x00	; 0
+     ca2:	82 e4       	ldi	r24, 0x42	; 66
+     ca4:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     ca8:	62 e0       	ldi	r22, 0x02	; 2
+     caa:	8c e5       	ldi	r24, 0x5C	; 92
+     cac:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
 			nokia_lcd_set_cursor(5,16);
-     e7c:	60 e1       	ldi	r22, 0x10	; 16
-     e7e:	85 e0       	ldi	r24, 0x05	; 5
-     e80:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-			if(timeHours < 10) {nokia_lcd_write_string("0",3);}
-     e84:	1a 30       	cpi	r17, 0x0A	; 10
-     e86:	28 f4       	brcc	.+10     	; 0xe92 <main+0x150>
-     e88:	63 e0       	ldi	r22, 0x03	; 3
-     e8a:	89 e1       	ldi	r24, 0x19	; 25
-     e8c:	91 e0       	ldi	r25, 0x01	; 1
-     e8e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     cb0:	60 e1       	ldi	r22, 0x10	; 16
+     cb2:	85 e0       	ldi	r24, 0x05	; 5
+     cb4:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+			if(timeHours < 10) {nokia_lcd_write_string("0",3);} // if its less than 10 we want a 0 to be in front of it like 08:04.
+     cb8:	1a 30       	cpi	r17, 0x0A	; 10
+     cba:	28 f4       	brcc	.+10     	; 0xcc6 <main+0x106>
+     cbc:	63 e0       	ldi	r22, 0x03	; 3
+     cbe:	89 e1       	ldi	r24, 0x19	; 25
+     cc0:	91 e0       	ldi	r25, 0x01	; 1
+     cc2:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
     } else if (__radix < 2 || __radix > 36) {
 	*__s = 0;
 	return __s;
     } else {
 	extern char *__itoa_ncheck (int, char *, unsigned char);
 	return __itoa_ncheck (__val, __s, __radix);
-     e92:	4a e0       	ldi	r20, 0x0A	; 10
-     e94:	be 01       	movw	r22, r28
-     e96:	6f 5f       	subi	r22, 0xFF	; 255
-     e98:	7f 4f       	sbci	r23, 0xFF	; 255
-     e9a:	81 2f       	mov	r24, r17
-     e9c:	90 e0       	ldi	r25, 0x00	; 0
-     e9e:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+     cc6:	4a e0       	ldi	r20, 0x0A	; 10
+     cc8:	be 01       	movw	r22, r28
+     cca:	6f 5f       	subi	r22, 0xFF	; 255
+     ccc:	7f 4f       	sbci	r23, 0xFF	; 255
+     cce:	81 2f       	mov	r24, r17
+     cd0:	90 e0       	ldi	r25, 0x00	; 0
+     cd2:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 			nokia_lcd_write_string(itoa(timeHours,buf,10), 3);
-     ea2:	63 e0       	ldi	r22, 0x03	; 3
-     ea4:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     cd6:	63 e0       	ldi	r22, 0x03	; 3
+     cd8:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_write_string(":",3);
-     ea8:	63 e0       	ldi	r22, 0x03	; 3
-     eaa:	8b e1       	ldi	r24, 0x1B	; 27
-     eac:	91 e0       	ldi	r25, 0x01	; 1
-     eae:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);}
-     eb2:	0a 30       	cpi	r16, 0x0A	; 10
-     eb4:	28 f4       	brcc	.+10     	; 0xec0 <main+0x17e>
-     eb6:	63 e0       	ldi	r22, 0x03	; 3
-     eb8:	89 e1       	ldi	r24, 0x19	; 25
-     eba:	91 e0       	ldi	r25, 0x01	; 1
-     ebc:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-     ec0:	4a e0       	ldi	r20, 0x0A	; 10
-     ec2:	be 01       	movw	r22, r28
-     ec4:	6f 5f       	subi	r22, 0xFF	; 255
-     ec6:	7f 4f       	sbci	r23, 0xFF	; 255
-     ec8:	80 2f       	mov	r24, r16
-     eca:	90 e0       	ldi	r25, 0x00	; 0
-     ecc:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+     cdc:	63 e0       	ldi	r22, 0x03	; 3
+     cde:	8b e1       	ldi	r24, 0x1B	; 27
+     ce0:	91 e0       	ldi	r25, 0x01	; 1
+     ce2:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+			if(timeMinutes < 10) {nokia_lcd_write_string("0",3);} // same for minutes
+     ce6:	0a 30       	cpi	r16, 0x0A	; 10
+     ce8:	28 f4       	brcc	.+10     	; 0xcf4 <main+0x134>
+     cea:	63 e0       	ldi	r22, 0x03	; 3
+     cec:	89 e1       	ldi	r24, 0x19	; 25
+     cee:	91 e0       	ldi	r25, 0x01	; 1
+     cf0:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     cf4:	4a e0       	ldi	r20, 0x0A	; 10
+     cf6:	be 01       	movw	r22, r28
+     cf8:	6f 5f       	subi	r22, 0xFF	; 255
+     cfa:	7f 4f       	sbci	r23, 0xFF	; 255
+     cfc:	80 2f       	mov	r24, r16
+     cfe:	90 e0       	ldi	r25, 0x00	; 0
+     d00:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 			nokia_lcd_write_string(itoa(timeMinutes,buf,10), 3);
-     ed0:	63 e0       	ldi	r22, 0x03	; 3
-     ed2:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     d04:	63 e0       	ldi	r22, 0x03	; 3
+     d06:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_render();
-     ed6:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
-			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);} // left button
-     eda:	48 9b       	sbis	0x09, 0	; 9
-     edc:	0d c0       	rjmp	.+26     	; 0xef8 <main+0x1b6>
-     ede:	f1 10       	cpse	r15, r1
-     ee0:	0b c0       	rjmp	.+22     	; 0xef8 <main+0x1b6>
-     ee2:	1f 5f       	subi	r17, 0xFF	; 255
-     ee4:	9f ef       	ldi	r25, 0xFF	; 255
-     ee6:	a1 ee       	ldi	r26, 0xE1	; 225
-     ee8:	b4 e0       	ldi	r27, 0x04	; 4
-     eea:	91 50       	subi	r25, 0x01	; 1
-     eec:	a0 40       	sbci	r26, 0x00	; 0
-     eee:	b0 40       	sbci	r27, 0x00	; 0
-     ef0:	e1 f7       	brne	.-8      	; 0xeea <main+0x1a8>
-     ef2:	00 c0       	rjmp	.+0      	; 0xef4 <main+0x1b2>
-     ef4:	00 00       	nop
-     ef6:	0f c0       	rjmp	.+30     	; 0xf16 <main+0x1d4>
+     d0a:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+			if ((PIND & 0x01) && (cursorPosition == 0)){timeHours++; _delay_ms(200);} // if they hit the left button
+     d0e:	48 9b       	sbis	0x09, 0	; 9
+     d10:	0d c0       	rjmp	.+26     	; 0xd2c <main+0x16c>
+     d12:	f1 10       	cpse	r15, r1
+     d14:	0b c0       	rjmp	.+22     	; 0xd2c <main+0x16c>
+     d16:	1f 5f       	subi	r17, 0xFF	; 255
+     d18:	9f ef       	ldi	r25, 0xFF	; 255
+     d1a:	a1 ee       	ldi	r26, 0xE1	; 225
+     d1c:	b4 e0       	ldi	r27, 0x04	; 4
+     d1e:	91 50       	subi	r25, 0x01	; 1
+     d20:	a0 40       	sbci	r26, 0x00	; 0
+     d22:	b0 40       	sbci	r27, 0x00	; 0
+     d24:	e1 f7       	brne	.-8      	; 0xd1e <main+0x15e>
+     d26:	00 c0       	rjmp	.+0      	; 0xd28 <main+0x168>
+     d28:	00 00       	nop
+     d2a:	0f c0       	rjmp	.+30     	; 0xd4a <main+0x18a>
 			else if ((PIND & 0x01) && (cursorPosition == 1)){timeMinutes++; _delay_ms(200);}
-     ef8:	48 9b       	sbis	0x09, 0	; 9
-     efa:	0d c0       	rjmp	.+26     	; 0xf16 <main+0x1d4>
-     efc:	e1 e0       	ldi	r30, 0x01	; 1
-     efe:	fe 12       	cpse	r15, r30
-     f00:	0a c0       	rjmp	.+20     	; 0xf16 <main+0x1d4>
-     f02:	0f 5f       	subi	r16, 0xFF	; 255
-     f04:	ff ef       	ldi	r31, 0xFF	; 255
-     f06:	21 ee       	ldi	r18, 0xE1	; 225
-     f08:	84 e0       	ldi	r24, 0x04	; 4
-     f0a:	f1 50       	subi	r31, 0x01	; 1
-     f0c:	20 40       	sbci	r18, 0x00	; 0
-     f0e:	80 40       	sbci	r24, 0x00	; 0
-     f10:	e1 f7       	brne	.-8      	; 0xf0a <main+0x1c8>
-     f12:	00 c0       	rjmp	.+0      	; 0xf14 <main+0x1d2>
-     f14:	00 00       	nop
-			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // right button
-     f16:	49 9b       	sbis	0x09, 1	; 9
-     f18:	0a c0       	rjmp	.+20     	; 0xf2e <main+0x1ec>
-     f1a:	f3 94       	inc	r15
-     f1c:	9f ef       	ldi	r25, 0xFF	; 255
-     f1e:	a1 ee       	ldi	r26, 0xE1	; 225
-     f20:	b4 e0       	ldi	r27, 0x04	; 4
-     f22:	91 50       	subi	r25, 0x01	; 1
-     f24:	a0 40       	sbci	r26, 0x00	; 0
-     f26:	b0 40       	sbci	r27, 0x00	; 0
-     f28:	e1 f7       	brne	.-8      	; 0xf22 <main+0x1e0>
-     f2a:	00 c0       	rjmp	.+0      	; 0xf2c <main+0x1ea>
-     f2c:	00 00       	nop
+     d2c:	48 9b       	sbis	0x09, 0	; 9
+     d2e:	0d c0       	rjmp	.+26     	; 0xd4a <main+0x18a>
+     d30:	e1 e0       	ldi	r30, 0x01	; 1
+     d32:	fe 12       	cpse	r15, r30
+     d34:	0a c0       	rjmp	.+20     	; 0xd4a <main+0x18a>
+     d36:	0f 5f       	subi	r16, 0xFF	; 255
+     d38:	ff ef       	ldi	r31, 0xFF	; 255
+     d3a:	21 ee       	ldi	r18, 0xE1	; 225
+     d3c:	84 e0       	ldi	r24, 0x04	; 4
+     d3e:	f1 50       	subi	r31, 0x01	; 1
+     d40:	20 40       	sbci	r18, 0x00	; 0
+     d42:	80 40       	sbci	r24, 0x00	; 0
+     d44:	e1 f7       	brne	.-8      	; 0xd3e <main+0x17e>
+     d46:	00 c0       	rjmp	.+0      	; 0xd48 <main+0x188>
+     d48:	00 00       	nop
+			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // if they hit the right button
+     d4a:	49 9b       	sbis	0x09, 1	; 9
+     d4c:	0a c0       	rjmp	.+20     	; 0xd62 <main+0x1a2>
+     d4e:	f3 94       	inc	r15
+     d50:	9f ef       	ldi	r25, 0xFF	; 255
+     d52:	a1 ee       	ldi	r26, 0xE1	; 225
+     d54:	b4 e0       	ldi	r27, 0x04	; 4
+     d56:	91 50       	subi	r25, 0x01	; 1
+     d58:	a0 40       	sbci	r26, 0x00	; 0
+     d5a:	b0 40       	sbci	r27, 0x00	; 0
+     d5c:	e1 f7       	brne	.-8      	; 0xd56 <main+0x196>
+     d5e:	00 c0       	rjmp	.+0      	; 0xd60 <main+0x1a0>
+     d60:	00 00       	nop
 			nokia_lcd_clear();
-     f2e:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
-			if (timeMinutes >= 60){timeMinutes = 0;}
-     f32:	0c 33       	cpi	r16, 0x3C	; 60
-     f34:	08 f0       	brcs	.+2      	; 0xf38 <main+0x1f6>
-     f36:	00 e0       	ldi	r16, 0x00	; 0
+     d62:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+			if (timeMinutes >= 60){timeMinutes = 0;} // then reset it in in case its ever above 60 or 24
+     d66:	0c 33       	cpi	r16, 0x3C	; 60
+     d68:	08 f0       	brcs	.+2      	; 0xd6c <main+0x1ac>
+     d6a:	00 e0       	ldi	r16, 0x00	; 0
 			if (timeHours >= 24){timeHours = 0;}
-     f38:	18 31       	cpi	r17, 0x18	; 24
-     f3a:	08 f4       	brcc	.+2      	; 0xf3e <main+0x1fc>
-     f3c:	73 cf       	rjmp	.-282    	; 0xe24 <main+0xe2>
-     f3e:	10 e0       	ldi	r17, 0x00	; 0
-     f40:	71 cf       	rjmp	.-286    	; 0xe24 <main+0xe2>
+     d6c:	18 31       	cpi	r17, 0x18	; 24
+     d6e:	08 f4       	brcc	.+2      	; 0xd72 <main+0x1b2>
+     d70:	73 cf       	rjmp	.-282    	; 0xc58 <main+0x98>
+     d72:	10 e0       	ldi	r17, 0x00	; 0
+     d74:	71 cf       	rjmp	.-286    	; 0xc58 <main+0x98>
 	}
 
-	RTC2_VALUE->seconds = 0;
-     f42:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f46:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f4a:	10 82       	st	Z, r1
+	RTC2_VALUE->seconds = 0; // we set seconds at 0 then set the minutes as the user entered minutes and hours
+     d76:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     d7a:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     d7e:	10 82       	st	Z, r1
 	RTC2_VALUE->minutes = timeMinutes;
-     f4c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f50:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f54:	02 83       	std	Z+2, r16	; 0x02
-	RTC2_VALUE->hours = timeHours;
-     f56:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f5a:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f5e:	11 83       	std	Z+1, r17	; 0x01
-
-
-
+     d80:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     d84:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     d88:	02 83       	std	Z+2, r16	; 0x02
+	RTC2_VALUE->hours = timeHours; 
+     d8a:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     d8e:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     d92:	11 83       	std	Z+1, r17	; 0x01
 	RTC2_VALUE->date = timeDay;
-     f60:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f64:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f68:	81 e0       	ldi	r24, 0x01	; 1
-     f6a:	84 83       	std	Z+4, r24	; 0x04
+     d94:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     d98:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     d9c:	81 e0       	ldi	r24, 0x01	; 1
+     d9e:	84 83       	std	Z+4, r24	; 0x04
 	RTC2_VALUE->month = timeMonth;
-     f6c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f70:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f74:	85 83       	std	Z+5, r24	; 0x05
+     da0:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     da4:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     da8:	85 83       	std	Z+5, r24	; 0x05
 	RTC2_VALUE->year = timeYear ;
-     f76:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f7a:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f7e:	81 ee       	ldi	r24, 0xE1	; 225
-     f80:	86 83       	std	Z+6, r24	; 0x06
+     daa:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     dae:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     db2:	81 ee       	ldi	r24, 0xE1	; 225
+     db4:	86 83       	std	Z+6, r24	; 0x06
 
-	RTC2_VALUE->seconds = 0;
-     f82:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f86:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f8a:	10 82       	st	Z, r1
-	RTC2_VALUE->minutes = timeMinutes;
-     f8c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f90:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f94:	02 83       	std	Z+2, r16	; 0x02
-	RTC2_VALUE->hours = timeHours;
-     f96:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     f9a:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     f9e:	11 83       	std	Z+1, r17	; 0x01
-
-	rtc2_preset(RTC2_VALUE);
-     fa0:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
-     fa4:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     fa8:	0e 94 5c 04 	call	0x8b8	; 0x8b8 <rtc2_preset>
-	char timeMonth = 1;
+	rtc2_preset(RTC2_VALUE); // then we write to the clock sensor so it uses what we give them from now on
+     db6:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
+     dba:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     dbe:	0e 94 5c 04 	call	0x8b8	; 0x8b8 <rtc2_preset>
 	char timeDay = 1;
 	char timeYear = 2017;
-	char slash = 0x5C;
-	char alarmHours = 25;
+	char slash = 0x5C;   // this is here because I couldnt type / in text without it thinking I was talking about something 
+						 // else and saying I was missing something so here it is in the hex code
+	char alarmHours = 25; // it has to be at an area that is unreachable because its not initially set
 	char alarmMinutes = 61;
-     fac:	0f 2e       	mov	r0, r31
-     fae:	fd e3       	ldi	r31, 0x3D	; 61
-     fb0:	af 2e       	mov	r10, r31
-     fb2:	f0 2d       	mov	r31, r0
-	char timeHours = 0;
-	char timeMonth = 1;
+     dc2:	0f 2e       	mov	r0, r31
+     dc4:	fd e3       	ldi	r31, 0x3D	; 61
+     dc6:	ef 2e       	mov	r14, r31
+     dc8:	f0 2d       	mov	r31, r0
+	char timeMonth = 1;   // the month, year, and day arent being used but need to be put in the clock for writing to it.
 	char timeDay = 1;
 	char timeYear = 2017;
-	char slash = 0x5C;
-	char alarmHours = 25;
-     fb4:	0f 2e       	mov	r0, r31
-     fb6:	f9 e1       	ldi	r31, 0x19	; 25
-     fb8:	bf 2e       	mov	r11, r31
-     fba:	f0 2d       	mov	r31, r0
-	nokia_lcd_init();
-	nokia_lcd_clear();
-	DDRD |= 0b10000011;
-	int delayTimeBetweenBeeps = 300;
-	char buf[10] = {0};
-	char ButtonBTime = 0;
-     fbc:	91 2c       	mov	r9, r1
-     fbe:	7e 01       	movw	r14, r28
-     fc0:	e5 e1       	ldi	r30, 0x15	; 21
-     fc2:	ee 0e       	add	r14, r30
-     fc4:	f1 1c       	adc	r15, r1
-		_delay_ms(2000);
-		ButtonBTime = 0;
-	}
-	// this is when the alarm must go off.
-	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
-		Alarm = 0;
-     fc6:	51 2c       	mov	r5, r1
-     fc8:	61 2c       	mov	r6, r1
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				_delay_ms(100);
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-				Alarm = 1;
-     fca:	77 24       	eor	r7, r7
-     fcc:	73 94       	inc	r7
-     fce:	81 2c       	mov	r8, r1
-	RTC2_VALUE->hours = timeHours;
+	char slash = 0x5C;   // this is here because I couldnt type / in text without it thinking I was talking about something 
+						 // else and saying I was missing something so here it is in the hex code
+	char alarmHours = 25; // it has to be at an area that is unreachable because its not initially set
+     dca:	0f 2e       	mov	r0, r31
+     dcc:	f9 e1       	ldi	r31, 0x19	; 25
+     dce:	ff 2e       	mov	r15, r31
+     dd0:	f0 2d       	mov	r31, r0
+	char PinTracker; // used later on to keep track of pins so we dont turn anything on or off
+	nokia_lcd_init(); // start up the lcd
+	nokia_lcd_clear(); // clear the lcd
+	DDRD |= 0b10000011; // set the DDRD so the pins can be used for the buzzer and the 
+	char buf[10] = {0}; // buffer for writing characters to for itoa.
+	char ButtonBTime = 0; // how long button B was held down
+     dd2:	b1 2c       	mov	r11, r1
+     dd4:	6e 01       	movw	r12, r28
+     dd6:	e5 e1       	ldi	r30, 0x15	; 21
+     dd8:	ce 0e       	add	r12, r30
+     dda:	d1 1c       	adc	r13, r1
+	RTC2_VALUE->year = timeYear ;
 
-	rtc2_preset(RTC2_VALUE);
+	rtc2_preset(RTC2_VALUE); // then we write to the clock sensor so it uses what we give them from now on
 
 	while(1){
-	drawImage(img);
-     fd0:	82 e4       	ldi	r24, 0x42	; 66
-     fd2:	91 e0       	ldi	r25, 0x01	; 1
-     fd4:	0e 94 55 05 	call	0xaaa	; 0xaaa <drawImage>
-	rtc2_update(RTC2_VALUE);
-     fd8:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
-     fdc:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     fe0:	0e 94 51 05 	call	0xaa2	; 0xaa2 <rtc2_update>
+	drawImage(img); // this calls the draw image function to set the image
+     ddc:	82 e4       	ldi	r24, 0x42	; 66
+     dde:	91 e0       	ldi	r25, 0x01	; 1
+     de0:	0e 94 55 05 	call	0xaaa	; 0xaaa <drawImage>
+	rtc2_update(RTC2_VALUE); // update the time from the clock.
+     de4:	80 91 3c 05 	lds	r24, 0x053C	; 0x80053c <RTC2_VALUE>
+     de8:	90 91 3d 05 	lds	r25, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     dec:	0e 94 51 05 	call	0xaa2	; 0xaa2 <rtc2_update>
 	
 	nokia_lcd_set_cursor(6, 6);
-     fe4:	66 e0       	ldi	r22, 0x06	; 6
-     fe6:	86 e0       	ldi	r24, 0x06	; 6
-     fe8:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-	if(RTC2_VALUE->hours < 10){nokia_lcd_write_string("0",1);}
-     fec:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-     ff0:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-     ff4:	81 81       	ldd	r24, Z+1	; 0x01
-     ff6:	8a 30       	cpi	r24, 0x0A	; 10
-     ff8:	28 f4       	brcc	.+10     	; 0x1004 <main+0x2c2>
-     ffa:	61 e0       	ldi	r22, 0x01	; 1
-     ffc:	89 e1       	ldi	r24, 0x19	; 25
-     ffe:	91 e0       	ldi	r25, 0x01	; 1
-    1000:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);
-    1004:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1008:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    100c:	81 81       	ldd	r24, Z+1	; 0x01
-    100e:	4a e0       	ldi	r20, 0x0A	; 10
-    1010:	be 01       	movw	r22, r28
-    1012:	6f 5f       	subi	r22, 0xFF	; 255
-    1014:	7f 4f       	sbci	r23, 0xFF	; 255
-    1016:	90 e0       	ldi	r25, 0x00	; 0
-    1018:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
-    101c:	61 e0       	ldi	r22, 0x01	; 1
-    101e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     df0:	66 e0       	ldi	r22, 0x06	; 6
+     df2:	86 e0       	ldi	r24, 0x06	; 6
+     df4:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+	if(RTC2_VALUE->hours < 10){nokia_lcd_write_string("0",1);} // if the time is below 10 we want to add a 0 before it so everything fits nice and flush
+     df8:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     dfc:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e00:	81 81       	ldd	r24, Z+1	; 0x01
+     e02:	8a 30       	cpi	r24, 0x0A	; 10
+     e04:	28 f4       	brcc	.+10     	; 0xe10 <main+0x250>
+     e06:	61 e0       	ldi	r22, 0x01	; 1
+     e08:	89 e1       	ldi	r24, 0x19	; 25
+     e0a:	91 e0       	ldi	r25, 0x01	; 1
+     e0c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+	nokia_lcd_write_string(itoa(RTC2_VALUE->hours,buf,10),1);  // write the time to the LCD
+     e10:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     e14:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e18:	81 81       	ldd	r24, Z+1	; 0x01
+     e1a:	4a e0       	ldi	r20, 0x0A	; 10
+     e1c:	be 01       	movw	r22, r28
+     e1e:	6f 5f       	subi	r22, 0xFF	; 255
+     e20:	7f 4f       	sbci	r23, 0xFF	; 255
+     e22:	90 e0       	ldi	r25, 0x00	; 0
+     e24:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
+     e28:	61 e0       	ldi	r22, 0x01	; 1
+     e2a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_write_string(":",1);
-    1022:	61 e0       	ldi	r22, 0x01	; 1
-    1024:	8b e1       	ldi	r24, 0x1B	; 27
-    1026:	91 e0       	ldi	r25, 0x01	; 1
-    1028:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e2e:	61 e0       	ldi	r22, 0x01	; 1
+     e30:	8b e1       	ldi	r24, 0x1B	; 27
+     e32:	91 e0       	ldi	r25, 0x01	; 1
+     e34:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	if(RTC2_VALUE->minutes < 10){nokia_lcd_write_string("0",1);}
-    102c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1030:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    1034:	82 81       	ldd	r24, Z+2	; 0x02
-    1036:	8a 30       	cpi	r24, 0x0A	; 10
-    1038:	28 f4       	brcc	.+10     	; 0x1044 <main+0x302>
-    103a:	61 e0       	ldi	r22, 0x01	; 1
-    103c:	89 e1       	ldi	r24, 0x19	; 25
-    103e:	91 e0       	ldi	r25, 0x01	; 1
-    1040:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e38:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     e3c:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e40:	82 81       	ldd	r24, Z+2	; 0x02
+     e42:	8a 30       	cpi	r24, 0x0A	; 10
+     e44:	28 f4       	brcc	.+10     	; 0xe50 <main+0x290>
+     e46:	61 e0       	ldi	r22, 0x01	; 1
+     e48:	89 e1       	ldi	r24, 0x19	; 25
+     e4a:	91 e0       	ldi	r25, 0x01	; 1
+     e4c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_write_string(itoa(RTC2_VALUE->minutes,buf,10),1);
-    1044:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1048:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    104c:	82 81       	ldd	r24, Z+2	; 0x02
-    104e:	4a e0       	ldi	r20, 0x0A	; 10
-    1050:	be 01       	movw	r22, r28
-    1052:	6f 5f       	subi	r22, 0xFF	; 255
-    1054:	7f 4f       	sbci	r23, 0xFF	; 255
-    1056:	90 e0       	ldi	r25, 0x00	; 0
-    1058:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
-    105c:	61 e0       	ldi	r22, 0x01	; 1
-    105e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e50:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     e54:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e58:	82 81       	ldd	r24, Z+2	; 0x02
+     e5a:	4a e0       	ldi	r20, 0x0A	; 10
+     e5c:	be 01       	movw	r22, r28
+     e5e:	6f 5f       	subi	r22, 0xFF	; 255
+     e60:	7f 4f       	sbci	r23, 0xFF	; 255
+     e62:	90 e0       	ldi	r25, 0x00	; 0
+     e64:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
+     e68:	61 e0       	ldi	r22, 0x01	; 1
+     e6a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_write_string(":",1);
-    1062:	61 e0       	ldi	r22, 0x01	; 1
-    1064:	8b e1       	ldi	r24, 0x1B	; 27
-    1066:	91 e0       	ldi	r25, 0x01	; 1
-    1068:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e6e:	61 e0       	ldi	r22, 0x01	; 1
+     e70:	8b e1       	ldi	r24, 0x1B	; 27
+     e72:	91 e0       	ldi	r25, 0x01	; 1
+     e74:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
-    106c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1070:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    1074:	80 81       	ld	r24, Z
-    1076:	8a 30       	cpi	r24, 0x0A	; 10
-    1078:	28 f4       	brcc	.+10     	; 0x1084 <main+0x342>
-    107a:	61 e0       	ldi	r22, 0x01	; 1
-    107c:	89 e1       	ldi	r24, 0x19	; 25
-    107e:	91 e0       	ldi	r25, 0x01	; 1
-    1080:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e78:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     e7c:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e80:	80 81       	ld	r24, Z
+     e82:	8a 30       	cpi	r24, 0x0A	; 10
+     e84:	28 f4       	brcc	.+10     	; 0xe90 <main+0x2d0>
+     e86:	61 e0       	ldi	r22, 0x01	; 1
+     e88:	89 e1       	ldi	r24, 0x19	; 25
+     e8a:	91 e0       	ldi	r25, 0x01	; 1
+     e8c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
-    1084:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1088:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    108c:	80 81       	ld	r24, Z
-    108e:	4a e0       	ldi	r20, 0x0A	; 10
-    1090:	be 01       	movw	r22, r28
-    1092:	6f 5f       	subi	r22, 0xFF	; 255
-    1094:	7f 4f       	sbci	r23, 0xFF	; 255
-    1096:	90 e0       	ldi	r25, 0x00	; 0
-    1098:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
-    109c:	61 e0       	ldi	r22, 0x01	; 1
-    109e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     e90:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+     e94:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+     e98:	80 81       	ld	r24, Z
+     e9a:	4a e0       	ldi	r20, 0x0A	; 10
+     e9c:	be 01       	movw	r22, r28
+     e9e:	6f 5f       	subi	r22, 0xFF	; 255
+     ea0:	7f 4f       	sbci	r23, 0xFF	; 255
+     ea2:	90 e0       	ldi	r25, 0x00	; 0
+     ea4:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
+     ea8:	61 e0       	ldi	r22, 0x01	; 1
+     eaa:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 	
-	while(PIND & 0x01){
-    10a2:	48 9b       	sbis	0x09, 0	; 9
-    10a4:	62 c0       	rjmp	.+196    	; 0x116a <main+0x428>
+	// this is for checking the temperature from the sensor
+	
+	PORTC &= ~_BV(DHT11_PIN);    // 1. pull-down i/o pin for 18ms
+     eae:	40 98       	cbi	0x08, 0	; 8
+     eb0:	8f e9       	ldi	r24, 0x9F	; 159
+     eb2:	9c e8       	ldi	r25, 0x8C	; 140
+     eb4:	01 97       	sbiw	r24, 0x01	; 1
+     eb6:	f1 f7       	brne	.-4      	; 0xeb4 <main+0x2f4>
+     eb8:	00 c0       	rjmp	.+0      	; 0xeba <main+0x2fa>
+     eba:	00 00       	nop
+	_delay_ms(18);
+	PORTC |= _BV(DHT11_PIN);     // 2. pull-up i/o pin for 40us
+     ebc:	40 9a       	sbi	0x08, 0	; 8
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+     ebe:	92 e0       	ldi	r25, 0x02	; 2
+     ec0:	9a 95       	dec	r25
+     ec2:	f1 f7       	brne	.-4      	; 0xec0 <main+0x300>
+     ec4:	00 c0       	rjmp	.+0      	; 0xec6 <main+0x306>
+	_delay_us(1);
+	DDRC &= ~_BV(DHT11_PIN);     //let analog port 0 be input port
+     ec6:	38 98       	cbi	0x07, 0	; 7
+     ec8:	aa e6       	ldi	r26, 0x6A	; 106
+     eca:	aa 95       	dec	r26
+     ecc:	f1 f7       	brne	.-4      	; 0xeca <main+0x30a>
+     ece:	00 c0       	rjmp	.+0      	; 0xed0 <main+0x310>
+	_delay_us(40);
+
+	dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
+     ed0:	86 b1       	in	r24, 0x06	; 6
+     ed2:	b5 ed       	ldi	r27, 0xD5	; 213
+     ed4:	ba 95       	dec	r27
+     ed6:	f1 f7       	brne	.-4      	; 0xed4 <main+0x314>
+     ed8:	00 00       	nop
+	_delay_us(80);
+	dht11_in = PINC & _BV(DHT11_PIN);
+     eda:	86 b1       	in	r24, 0x06	; 6
+     edc:	e5 ed       	ldi	r30, 0xD5	; 213
+     ede:	ea 95       	dec	r30
+     ee0:	f1 f7       	brne	.-4      	; 0xede <main+0x31e>
+     ee2:	00 00       	nop
+     ee4:	8e 01       	movw	r16, r28
+     ee6:	05 5f       	subi	r16, 0xF5	; 245
+     ee8:	1f 4f       	sbci	r17, 0xFF	; 255
+	_delay_us(80);// now ready for data reception
+	for (i=0; i<5; i++)
+	{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
+     eea:	0e 94 c1 05 	call	0xb82	; 0xb82 <read_dht11_dat>
+     eee:	d8 01       	movw	r26, r16
+     ef0:	8d 93       	st	X+, r24
+     ef2:	9d 93       	st	X+, r25
+     ef4:	8d 01       	movw	r16, r26
+
+	dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
+	_delay_us(80);
+	dht11_in = PINC & _BV(DHT11_PIN);
+	_delay_us(80);// now ready for data reception
+	for (i=0; i<5; i++)
+     ef6:	ca 16       	cp	r12, r26
+     ef8:	db 06       	cpc	r13, r27
+     efa:	b9 f7       	brne	.-18     	; 0xeea <main+0x32a>
+	{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
+
+	DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
+     efc:	38 9a       	sbi	0x07, 0	; 7
+	PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
+     efe:	40 9a       	sbi	0x08, 0	; 8
+	int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
+	
+	if(PIND & 0x01){ // if someone is holding down button 1 show the temperature instead of time.
+     f00:	48 9b       	sbis	0x09, 0	; 9
+     f02:	37 c0       	rjmp	.+110    	; 0xf72 <main+0x3b2>
+	for (i=0; i<5; i++)
+	{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
+
+	DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
+	PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
+	int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
+     f04:	0b 85       	ldd	r16, Y+11	; 0x0b
+     f06:	1c 85       	ldd	r17, Y+12	; 0x0c
+     f08:	8f 84       	ldd	r8, Y+15	; 0x0f
+     f0a:	98 88       	ldd	r9, Y+16	; 0x10
+	
+	if(PIND & 0x01){ // if someone is holding down button 1 show the temperature instead of time.
 		nokia_lcd_clear();
-    10a6:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+     f0c:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 		drawImage(img);
-    10aa:	82 e4       	ldi	r24, 0x42	; 66
-    10ac:	91 e0       	ldi	r25, 0x01	; 1
-    10ae:	0e 94 55 05 	call	0xaaa	; 0xaaa <drawImage>
-		PORTC &= ~_BV(DHT11_PIN);    // 1. pull-down i/o pin for 18ms
-    10b2:	40 98       	cbi	0x08, 0	; 8
-    10b4:	8f e9       	ldi	r24, 0x9F	; 159
-    10b6:	9c e8       	ldi	r25, 0x8C	; 140
-    10b8:	01 97       	sbiw	r24, 0x01	; 1
-    10ba:	f1 f7       	brne	.-4      	; 0x10b8 <main+0x376>
-    10bc:	00 c0       	rjmp	.+0      	; 0x10be <main+0x37c>
-    10be:	00 00       	nop
-		_delay_ms(18);
-		PORTC |= _BV(DHT11_PIN);     // 2. pull-up i/o pin for 40us
-    10c0:	40 9a       	sbi	0x08, 0	; 8
-	#else
-		//round up by default
-		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
-	#endif
-
-	__builtin_avr_delay_cycles(__ticks_dc);
-    10c2:	92 e0       	ldi	r25, 0x02	; 2
-    10c4:	9a 95       	dec	r25
-    10c6:	f1 f7       	brne	.-4      	; 0x10c4 <main+0x382>
-    10c8:	00 c0       	rjmp	.+0      	; 0x10ca <main+0x388>
-		_delay_us(1);
-		DDRC &= ~_BV(DHT11_PIN);     //let analog port 0 be input port
-    10ca:	38 98       	cbi	0x07, 0	; 7
-    10cc:	aa e6       	ldi	r26, 0x6A	; 106
-    10ce:	aa 95       	dec	r26
-    10d0:	f1 f7       	brne	.-4      	; 0x10ce <main+0x38c>
-    10d2:	00 c0       	rjmp	.+0      	; 0x10d4 <main+0x392>
-		_delay_us(40);
-
-		dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
-    10d4:	86 b1       	in	r24, 0x06	; 6
-    10d6:	b5 ed       	ldi	r27, 0xD5	; 213
-    10d8:	ba 95       	dec	r27
-    10da:	f1 f7       	brne	.-4      	; 0x10d8 <main+0x396>
-    10dc:	00 00       	nop
-		_delay_us(80);
-		dht11_in = PINC & _BV(DHT11_PIN); 
-    10de:	86 b1       	in	r24, 0x06	; 6
-    10e0:	e5 ed       	ldi	r30, 0xD5	; 213
-    10e2:	ea 95       	dec	r30
-    10e4:	f1 f7       	brne	.-4      	; 0x10e2 <main+0x3a0>
-    10e6:	00 00       	nop
-    10e8:	8e 01       	movw	r16, r28
-    10ea:	05 5f       	subi	r16, 0xF5	; 245
-    10ec:	1f 4f       	sbci	r17, 0xFF	; 255
-		_delay_us(80);// now ready for data reception
-		for (i=0; i<5; i++)
-		{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
-    10ee:	0e 94 82 06 	call	0xd04	; 0xd04 <read_dht11_dat>
-    10f2:	d8 01       	movw	r26, r16
-    10f4:	8d 93       	st	X+, r24
-    10f6:	9d 93       	st	X+, r25
-    10f8:	8d 01       	movw	r16, r26
-
-		dht11_in = PINC & _BV(DHT11_PIN);  // read only the input port 0
-		_delay_us(80);
-		dht11_in = PINC & _BV(DHT11_PIN); 
-		_delay_us(80);// now ready for data reception
-		for (i=0; i<5; i++)
-    10fa:	ea 16       	cp	r14, r26
-    10fc:	fb 06       	cpc	r15, r27
-    10fe:	b9 f7       	brne	.-18     	; 0x10ee <main+0x3ac>
-		{  dht11_dat[i] = read_dht11_dat();}  //recieved 40 bits data. Details are described in datasheet
-
-		DDRC |= _BV(DHT11_PIN);      //let analog port 0 be output port after all the data have been received
-    1100:	38 9a       	sbi	0x07, 0	; 7
-		PORTC |= _BV(DHT11_PIN);     //let the  value of this port be '1' after all the data have been received
-    1102:	40 9a       	sbi	0x08, 0	; 8
-		int dht11_check_sum = dht11_dat[0]+dht11_dat[1]+dht11_dat[2]+dht11_dat[3];// check check_sum
-    1104:	0b 85       	ldd	r16, Y+11	; 0x0b
-    1106:	1c 85       	ldd	r17, Y+12	; 0x0c
-    1108:	cf 84       	ldd	r12, Y+15	; 0x0f
-    110a:	d8 88       	ldd	r13, Y+16	; 0x10
+     f10:	82 e4       	ldi	r24, 0x42	; 66
+     f12:	91 e0       	ldi	r25, 0x01	; 1
+     f14:	0e 94 55 05 	call	0xaaa	; 0xaaa <drawImage>
+		
 		nokia_lcd_set_cursor(9, 6);
-    110c:	66 e0       	ldi	r22, 0x06	; 6
-    110e:	89 e0       	ldi	r24, 0x09	; 9
-    1110:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-    1114:	4a e0       	ldi	r20, 0x0A	; 10
-    1116:	be 01       	movw	r22, r28
-    1118:	6f 5f       	subi	r22, 0xFF	; 255
-    111a:	7f 4f       	sbci	r23, 0xFF	; 255
-    111c:	c6 01       	movw	r24, r12
-    111e:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+     f18:	66 e0       	ldi	r22, 0x06	; 6
+     f1a:	89 e0       	ldi	r24, 0x09	; 9
+     f1c:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     f20:	4a e0       	ldi	r20, 0x0A	; 10
+     f22:	be 01       	movw	r22, r28
+     f24:	6f 5f       	subi	r22, 0xFF	; 255
+     f26:	7f 4f       	sbci	r23, 0xFF	; 255
+     f28:	c4 01       	movw	r24, r8
+     f2a:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 		nokia_lcd_write_string(itoa(dht11_dat[2],buf, 10),1);
-    1122:	61 e0       	ldi	r22, 0x01	; 1
-    1124:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f2e:	61 e0       	ldi	r22, 0x01	; 1
+     f30:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 		nokia_lcd_write_string("C ",1);
-    1128:	61 e0       	ldi	r22, 0x01	; 1
-    112a:	8d e1       	ldi	r24, 0x1D	; 29
-    112c:	91 e0       	ldi	r25, 0x01	; 1
-    112e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-    1132:	4a e0       	ldi	r20, 0x0A	; 10
-    1134:	be 01       	movw	r22, r28
-    1136:	6f 5f       	subi	r22, 0xFF	; 255
-    1138:	7f 4f       	sbci	r23, 0xFF	; 255
-    113a:	c8 01       	movw	r24, r16
-    113c:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+     f34:	61 e0       	ldi	r22, 0x01	; 1
+     f36:	8d e1       	ldi	r24, 0x1D	; 29
+     f38:	91 e0       	ldi	r25, 0x01	; 1
+     f3a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f3e:	4a e0       	ldi	r20, 0x0A	; 10
+     f40:	be 01       	movw	r22, r28
+     f42:	6f 5f       	subi	r22, 0xFF	; 255
+     f44:	7f 4f       	sbci	r23, 0xFF	; 255
+     f46:	c8 01       	movw	r24, r16
+     f48:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 		nokia_lcd_write_string(itoa(dht11_dat[0],buf, 10),1);
-    1140:	61 e0       	ldi	r22, 0x01	; 1
-    1142:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f4c:	61 e0       	ldi	r22, 0x01	; 1
+     f4e:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 		nokia_lcd_write_string("%",1);
-    1146:	61 e0       	ldi	r22, 0x01	; 1
-    1148:	80 e2       	ldi	r24, 0x20	; 32
-    114a:	91 e0       	ldi	r25, 0x01	; 1
-    114c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f52:	61 e0       	ldi	r22, 0x01	; 1
+     f54:	80 e2       	ldi	r24, 0x20	; 32
+     f56:	91 e0       	ldi	r25, 0x01	; 1
+     f58:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 		nokia_lcd_render();
-    1150:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+     f5c:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-    1154:	bf ef       	ldi	r27, 0xFF	; 255
-    1156:	e2 e5       	ldi	r30, 0x52	; 82
-    1158:	f7 e0       	ldi	r31, 0x07	; 7
-    115a:	b1 50       	subi	r27, 0x01	; 1
-    115c:	e0 40       	sbci	r30, 0x00	; 0
-    115e:	f0 40       	sbci	r31, 0x00	; 0
-    1160:	e1 f7       	brne	.-8      	; 0x115a <main+0x418>
-    1162:	00 c0       	rjmp	.+0      	; 0x1164 <main+0x422>
-    1164:	00 00       	nop
-	nokia_lcd_write_string(itoa(RTC2_VALUE->minutes,buf,10),1);
-	nokia_lcd_write_string(":",1);
-	if(RTC2_VALUE->seconds < 10){nokia_lcd_write_string("0",1);}
-	nokia_lcd_write_string(itoa(RTC2_VALUE->seconds,buf,10),1);
-	
-	while(PIND & 0x01){
-    1166:	48 99       	sbic	0x09, 0	; 9
-    1168:	9e cf       	rjmp	.-196    	; 0x10a6 <main+0x364>
-		nokia_lcd_write_string("%",1);
-		nokia_lcd_render();
+     f60:	bf ef       	ldi	r27, 0xFF	; 255
+     f62:	e2 e5       	ldi	r30, 0x52	; 82
+     f64:	f7 e0       	ldi	r31, 0x07	; 7
+     f66:	b1 50       	subi	r27, 0x01	; 1
+     f68:	e0 40       	sbci	r30, 0x00	; 0
+     f6a:	f0 40       	sbci	r31, 0x00	; 0
+     f6c:	e1 f7       	brne	.-8      	; 0xf66 <main+0x3a6>
+     f6e:	00 c0       	rjmp	.+0      	; 0xf70 <main+0x3b0>
+     f70:	00 00       	nop
 		_delay_ms(300);
 		
 	}
-	if (PIND & 0x02){ButtonBTime++;}
-    116a:	49 9b       	sbis	0x09, 1	; 9
-    116c:	d6 c0       	rjmp	.+428    	; 0x131a <main+0x5d8>
-    116e:	93 94       	inc	r9
+	if (PIND & 0x02){ButtonBTime++;} // if someones holding down the right button add to the counter otherwise set it to 0
+     f72:	49 9b       	sbis	0x09, 1	; 9
+     f74:	d2 c0       	rjmp	.+420    	; 0x111a <main+0x55a>
+     f76:	b3 94       	inc	r11
 	else{ButtonBTime = 0;}
-	if(ButtonBTime >= 15) // this time might need to be changed
-    1170:	2e e0       	ldi	r18, 0x0E	; 14
-    1172:	29 15       	cp	r18, r9
-    1174:	08 f0       	brcs	.+2      	; 0x1178 <main+0x436>
-    1176:	d2 c0       	rjmp	.+420    	; 0x131c <main+0x5da>
+	if(ButtonBTime >= 15) // if its been held for 15 consecutive cycles have the user input the time
+     f78:	2e e0       	ldi	r18, 0x0E	; 14
+     f7a:	2b 15       	cp	r18, r11
+     f7c:	08 f0       	brcs	.+2      	; 0xf80 <main+0x3c0>
+     f7e:	ce c0       	rjmp	.+412    	; 0x111c <main+0x55c>
 	{
 			nokia_lcd_clear();
-    1178:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+     f80:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 			nokia_lcd_set_cursor(10,20);
-    117c:	64 e1       	ldi	r22, 0x14	; 20
-    117e:	8a e0       	ldi	r24, 0x0A	; 10
-    1180:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     f84:	64 e1       	ldi	r22, 0x14	; 20
+     f86:	8a e0       	ldi	r24, 0x0A	; 10
+     f88:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 			nokia_lcd_write_string("Please Enter",1);
-    1184:	61 e0       	ldi	r22, 0x01	; 1
-    1186:	80 e0       	ldi	r24, 0x00	; 0
-    1188:	91 e0       	ldi	r25, 0x01	; 1
-    118a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f8c:	61 e0       	ldi	r22, 0x01	; 1
+     f8e:	80 e0       	ldi	r24, 0x00	; 0
+     f90:	91 e0       	ldi	r25, 0x01	; 1
+     f92:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_set_cursor(4,28);
-    118e:	6c e1       	ldi	r22, 0x1C	; 28
-    1190:	84 e0       	ldi	r24, 0x04	; 4
-    1192:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     f96:	6c e1       	ldi	r22, 0x1C	; 28
+     f98:	84 e0       	ldi	r24, 0x04	; 4
+     f9a:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 			nokia_lcd_write_string("Alarm Time.",1);
-    1196:	61 e0       	ldi	r22, 0x01	; 1
-    1198:	82 e2       	ldi	r24, 0x22	; 34
-    119a:	91 e0       	ldi	r25, 0x01	; 1
-    119c:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     f9e:	61 e0       	ldi	r22, 0x01	; 1
+     fa0:	82 e2       	ldi	r24, 0x22	; 34
+     fa2:	91 e0       	ldi	r25, 0x01	; 1
+     fa4:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_render();
-    11a0:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+     fa8:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 			nokia_lcd_clear();
-    11a4:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
-    11a8:	8f ef       	ldi	r24, 0xFF	; 255
-    11aa:	93 ed       	ldi	r25, 0xD3	; 211
-    11ac:	a0 e3       	ldi	r26, 0x30	; 48
-    11ae:	81 50       	subi	r24, 0x01	; 1
-    11b0:	90 40       	sbci	r25, 0x00	; 0
-    11b2:	a0 40       	sbci	r26, 0x00	; 0
-    11b4:	e1 f7       	brne	.-8      	; 0x11ae <main+0x46c>
-    11b6:	00 c0       	rjmp	.+0      	; 0x11b8 <main+0x476>
-    11b8:	00 00       	nop
+     fac:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+     fb0:	8f ef       	ldi	r24, 0xFF	; 255
+     fb2:	93 ed       	ldi	r25, 0xD3	; 211
+     fb4:	a0 e3       	ldi	r26, 0x30	; 48
+     fb6:	81 50       	subi	r24, 0x01	; 1
+     fb8:	90 40       	sbci	r25, 0x00	; 0
+     fba:	a0 40       	sbci	r26, 0x00	; 0
+     fbc:	e1 f7       	brne	.-8      	; 0xfb6 <main+0x3f6>
+     fbe:	00 c0       	rjmp	.+0      	; 0xfc0 <main+0x400>
+     fc0:	00 00       	nop
 			_delay_ms(2000);
 			cursorPosition = 0;
-			alarmHours = 0;
-			alarmMinutes = 0;
-    11ba:	a1 2c       	mov	r10, r1
+			alarmHours = 0;	// set alarm time to be 0 so it starts over
+			alarmMinutes = 0; 
+     fc2:	e1 2c       	mov	r14, r1
 			nokia_lcd_write_string("Alarm Time.",1);
 			nokia_lcd_render();
 			nokia_lcd_clear();
 			_delay_ms(2000);
 			cursorPosition = 0;
-			alarmHours = 0;
-    11bc:	b1 2c       	mov	r11, r1
+			alarmHours = 0;	// set alarm time to be 0 so it starts over
+     fc4:	f1 2c       	mov	r15, r1
 			nokia_lcd_set_cursor(4,28);
 			nokia_lcd_write_string("Alarm Time.",1);
 			nokia_lcd_render();
 			nokia_lcd_clear();
 			_delay_ms(2000);
 			cursorPosition = 0;
-    11be:	10 e0       	ldi	r17, 0x00	; 0
-    11c0:	03 c0       	rjmp	.+6      	; 0x11c8 <main+0x486>
-			alarmHours = 0;
-			alarmMinutes = 0;
+     fc6:	10 e0       	ldi	r17, 0x00	; 0
+     fc8:	03 c0       	rjmp	.+6      	; 0xfd0 <main+0x410>
+			alarmHours = 0;	// set alarm time to be 0 so it starts over
+			alarmMinutes = 0; 
 		while(1){
-			if(cursorPosition == 2){break;}
-    11c2:	12 30       	cpi	r17, 0x02	; 2
-    11c4:	09 f4       	brne	.+2      	; 0x11c8 <main+0x486>
-    11c6:	8d c0       	rjmp	.+282    	; 0x12e2 <main+0x5a0>
+			if(cursorPosition == 2){break;} // exact same setup as entering the time just with the Alarm Instead
+     fca:	12 30       	cpi	r17, 0x02	; 2
+     fcc:	09 f4       	brne	.+2      	; 0xfd0 <main+0x410>
+     fce:	8d c0       	rjmp	.+282    	; 0x10ea <main+0x52a>
 			if(cursorPosition == 0){ nokia_lcd_set_cursor(12,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(20,0); nokia_lcd_write_char(slash,2);}
-    11c8:	11 11       	cpse	r17, r1
-    11ca:	12 c0       	rjmp	.+36     	; 0x11f0 <main+0x4ae>
-    11cc:	60 e0       	ldi	r22, 0x00	; 0
-    11ce:	8c e0       	ldi	r24, 0x0C	; 12
-    11d0:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-    11d4:	62 e0       	ldi	r22, 0x02	; 2
-    11d6:	87 e1       	ldi	r24, 0x17	; 23
-    11d8:	91 e0       	ldi	r25, 0x01	; 1
-    11da:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-    11de:	60 e0       	ldi	r22, 0x00	; 0
-    11e0:	84 e1       	ldi	r24, 0x14	; 20
-    11e2:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-    11e6:	62 e0       	ldi	r22, 0x02	; 2
-    11e8:	8c e5       	ldi	r24, 0x5C	; 92
-    11ea:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
-    11ee:	13 c0       	rjmp	.+38     	; 0x1216 <main+0x4d4>
+     fd0:	11 11       	cpse	r17, r1
+     fd2:	12 c0       	rjmp	.+36     	; 0xff8 <main+0x438>
+     fd4:	60 e0       	ldi	r22, 0x00	; 0
+     fd6:	8c e0       	ldi	r24, 0x0C	; 12
+     fd8:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     fdc:	62 e0       	ldi	r22, 0x02	; 2
+     fde:	87 e1       	ldi	r24, 0x17	; 23
+     fe0:	91 e0       	ldi	r25, 0x01	; 1
+     fe2:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+     fe6:	60 e0       	ldi	r22, 0x00	; 0
+     fe8:	84 e1       	ldi	r24, 0x14	; 20
+     fea:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+     fee:	62 e0       	ldi	r22, 0x02	; 2
+     ff0:	8c e5       	ldi	r24, 0x5C	; 92
+     ff2:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
+     ff6:	13 c0       	rjmp	.+38     	; 0x101e <main+0x45e>
 			if(cursorPosition == 1){ nokia_lcd_set_cursor(58,0); nokia_lcd_write_string("/",2);  nokia_lcd_set_cursor(66,0); nokia_lcd_write_char(slash,2);}
-    11f0:	11 30       	cpi	r17, 0x01	; 1
-    11f2:	89 f4       	brne	.+34     	; 0x1216 <main+0x4d4>
-    11f4:	60 e0       	ldi	r22, 0x00	; 0
-    11f6:	8a e3       	ldi	r24, 0x3A	; 58
-    11f8:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-    11fc:	62 e0       	ldi	r22, 0x02	; 2
-    11fe:	87 e1       	ldi	r24, 0x17	; 23
-    1200:	91 e0       	ldi	r25, 0x01	; 1
-    1202:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-    1206:	60 e0       	ldi	r22, 0x00	; 0
-    1208:	82 e4       	ldi	r24, 0x42	; 66
-    120a:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-    120e:	62 e0       	ldi	r22, 0x02	; 2
-    1210:	8c e5       	ldi	r24, 0x5C	; 92
-    1212:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
+     ff8:	11 30       	cpi	r17, 0x01	; 1
+     ffa:	89 f4       	brne	.+34     	; 0x101e <main+0x45e>
+     ffc:	60 e0       	ldi	r22, 0x00	; 0
+     ffe:	8a e3       	ldi	r24, 0x3A	; 58
+    1000:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+    1004:	62 e0       	ldi	r22, 0x02	; 2
+    1006:	87 e1       	ldi	r24, 0x17	; 23
+    1008:	91 e0       	ldi	r25, 0x01	; 1
+    100a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    100e:	60 e0       	ldi	r22, 0x00	; 0
+    1010:	82 e4       	ldi	r24, 0x42	; 66
+    1012:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+    1016:	62 e0       	ldi	r22, 0x02	; 2
+    1018:	8c e5       	ldi	r24, 0x5C	; 92
+    101a:	0e 94 e7 01 	call	0x3ce	; 0x3ce <nokia_lcd_write_char>
 			nokia_lcd_set_cursor(5,16);
-    1216:	60 e1       	ldi	r22, 0x10	; 16
-    1218:	85 e0       	ldi	r24, 0x05	; 5
-    121a:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+    101e:	60 e1       	ldi	r22, 0x10	; 16
+    1020:	85 e0       	ldi	r24, 0x05	; 5
+    1022:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 			if(alarmHours < 10) {nokia_lcd_write_string("0",3);}
-    121e:	b9 e0       	ldi	r27, 0x09	; 9
-    1220:	bb 15       	cp	r27, r11
-    1222:	28 f0       	brcs	.+10     	; 0x122e <main+0x4ec>
-    1224:	63 e0       	ldi	r22, 0x03	; 3
-    1226:	89 e1       	ldi	r24, 0x19	; 25
-    1228:	91 e0       	ldi	r25, 0x01	; 1
-    122a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-    122e:	4a e0       	ldi	r20, 0x0A	; 10
-    1230:	be 01       	movw	r22, r28
-    1232:	6f 5f       	subi	r22, 0xFF	; 255
-    1234:	7f 4f       	sbci	r23, 0xFF	; 255
-    1236:	8b 2d       	mov	r24, r11
-    1238:	90 e0       	ldi	r25, 0x00	; 0
-    123a:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+    1026:	b9 e0       	ldi	r27, 0x09	; 9
+    1028:	bf 15       	cp	r27, r15
+    102a:	28 f0       	brcs	.+10     	; 0x1036 <main+0x476>
+    102c:	63 e0       	ldi	r22, 0x03	; 3
+    102e:	89 e1       	ldi	r24, 0x19	; 25
+    1030:	91 e0       	ldi	r25, 0x01	; 1
+    1032:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    1036:	4a e0       	ldi	r20, 0x0A	; 10
+    1038:	be 01       	movw	r22, r28
+    103a:	6f 5f       	subi	r22, 0xFF	; 255
+    103c:	7f 4f       	sbci	r23, 0xFF	; 255
+    103e:	8f 2d       	mov	r24, r15
+    1040:	90 e0       	ldi	r25, 0x00	; 0
+    1042:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 			nokia_lcd_write_string(itoa(alarmHours,buf,10), 3);
-    123e:	63 e0       	ldi	r22, 0x03	; 3
-    1240:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    1046:	63 e0       	ldi	r22, 0x03	; 3
+    1048:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_write_string(":",3);
-    1244:	63 e0       	ldi	r22, 0x03	; 3
-    1246:	8b e1       	ldi	r24, 0x1B	; 27
-    1248:	91 e0       	ldi	r25, 0x01	; 1
-    124a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    104c:	63 e0       	ldi	r22, 0x03	; 3
+    104e:	8b e1       	ldi	r24, 0x1B	; 27
+    1050:	91 e0       	ldi	r25, 0x01	; 1
+    1052:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			if(alarmMinutes < 10) {nokia_lcd_write_string("0",3);}
-    124e:	e9 e0       	ldi	r30, 0x09	; 9
-    1250:	ea 15       	cp	r30, r10
-    1252:	28 f0       	brcs	.+10     	; 0x125e <main+0x51c>
-    1254:	63 e0       	ldi	r22, 0x03	; 3
-    1256:	89 e1       	ldi	r24, 0x19	; 25
-    1258:	91 e0       	ldi	r25, 0x01	; 1
-    125a:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-    125e:	4a e0       	ldi	r20, 0x0A	; 10
-    1260:	be 01       	movw	r22, r28
-    1262:	6f 5f       	subi	r22, 0xFF	; 255
-    1264:	7f 4f       	sbci	r23, 0xFF	; 255
-    1266:	8a 2d       	mov	r24, r10
-    1268:	90 e0       	ldi	r25, 0x00	; 0
-    126a:	0e 94 29 0b 	call	0x1652	; 0x1652 <__itoa_ncheck>
+    1056:	e9 e0       	ldi	r30, 0x09	; 9
+    1058:	ee 15       	cp	r30, r14
+    105a:	28 f0       	brcs	.+10     	; 0x1066 <main+0x4a6>
+    105c:	63 e0       	ldi	r22, 0x03	; 3
+    105e:	89 e1       	ldi	r24, 0x19	; 25
+    1060:	91 e0       	ldi	r25, 0x01	; 1
+    1062:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    1066:	4a e0       	ldi	r20, 0x0A	; 10
+    1068:	be 01       	movw	r22, r28
+    106a:	6f 5f       	subi	r22, 0xFF	; 255
+    106c:	7f 4f       	sbci	r23, 0xFF	; 255
+    106e:	8e 2d       	mov	r24, r14
+    1070:	90 e0       	ldi	r25, 0x00	; 0
+    1072:	0e 94 55 09 	call	0x12aa	; 0x12aa <__itoa_ncheck>
 			nokia_lcd_write_string(itoa(alarmMinutes,buf,10), 3);
-    126e:	63 e0       	ldi	r22, 0x03	; 3
-    1270:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    1076:	63 e0       	ldi	r22, 0x03	; 3
+    1078:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 			nokia_lcd_render();
-    1274:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+    107c:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 			if ((PIND & 0x01) && (cursorPosition == 0)){alarmHours++; _delay_ms(200);} // left button
-    1278:	48 9b       	sbis	0x09, 0	; 9
-    127a:	0d c0       	rjmp	.+26     	; 0x1296 <main+0x554>
-    127c:	11 11       	cpse	r17, r1
-    127e:	0b c0       	rjmp	.+22     	; 0x1296 <main+0x554>
-    1280:	b3 94       	inc	r11
-    1282:	ff ef       	ldi	r31, 0xFF	; 255
-    1284:	21 ee       	ldi	r18, 0xE1	; 225
-    1286:	84 e0       	ldi	r24, 0x04	; 4
-    1288:	f1 50       	subi	r31, 0x01	; 1
-    128a:	20 40       	sbci	r18, 0x00	; 0
-    128c:	80 40       	sbci	r24, 0x00	; 0
-    128e:	e1 f7       	brne	.-8      	; 0x1288 <main+0x546>
-    1290:	00 c0       	rjmp	.+0      	; 0x1292 <main+0x550>
-    1292:	00 00       	nop
-    1294:	0e c0       	rjmp	.+28     	; 0x12b2 <main+0x570>
+    1080:	48 9b       	sbis	0x09, 0	; 9
+    1082:	0d c0       	rjmp	.+26     	; 0x109e <main+0x4de>
+    1084:	11 11       	cpse	r17, r1
+    1086:	0b c0       	rjmp	.+22     	; 0x109e <main+0x4de>
+    1088:	f3 94       	inc	r15
+    108a:	ff ef       	ldi	r31, 0xFF	; 255
+    108c:	21 ee       	ldi	r18, 0xE1	; 225
+    108e:	84 e0       	ldi	r24, 0x04	; 4
+    1090:	f1 50       	subi	r31, 0x01	; 1
+    1092:	20 40       	sbci	r18, 0x00	; 0
+    1094:	80 40       	sbci	r24, 0x00	; 0
+    1096:	e1 f7       	brne	.-8      	; 0x1090 <main+0x4d0>
+    1098:	00 c0       	rjmp	.+0      	; 0x109a <main+0x4da>
+    109a:	00 00       	nop
+    109c:	0e c0       	rjmp	.+28     	; 0x10ba <main+0x4fa>
 			else if ((PIND & 0x01) && (cursorPosition == 1)){alarmMinutes++; _delay_ms(200);}
-    1296:	48 9b       	sbis	0x09, 0	; 9
-    1298:	0c c0       	rjmp	.+24     	; 0x12b2 <main+0x570>
-    129a:	11 30       	cpi	r17, 0x01	; 1
-    129c:	51 f4       	brne	.+20     	; 0x12b2 <main+0x570>
-    129e:	a3 94       	inc	r10
-    12a0:	9f ef       	ldi	r25, 0xFF	; 255
-    12a2:	a1 ee       	ldi	r26, 0xE1	; 225
-    12a4:	b4 e0       	ldi	r27, 0x04	; 4
-    12a6:	91 50       	subi	r25, 0x01	; 1
-    12a8:	a0 40       	sbci	r26, 0x00	; 0
-    12aa:	b0 40       	sbci	r27, 0x00	; 0
-    12ac:	e1 f7       	brne	.-8      	; 0x12a6 <main+0x564>
-    12ae:	00 c0       	rjmp	.+0      	; 0x12b0 <main+0x56e>
-    12b0:	00 00       	nop
+    109e:	48 9b       	sbis	0x09, 0	; 9
+    10a0:	0c c0       	rjmp	.+24     	; 0x10ba <main+0x4fa>
+    10a2:	11 30       	cpi	r17, 0x01	; 1
+    10a4:	51 f4       	brne	.+20     	; 0x10ba <main+0x4fa>
+    10a6:	e3 94       	inc	r14
+    10a8:	9f ef       	ldi	r25, 0xFF	; 255
+    10aa:	a1 ee       	ldi	r26, 0xE1	; 225
+    10ac:	b4 e0       	ldi	r27, 0x04	; 4
+    10ae:	91 50       	subi	r25, 0x01	; 1
+    10b0:	a0 40       	sbci	r26, 0x00	; 0
+    10b2:	b0 40       	sbci	r27, 0x00	; 0
+    10b4:	e1 f7       	brne	.-8      	; 0x10ae <main+0x4ee>
+    10b6:	00 c0       	rjmp	.+0      	; 0x10b8 <main+0x4f8>
+    10b8:	00 00       	nop
 			if (PIND & 0x02){cursorPosition++; _delay_ms(200);}   // right button
-    12b2:	49 9b       	sbis	0x09, 1	; 9
-    12b4:	0a c0       	rjmp	.+20     	; 0x12ca <main+0x588>
-    12b6:	1f 5f       	subi	r17, 0xFF	; 255
-    12b8:	ef ef       	ldi	r30, 0xFF	; 255
-    12ba:	f1 ee       	ldi	r31, 0xE1	; 225
-    12bc:	24 e0       	ldi	r18, 0x04	; 4
-    12be:	e1 50       	subi	r30, 0x01	; 1
-    12c0:	f0 40       	sbci	r31, 0x00	; 0
-    12c2:	20 40       	sbci	r18, 0x00	; 0
-    12c4:	e1 f7       	brne	.-8      	; 0x12be <main+0x57c>
-    12c6:	00 c0       	rjmp	.+0      	; 0x12c8 <main+0x586>
-    12c8:	00 00       	nop
+    10ba:	49 9b       	sbis	0x09, 1	; 9
+    10bc:	0a c0       	rjmp	.+20     	; 0x10d2 <main+0x512>
+    10be:	1f 5f       	subi	r17, 0xFF	; 255
+    10c0:	ef ef       	ldi	r30, 0xFF	; 255
+    10c2:	f1 ee       	ldi	r31, 0xE1	; 225
+    10c4:	24 e0       	ldi	r18, 0x04	; 4
+    10c6:	e1 50       	subi	r30, 0x01	; 1
+    10c8:	f0 40       	sbci	r31, 0x00	; 0
+    10ca:	20 40       	sbci	r18, 0x00	; 0
+    10cc:	e1 f7       	brne	.-8      	; 0x10c6 <main+0x506>
+    10ce:	00 c0       	rjmp	.+0      	; 0x10d0 <main+0x510>
+    10d0:	00 00       	nop
 			nokia_lcd_clear();
-    12ca:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+    10d2:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 			if (alarmMinutes >= 60){alarmMinutes = 0;}
-    12ce:	8b e3       	ldi	r24, 0x3B	; 59
-    12d0:	8a 15       	cp	r24, r10
-    12d2:	08 f4       	brcc	.+2      	; 0x12d6 <main+0x594>
-    12d4:	a1 2c       	mov	r10, r1
+    10d6:	8b e3       	ldi	r24, 0x3B	; 59
+    10d8:	8e 15       	cp	r24, r14
+    10da:	08 f4       	brcc	.+2      	; 0x10de <main+0x51e>
+    10dc:	e1 2c       	mov	r14, r1
 			if (alarmHours >= 24){alarmHours = 0;}
-    12d6:	97 e1       	ldi	r25, 0x17	; 23
-    12d8:	9b 15       	cp	r25, r11
-    12da:	08 f0       	brcs	.+2      	; 0x12de <main+0x59c>
-    12dc:	72 cf       	rjmp	.-284    	; 0x11c2 <main+0x480>
-    12de:	b1 2c       	mov	r11, r1
-    12e0:	70 cf       	rjmp	.-288    	; 0x11c2 <main+0x480>
+    10de:	97 e1       	ldi	r25, 0x17	; 23
+    10e0:	9f 15       	cp	r25, r15
+    10e2:	08 f0       	brcs	.+2      	; 0x10e6 <main+0x526>
+    10e4:	72 cf       	rjmp	.-284    	; 0xfca <main+0x40a>
+    10e6:	f1 2c       	mov	r15, r1
+    10e8:	70 cf       	rjmp	.-288    	; 0xfca <main+0x40a>
 		}
 		nokia_lcd_clear();
-    12e2:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+    10ea:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 		nokia_lcd_set_cursor(10,20);
-    12e6:	64 e1       	ldi	r22, 0x14	; 20
-    12e8:	8a e0       	ldi	r24, 0x0A	; 10
-    12ea:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
-		nokia_lcd_write_string("Alarm Set",1);
-    12ee:	61 e0       	ldi	r22, 0x01	; 1
-    12f0:	8e e2       	ldi	r24, 0x2E	; 46
-    12f2:	91 e0       	ldi	r25, 0x01	; 1
-    12f4:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
-		nokia_lcd_set_cursor(4,28);
-    12f8:	6c e1       	ldi	r22, 0x1C	; 28
-    12fa:	84 e0       	ldi	r24, 0x04	; 4
-    12fc:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+    10ee:	64 e1       	ldi	r22, 0x14	; 20
+    10f0:	8a e0       	ldi	r24, 0x0A	; 10
+    10f2:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+		nokia_lcd_write_string("Alarm Set",1); // then we tell the user the alarm is set and exit
+    10f6:	61 e0       	ldi	r22, 0x01	; 1
+    10f8:	8e e2       	ldi	r24, 0x2E	; 46
+    10fa:	91 e0       	ldi	r25, 0x01	; 1
+    10fc:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 		nokia_lcd_render();
-    1300:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
-    1304:	af ef       	ldi	r26, 0xFF	; 255
-    1306:	b3 ed       	ldi	r27, 0xD3	; 211
-    1308:	e0 e3       	ldi	r30, 0x30	; 48
-    130a:	a1 50       	subi	r26, 0x01	; 1
-    130c:	b0 40       	sbci	r27, 0x00	; 0
-    130e:	e0 40       	sbci	r30, 0x00	; 0
-    1310:	e1 f7       	brne	.-8      	; 0x130a <main+0x5c8>
-    1312:	00 c0       	rjmp	.+0      	; 0x1314 <main+0x5d2>
-    1314:	00 00       	nop
+    1100:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+    1104:	af ef       	ldi	r26, 0xFF	; 255
+    1106:	b3 ed       	ldi	r27, 0xD3	; 211
+    1108:	e0 e3       	ldi	r30, 0x30	; 48
+    110a:	a1 50       	subi	r26, 0x01	; 1
+    110c:	b0 40       	sbci	r27, 0x00	; 0
+    110e:	e0 40       	sbci	r30, 0x00	; 0
+    1110:	e1 f7       	brne	.-8      	; 0x110a <main+0x54a>
+    1112:	00 c0       	rjmp	.+0      	; 0x1114 <main+0x554>
+    1114:	00 00       	nop
 		_delay_ms(2000);
 		ButtonBTime = 0;
-    1316:	91 2c       	mov	r9, r1
-    1318:	01 c0       	rjmp	.+2      	; 0x131c <main+0x5da>
+    1116:	b1 2c       	mov	r11, r1
+    1118:	01 c0       	rjmp	.+2      	; 0x111c <main+0x55c>
 		nokia_lcd_render();
 		_delay_ms(300);
 		
 	}
-	if (PIND & 0x02){ButtonBTime++;}
+	if (PIND & 0x02){ButtonBTime++;} // if someones holding down the right button add to the counter otherwise set it to 0
 	else{ButtonBTime = 0;}
-    131a:	91 2c       	mov	r9, r1
+    111a:	b1 2c       	mov	r11, r1
 		nokia_lcd_render();
 		_delay_ms(2000);
 		ButtonBTime = 0;
 	}
 	// this is when the alarm must go off.
-	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
-    131c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    1320:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    1324:	81 81       	ldd	r24, Z+1	; 0x01
-    1326:	b8 12       	cpse	r11, r24
-    1328:	7a c1       	rjmp	.+756    	; 0x161e <main+0x8dc>
-    132a:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
-    132e:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
-    1332:	82 81       	ldd	r24, Z+2	; 0x02
-    1334:	a8 12       	cpse	r10, r24
-    1336:	73 c1       	rjmp	.+742    	; 0x161e <main+0x8dc>
-		Alarm = 0;
+	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){ // if its time for the alarm to go off we enter this if statement
+    111c:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+    1120:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+    1124:	81 81       	ldd	r24, Z+1	; 0x01
+    1126:	f8 12       	cpse	r15, r24
+    1128:	a6 c0       	rjmp	.+332    	; 0x1276 <main+0x6b6>
+    112a:	e0 91 3c 05 	lds	r30, 0x053C	; 0x80053c <RTC2_VALUE>
+    112e:	f0 91 3d 05 	lds	r31, 0x053D	; 0x80053d <RTC2_VALUE+0x1>
+    1132:	82 81       	ldd	r24, Z+2	; 0x02
+    1134:	e8 12       	cpse	r14, r24
+    1136:	9f c0       	rjmp	.+318    	; 0x1276 <main+0x6b6>
+		
 		PinTracker = PORTD; // I save it for later so I can keep the pins and have them go back to what they were originally. 
-    1338:	1b b1       	in	r17, 0x0b	; 11
-    133a:	ff ef       	ldi	r31, 0xFF	; 255
-    133c:	29 e6       	ldi	r18, 0x69	; 105
-    133e:	88 e1       	ldi	r24, 0x18	; 24
-    1340:	f1 50       	subi	r31, 0x01	; 1
-    1342:	20 40       	sbci	r18, 0x00	; 0
-    1344:	80 40       	sbci	r24, 0x00	; 0
-    1346:	e1 f7       	brne	.-8      	; 0x1340 <main+0x5fe>
-    1348:	00 c0       	rjmp	.+0      	; 0x134a <main+0x608>
-    134a:	00 00       	nop
+    1138:	1b b1       	in	r17, 0x0b	; 11
+    113a:	ff ef       	ldi	r31, 0xFF	; 255
+    113c:	29 e6       	ldi	r18, 0x69	; 105
+    113e:	88 e1       	ldi	r24, 0x18	; 24
+    1140:	f1 50       	subi	r31, 0x01	; 1
+    1142:	20 40       	sbci	r18, 0x00	; 0
+    1144:	80 40       	sbci	r24, 0x00	; 0
+    1146:	e1 f7       	brne	.-8      	; 0x1140 <main+0x580>
+    1148:	00 c0       	rjmp	.+0      	; 0x114a <main+0x58a>
+    114a:	00 00       	nop
 		_delay_ms(1000);
 		PORTD ^= 0x80; 
-    134c:	8b b1       	in	r24, 0x0b	; 11
-    134e:	80 58       	subi	r24, 0x80	; 128
-    1350:	8b b9       	out	0x0b, r24	; 11
-    1352:	9f ef       	ldi	r25, 0xFF	; 255
-    1354:	a0 e7       	ldi	r26, 0x70	; 112
-    1356:	b2 e0       	ldi	r27, 0x02	; 2
-    1358:	91 50       	subi	r25, 0x01	; 1
-    135a:	a0 40       	sbci	r26, 0x00	; 0
-    135c:	b0 40       	sbci	r27, 0x00	; 0
-    135e:	e1 f7       	brne	.-8      	; 0x1358 <main+0x616>
-    1360:	00 c0       	rjmp	.+0      	; 0x1362 <main+0x620>
-    1362:	00 00       	nop
+    114c:	8b b1       	in	r24, 0x0b	; 11
+    114e:	80 58       	subi	r24, 0x80	; 128
+    1150:	8b b9       	out	0x0b, r24	; 11
+    1152:	9f ef       	ldi	r25, 0xFF	; 255
+    1154:	a0 e7       	ldi	r26, 0x70	; 112
+    1156:	b2 e0       	ldi	r27, 0x02	; 2
+    1158:	91 50       	subi	r25, 0x01	; 1
+    115a:	a0 40       	sbci	r26, 0x00	; 0
+    115c:	b0 40       	sbci	r27, 0x00	; 0
+    115e:	e1 f7       	brne	.-8      	; 0x1158 <main+0x598>
+    1160:	00 c0       	rjmp	.+0      	; 0x1162 <main+0x5a2>
+    1162:	00 00       	nop
 		_delay_ms(100);
 		nokia_lcd_clear();
-    1364:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+    1164:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
 		nokia_lcd_set_cursor(10,20);
-    1368:	64 e1       	ldi	r22, 0x14	; 20
-    136a:	8a e0       	ldi	r24, 0x0A	; 10
-    136c:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
+    1168:	64 e1       	ldi	r22, 0x14	; 20
+    116a:	8a e0       	ldi	r24, 0x0A	; 10
+    116c:	0e 94 a8 02 	call	0x550	; 0x550 <nokia_lcd_set_cursor>
 		nokia_lcd_write_string("ITS TIME!",1);
-    1370:	61 e0       	ldi	r22, 0x01	; 1
-    1372:	88 e3       	ldi	r24, 0x38	; 56
-    1374:	91 e0       	ldi	r25, 0x01	; 1
-    1376:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
+    1170:	61 e0       	ldi	r22, 0x01	; 1
+    1172:	88 e3       	ldi	r24, 0x38	; 56
+    1174:	91 e0       	ldi	r25, 0x01	; 1
+    1176:	0e 94 95 02 	call	0x52a	; 0x52a <nokia_lcd_write_string>
 		nokia_lcd_render();
-    137a:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
-		_delay_ms(2000);
-		ButtonBTime = 0;
-	}
-	// this is when the alarm must go off.
-	if(alarmHours == RTC2_VALUE->hours && alarmMinutes == RTC2_VALUE->minutes){
-		Alarm = 0;
-    137e:	85 2d       	mov	r24, r5
-    1380:	96 2d       	mov	r25, r6
-		nokia_lcd_clear();
-		nokia_lcd_set_cursor(10,20);
-		nokia_lcd_write_string("ITS TIME!",1);
-		nokia_lcd_render();
+    117a:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 		while(1){	
-			if(Alarm == 1) {
-    1382:	81 30       	cpi	r24, 0x01	; 1
-    1384:	91 05       	cpc	r25, r1
-    1386:	09 f0       	breq	.+2      	; 0x138a <main+0x648>
-    1388:	6c c0       	rjmp	.+216    	; 0x1462 <main+0x720>
-				PORTD ^= 0x80; 
-    138a:	8b b1       	in	r24, 0x0b	; 11
-    138c:	80 58       	subi	r24, 0x80	; 128
-    138e:	8b b9       	out	0x0b, r24	; 11
-    1390:	ef ef       	ldi	r30, 0xFF	; 255
-    1392:	f0 e7       	ldi	r31, 0x70	; 112
-    1394:	22 e0       	ldi	r18, 0x02	; 2
-    1396:	e1 50       	subi	r30, 0x01	; 1
-    1398:	f0 40       	sbci	r31, 0x00	; 0
-    139a:	20 40       	sbci	r18, 0x00	; 0
-    139c:	e1 f7       	brne	.-8      	; 0x1396 <main+0x654>
-    139e:	00 c0       	rjmp	.+0      	; 0x13a0 <main+0x65e>
-    13a0:	00 00       	nop
+				PORTD ^= 0x80;  // this turns the alarm on and off forever until a button is pressed.
+    117e:	8b b1       	in	r24, 0x0b	; 11
+    1180:	80 58       	subi	r24, 0x80	; 128
+    1182:	8b b9       	out	0x0b, r24	; 11
+    1184:	ef ef       	ldi	r30, 0xFF	; 255
+    1186:	f0 e7       	ldi	r31, 0x70	; 112
+    1188:	22 e0       	ldi	r18, 0x02	; 2
+    118a:	e1 50       	subi	r30, 0x01	; 1
+    118c:	f0 40       	sbci	r31, 0x00	; 0
+    118e:	20 40       	sbci	r18, 0x00	; 0
+    1190:	e1 f7       	brne	.-8      	; 0x118a <main+0x5ca>
+    1192:	00 c0       	rjmp	.+0      	; 0x1194 <main+0x5d4>
+    1194:	00 00       	nop
 				_delay_ms(100);
 				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;} 
-    13a2:	48 9b       	sbis	0x09, 0	; 9
-    13a4:	0b c0       	rjmp	.+22     	; 0x13bc <main+0x67a>
-    13a6:	8f ef       	ldi	r24, 0xFF	; 255
-    13a8:	90 e7       	ldi	r25, 0x70	; 112
-    13aa:	a2 e0       	ldi	r26, 0x02	; 2
-    13ac:	81 50       	subi	r24, 0x01	; 1
-    13ae:	90 40       	sbci	r25, 0x00	; 0
-    13b0:	a0 40       	sbci	r26, 0x00	; 0
-    13b2:	e1 f7       	brne	.-8      	; 0x13ac <main+0x66a>
-    13b4:	00 c0       	rjmp	.+0      	; 0x13b6 <main+0x674>
-    13b6:	00 00       	nop
-    13b8:	1b b9       	out	0x0b, r17	; 11
-    13ba:	20 c1       	rjmp	.+576    	; 0x15fc <main+0x8ba>
+    1196:	48 9b       	sbis	0x09, 0	; 9
+    1198:	0b c0       	rjmp	.+22     	; 0x11b0 <main+0x5f0>
+    119a:	8f ef       	ldi	r24, 0xFF	; 255
+    119c:	90 e7       	ldi	r25, 0x70	; 112
+    119e:	a2 e0       	ldi	r26, 0x02	; 2
+    11a0:	81 50       	subi	r24, 0x01	; 1
+    11a2:	90 40       	sbci	r25, 0x00	; 0
+    11a4:	a0 40       	sbci	r26, 0x00	; 0
+    11a6:	e1 f7       	brne	.-8      	; 0x11a0 <main+0x5e0>
+    11a8:	00 c0       	rjmp	.+0      	; 0x11aa <main+0x5ea>
+    11aa:	00 00       	nop
+    11ac:	1b b9       	out	0x0b, r17	; 11
+    11ae:	52 c0       	rjmp	.+164    	; 0x1254 <main+0x694>
 				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
-    13bc:	49 9b       	sbis	0x09, 1	; 9
-    13be:	0b c0       	rjmp	.+22     	; 0x13d6 <main+0x694>
-    13c0:	bf ef       	ldi	r27, 0xFF	; 255
-    13c2:	e0 e7       	ldi	r30, 0x70	; 112
-    13c4:	f2 e0       	ldi	r31, 0x02	; 2
-    13c6:	b1 50       	subi	r27, 0x01	; 1
-    13c8:	e0 40       	sbci	r30, 0x00	; 0
-    13ca:	f0 40       	sbci	r31, 0x00	; 0
-    13cc:	e1 f7       	brne	.-8      	; 0x13c6 <main+0x684>
-    13ce:	00 c0       	rjmp	.+0      	; 0x13d0 <main+0x68e>
-    13d0:	00 00       	nop
-    13d2:	1b b9       	out	0x0b, r17	; 11
-    13d4:	13 c1       	rjmp	.+550    	; 0x15fc <main+0x8ba>
-    13d6:	2f ef       	ldi	r18, 0xFF	; 255
-    13d8:	80 e7       	ldi	r24, 0x70	; 112
-    13da:	92 e0       	ldi	r25, 0x02	; 2
-    13dc:	21 50       	subi	r18, 0x01	; 1
-    13de:	80 40       	sbci	r24, 0x00	; 0
-    13e0:	90 40       	sbci	r25, 0x00	; 0
-    13e2:	e1 f7       	brne	.-8      	; 0x13dc <main+0x69a>
-    13e4:	00 c0       	rjmp	.+0      	; 0x13e6 <main+0x6a4>
-    13e6:	00 00       	nop
+    11b0:	49 9b       	sbis	0x09, 1	; 9
+    11b2:	0b c0       	rjmp	.+22     	; 0x11ca <main+0x60a>
+    11b4:	bf ef       	ldi	r27, 0xFF	; 255
+    11b6:	e0 e7       	ldi	r30, 0x70	; 112
+    11b8:	f2 e0       	ldi	r31, 0x02	; 2
+    11ba:	b1 50       	subi	r27, 0x01	; 1
+    11bc:	e0 40       	sbci	r30, 0x00	; 0
+    11be:	f0 40       	sbci	r31, 0x00	; 0
+    11c0:	e1 f7       	brne	.-8      	; 0x11ba <main+0x5fa>
+    11c2:	00 c0       	rjmp	.+0      	; 0x11c4 <main+0x604>
+    11c4:	00 00       	nop
+    11c6:	1b b9       	out	0x0b, r17	; 11
+    11c8:	45 c0       	rjmp	.+138    	; 0x1254 <main+0x694>
+    11ca:	2f ef       	ldi	r18, 0xFF	; 255
+    11cc:	80 e7       	ldi	r24, 0x70	; 112
+    11ce:	92 e0       	ldi	r25, 0x02	; 2
+    11d0:	21 50       	subi	r18, 0x01	; 1
+    11d2:	80 40       	sbci	r24, 0x00	; 0
+    11d4:	90 40       	sbci	r25, 0x00	; 0
+    11d6:	e1 f7       	brne	.-8      	; 0x11d0 <main+0x610>
+    11d8:	00 c0       	rjmp	.+0      	; 0x11da <main+0x61a>
+    11da:	00 00       	nop
 				_delay_ms(100);
 				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;}
-    13e8:	48 9b       	sbis	0x09, 0	; 9
-    13ea:	0b c0       	rjmp	.+22     	; 0x1402 <main+0x6c0>
-    13ec:	af ef       	ldi	r26, 0xFF	; 255
-    13ee:	b0 e7       	ldi	r27, 0x70	; 112
-    13f0:	e2 e0       	ldi	r30, 0x02	; 2
-    13f2:	a1 50       	subi	r26, 0x01	; 1
-    13f4:	b0 40       	sbci	r27, 0x00	; 0
-    13f6:	e0 40       	sbci	r30, 0x00	; 0
-    13f8:	e1 f7       	brne	.-8      	; 0x13f2 <main+0x6b0>
-    13fa:	00 c0       	rjmp	.+0      	; 0x13fc <main+0x6ba>
-    13fc:	00 00       	nop
-    13fe:	1b b9       	out	0x0b, r17	; 11
-    1400:	fd c0       	rjmp	.+506    	; 0x15fc <main+0x8ba>
+    11dc:	48 9b       	sbis	0x09, 0	; 9
+    11de:	0b c0       	rjmp	.+22     	; 0x11f6 <main+0x636>
+    11e0:	af ef       	ldi	r26, 0xFF	; 255
+    11e2:	b0 e7       	ldi	r27, 0x70	; 112
+    11e4:	e2 e0       	ldi	r30, 0x02	; 2
+    11e6:	a1 50       	subi	r26, 0x01	; 1
+    11e8:	b0 40       	sbci	r27, 0x00	; 0
+    11ea:	e0 40       	sbci	r30, 0x00	; 0
+    11ec:	e1 f7       	brne	.-8      	; 0x11e6 <main+0x626>
+    11ee:	00 c0       	rjmp	.+0      	; 0x11f0 <main+0x630>
+    11f0:	00 00       	nop
+    11f2:	1b b9       	out	0x0b, r17	; 11
+    11f4:	2f c0       	rjmp	.+94     	; 0x1254 <main+0x694>
 				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
-    1402:	49 9b       	sbis	0x09, 1	; 9
-    1404:	0b c0       	rjmp	.+22     	; 0x141c <main+0x6da>
-    1406:	ff ef       	ldi	r31, 0xFF	; 255
-    1408:	20 e7       	ldi	r18, 0x70	; 112
-    140a:	82 e0       	ldi	r24, 0x02	; 2
-    140c:	f1 50       	subi	r31, 0x01	; 1
-    140e:	20 40       	sbci	r18, 0x00	; 0
-    1410:	80 40       	sbci	r24, 0x00	; 0
-    1412:	e1 f7       	brne	.-8      	; 0x140c <main+0x6ca>
-    1414:	00 c0       	rjmp	.+0      	; 0x1416 <main+0x6d4>
-    1416:	00 00       	nop
-    1418:	1b b9       	out	0x0b, r17	; 11
-    141a:	f0 c0       	rjmp	.+480    	; 0x15fc <main+0x8ba>
-    141c:	9f ef       	ldi	r25, 0xFF	; 255
-    141e:	a0 e7       	ldi	r26, 0x70	; 112
-    1420:	b2 e0       	ldi	r27, 0x02	; 2
-    1422:	91 50       	subi	r25, 0x01	; 1
-    1424:	a0 40       	sbci	r26, 0x00	; 0
-    1426:	b0 40       	sbci	r27, 0x00	; 0
-    1428:	e1 f7       	brne	.-8      	; 0x1422 <main+0x6e0>
-    142a:	00 c0       	rjmp	.+0      	; 0x142c <main+0x6ea>
-    142c:	00 00       	nop
+    11f6:	49 9b       	sbis	0x09, 1	; 9
+    11f8:	0b c0       	rjmp	.+22     	; 0x1210 <main+0x650>
+    11fa:	ff ef       	ldi	r31, 0xFF	; 255
+    11fc:	20 e7       	ldi	r18, 0x70	; 112
+    11fe:	82 e0       	ldi	r24, 0x02	; 2
+    1200:	f1 50       	subi	r31, 0x01	; 1
+    1202:	20 40       	sbci	r18, 0x00	; 0
+    1204:	80 40       	sbci	r24, 0x00	; 0
+    1206:	e1 f7       	brne	.-8      	; 0x1200 <main+0x640>
+    1208:	00 c0       	rjmp	.+0      	; 0x120a <main+0x64a>
+    120a:	00 00       	nop
+    120c:	1b b9       	out	0x0b, r17	; 11
+    120e:	22 c0       	rjmp	.+68     	; 0x1254 <main+0x694>
+    1210:	9f ef       	ldi	r25, 0xFF	; 255
+    1212:	a0 e7       	ldi	r26, 0x70	; 112
+    1214:	b2 e0       	ldi	r27, 0x02	; 2
+    1216:	91 50       	subi	r25, 0x01	; 1
+    1218:	a0 40       	sbci	r26, 0x00	; 0
+    121a:	b0 40       	sbci	r27, 0x00	; 0
+    121c:	e1 f7       	brne	.-8      	; 0x1216 <main+0x656>
+    121e:	00 c0       	rjmp	.+0      	; 0x1220 <main+0x660>
+    1220:	00 00       	nop
 				_delay_ms(100);
 				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;break;}
-    142e:	48 9b       	sbis	0x09, 0	; 9
-    1430:	0b c0       	rjmp	.+22     	; 0x1448 <main+0x706>
-    1432:	ef ef       	ldi	r30, 0xFF	; 255
-    1434:	f0 e7       	ldi	r31, 0x70	; 112
-    1436:	22 e0       	ldi	r18, 0x02	; 2
-    1438:	e1 50       	subi	r30, 0x01	; 1
-    143a:	f0 40       	sbci	r31, 0x00	; 0
-    143c:	20 40       	sbci	r18, 0x00	; 0
-    143e:	e1 f7       	brne	.-8      	; 0x1438 <main+0x6f6>
-    1440:	00 c0       	rjmp	.+0      	; 0x1442 <main+0x700>
-    1442:	00 00       	nop
-    1444:	1b b9       	out	0x0b, r17	; 11
-    1446:	da c0       	rjmp	.+436    	; 0x15fc <main+0x8ba>
+    1222:	48 9b       	sbis	0x09, 0	; 9
+    1224:	0b c0       	rjmp	.+22     	; 0x123c <main+0x67c>
+    1226:	ef ef       	ldi	r30, 0xFF	; 255
+    1228:	f0 e7       	ldi	r31, 0x70	; 112
+    122a:	22 e0       	ldi	r18, 0x02	; 2
+    122c:	e1 50       	subi	r30, 0x01	; 1
+    122e:	f0 40       	sbci	r31, 0x00	; 0
+    1230:	20 40       	sbci	r18, 0x00	; 0
+    1232:	e1 f7       	brne	.-8      	; 0x122c <main+0x66c>
+    1234:	00 c0       	rjmp	.+0      	; 0x1236 <main+0x676>
+    1236:	00 00       	nop
+    1238:	1b b9       	out	0x0b, r17	; 11
+    123a:	0c c0       	rjmp	.+24     	; 0x1254 <main+0x694>
 				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
-    1448:	49 9b       	sbis	0x09, 1	; 9
-    144a:	0e c0       	rjmp	.+28     	; 0x1468 <main+0x726>
-    144c:	8f ef       	ldi	r24, 0xFF	; 255
-    144e:	90 e7       	ldi	r25, 0x70	; 112
-    1450:	a2 e0       	ldi	r26, 0x02	; 2
-    1452:	81 50       	subi	r24, 0x01	; 1
-    1454:	90 40       	sbci	r25, 0x00	; 0
-    1456:	a0 40       	sbci	r26, 0x00	; 0
-    1458:	e1 f7       	brne	.-8      	; 0x1452 <main+0x710>
-    145a:	00 c0       	rjmp	.+0      	; 0x145c <main+0x71a>
-    145c:	00 00       	nop
-    145e:	1b b9       	out	0x0b, r17	; 11
-    1460:	cd c0       	rjmp	.+410    	; 0x15fc <main+0x8ba>
-				Alarm = 0;}
-			if(Alarm == 0) {
-    1462:	00 97       	sbiw	r24, 0x00	; 0
-    1464:	09 f0       	breq	.+2      	; 0x1468 <main+0x726>
-    1466:	9b c0       	rjmp	.+310    	; 0x159e <main+0x85c>
-				PORTD ^= 0x80; 
-    1468:	8b b1       	in	r24, 0x0b	; 11
-    146a:	80 58       	subi	r24, 0x80	; 128
-    146c:	8b b9       	out	0x0b, r24	; 11
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    146e:	48 9b       	sbis	0x09, 0	; 9
-    1470:	14 c0       	rjmp	.+40     	; 0x149a <main+0x758>
-    1472:	bf ef       	ldi	r27, 0xFF	; 255
-    1474:	e0 e7       	ldi	r30, 0x70	; 112
-    1476:	f2 e0       	ldi	r31, 0x02	; 2
-    1478:	b1 50       	subi	r27, 0x01	; 1
-    147a:	e0 40       	sbci	r30, 0x00	; 0
-    147c:	f0 40       	sbci	r31, 0x00	; 0
-    147e:	e1 f7       	brne	.-8      	; 0x1478 <main+0x736>
-    1480:	00 c0       	rjmp	.+0      	; 0x1482 <main+0x740>
-    1482:	00 00       	nop
-    1484:	1b b9       	out	0x0b, r17	; 11
-    1486:	2f ef       	ldi	r18, 0xFF	; 255
-    1488:	80 e7       	ldi	r24, 0x70	; 112
-    148a:	92 e0       	ldi	r25, 0x02	; 2
-    148c:	21 50       	subi	r18, 0x01	; 1
-    148e:	80 40       	sbci	r24, 0x00	; 0
-    1490:	90 40       	sbci	r25, 0x00	; 0
-    1492:	e1 f7       	brne	.-8      	; 0x148c <main+0x74a>
-    1494:	00 c0       	rjmp	.+0      	; 0x1496 <main+0x754>
-    1496:	00 00       	nop
-    1498:	b1 c0       	rjmp	.+354    	; 0x15fc <main+0x8ba>
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    149a:	49 9b       	sbis	0x09, 1	; 9
-    149c:	14 c0       	rjmp	.+40     	; 0x14c6 <main+0x784>
-    149e:	af ef       	ldi	r26, 0xFF	; 255
-    14a0:	b0 e7       	ldi	r27, 0x70	; 112
-    14a2:	e2 e0       	ldi	r30, 0x02	; 2
-    14a4:	a1 50       	subi	r26, 0x01	; 1
-    14a6:	b0 40       	sbci	r27, 0x00	; 0
-    14a8:	e0 40       	sbci	r30, 0x00	; 0
-    14aa:	e1 f7       	brne	.-8      	; 0x14a4 <main+0x762>
-    14ac:	00 c0       	rjmp	.+0      	; 0x14ae <main+0x76c>
-    14ae:	00 00       	nop
-    14b0:	1b b9       	out	0x0b, r17	; 11
-    14b2:	ff ef       	ldi	r31, 0xFF	; 255
-    14b4:	20 e7       	ldi	r18, 0x70	; 112
-    14b6:	82 e0       	ldi	r24, 0x02	; 2
-    14b8:	f1 50       	subi	r31, 0x01	; 1
-    14ba:	20 40       	sbci	r18, 0x00	; 0
-    14bc:	80 40       	sbci	r24, 0x00	; 0
-    14be:	e1 f7       	brne	.-8      	; 0x14b8 <main+0x776>
-    14c0:	00 c0       	rjmp	.+0      	; 0x14c2 <main+0x780>
-    14c2:	00 00       	nop
-    14c4:	9b c0       	rjmp	.+310    	; 0x15fc <main+0x8ba>
-    14c6:	9f ef       	ldi	r25, 0xFF	; 255
-    14c8:	a0 e7       	ldi	r26, 0x70	; 112
-    14ca:	b2 e0       	ldi	r27, 0x02	; 2
-    14cc:	91 50       	subi	r25, 0x01	; 1
-    14ce:	a0 40       	sbci	r26, 0x00	; 0
-    14d0:	b0 40       	sbci	r27, 0x00	; 0
-    14d2:	e1 f7       	brne	.-8      	; 0x14cc <main+0x78a>
-    14d4:	00 c0       	rjmp	.+0      	; 0x14d6 <main+0x794>
-    14d6:	00 00       	nop
-				_delay_ms(100);
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    14d8:	48 9b       	sbis	0x09, 0	; 9
-    14da:	14 c0       	rjmp	.+40     	; 0x1504 <main+0x7c2>
-    14dc:	ef ef       	ldi	r30, 0xFF	; 255
-    14de:	f0 e7       	ldi	r31, 0x70	; 112
-    14e0:	22 e0       	ldi	r18, 0x02	; 2
-    14e2:	e1 50       	subi	r30, 0x01	; 1
-    14e4:	f0 40       	sbci	r31, 0x00	; 0
-    14e6:	20 40       	sbci	r18, 0x00	; 0
-    14e8:	e1 f7       	brne	.-8      	; 0x14e2 <main+0x7a0>
-    14ea:	00 c0       	rjmp	.+0      	; 0x14ec <main+0x7aa>
-    14ec:	00 00       	nop
-    14ee:	1b b9       	out	0x0b, r17	; 11
-    14f0:	8f ef       	ldi	r24, 0xFF	; 255
-    14f2:	90 e7       	ldi	r25, 0x70	; 112
-    14f4:	a2 e0       	ldi	r26, 0x02	; 2
-    14f6:	81 50       	subi	r24, 0x01	; 1
-    14f8:	90 40       	sbci	r25, 0x00	; 0
-    14fa:	a0 40       	sbci	r26, 0x00	; 0
-    14fc:	e1 f7       	brne	.-8      	; 0x14f6 <main+0x7b4>
-    14fe:	00 c0       	rjmp	.+0      	; 0x1500 <main+0x7be>
-    1500:	00 00       	nop
-    1502:	7c c0       	rjmp	.+248    	; 0x15fc <main+0x8ba>
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    1504:	49 9b       	sbis	0x09, 1	; 9
-    1506:	14 c0       	rjmp	.+40     	; 0x1530 <main+0x7ee>
-    1508:	bf ef       	ldi	r27, 0xFF	; 255
-    150a:	e0 e7       	ldi	r30, 0x70	; 112
-    150c:	f2 e0       	ldi	r31, 0x02	; 2
-    150e:	b1 50       	subi	r27, 0x01	; 1
-    1510:	e0 40       	sbci	r30, 0x00	; 0
-    1512:	f0 40       	sbci	r31, 0x00	; 0
-    1514:	e1 f7       	brne	.-8      	; 0x150e <main+0x7cc>
-    1516:	00 c0       	rjmp	.+0      	; 0x1518 <main+0x7d6>
-    1518:	00 00       	nop
-    151a:	1b b9       	out	0x0b, r17	; 11
-    151c:	2f ef       	ldi	r18, 0xFF	; 255
-    151e:	80 e7       	ldi	r24, 0x70	; 112
-    1520:	92 e0       	ldi	r25, 0x02	; 2
-    1522:	21 50       	subi	r18, 0x01	; 1
-    1524:	80 40       	sbci	r24, 0x00	; 0
-    1526:	90 40       	sbci	r25, 0x00	; 0
-    1528:	e1 f7       	brne	.-8      	; 0x1522 <main+0x7e0>
-    152a:	00 c0       	rjmp	.+0      	; 0x152c <main+0x7ea>
-    152c:	00 00       	nop
-    152e:	66 c0       	rjmp	.+204    	; 0x15fc <main+0x8ba>
-    1530:	af ef       	ldi	r26, 0xFF	; 255
-    1532:	b0 e7       	ldi	r27, 0x70	; 112
-    1534:	e2 e0       	ldi	r30, 0x02	; 2
-    1536:	a1 50       	subi	r26, 0x01	; 1
-    1538:	b0 40       	sbci	r27, 0x00	; 0
-    153a:	e0 40       	sbci	r30, 0x00	; 0
-    153c:	e1 f7       	brne	.-8      	; 0x1536 <main+0x7f4>
-    153e:	00 c0       	rjmp	.+0      	; 0x1540 <main+0x7fe>
-    1540:	00 00       	nop
-				_delay_ms(100);
-				if (PIND & 0x01){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    1542:	48 9b       	sbis	0x09, 0	; 9
-    1544:	14 c0       	rjmp	.+40     	; 0x156e <main+0x82c>
-    1546:	ff ef       	ldi	r31, 0xFF	; 255
-    1548:	20 e7       	ldi	r18, 0x70	; 112
-    154a:	82 e0       	ldi	r24, 0x02	; 2
-    154c:	f1 50       	subi	r31, 0x01	; 1
-    154e:	20 40       	sbci	r18, 0x00	; 0
-    1550:	80 40       	sbci	r24, 0x00	; 0
-    1552:	e1 f7       	brne	.-8      	; 0x154c <main+0x80a>
-    1554:	00 c0       	rjmp	.+0      	; 0x1556 <main+0x814>
-    1556:	00 00       	nop
-    1558:	1b b9       	out	0x0b, r17	; 11
-    155a:	9f ef       	ldi	r25, 0xFF	; 255
-    155c:	a0 e7       	ldi	r26, 0x70	; 112
-    155e:	b2 e0       	ldi	r27, 0x02	; 2
-    1560:	91 50       	subi	r25, 0x01	; 1
-    1562:	a0 40       	sbci	r26, 0x00	; 0
-    1564:	b0 40       	sbci	r27, 0x00	; 0
-    1566:	e1 f7       	brne	.-8      	; 0x1560 <main+0x81e>
-    1568:	00 c0       	rjmp	.+0      	; 0x156a <main+0x828>
-    156a:	00 00       	nop
-    156c:	47 c0       	rjmp	.+142    	; 0x15fc <main+0x8ba>
-				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;_delay_ms(100);break;}
-    156e:	49 9b       	sbis	0x09, 1	; 9
-    1570:	14 c0       	rjmp	.+40     	; 0x159a <main+0x858>
-    1572:	ef ef       	ldi	r30, 0xFF	; 255
-    1574:	f0 e7       	ldi	r31, 0x70	; 112
-    1576:	22 e0       	ldi	r18, 0x02	; 2
-    1578:	e1 50       	subi	r30, 0x01	; 1
-    157a:	f0 40       	sbci	r31, 0x00	; 0
-    157c:	20 40       	sbci	r18, 0x00	; 0
-    157e:	e1 f7       	brne	.-8      	; 0x1578 <main+0x836>
-    1580:	00 c0       	rjmp	.+0      	; 0x1582 <main+0x840>
-    1582:	00 00       	nop
-    1584:	1b b9       	out	0x0b, r17	; 11
-    1586:	8f ef       	ldi	r24, 0xFF	; 255
-    1588:	90 e7       	ldi	r25, 0x70	; 112
-    158a:	a2 e0       	ldi	r26, 0x02	; 2
-    158c:	81 50       	subi	r24, 0x01	; 1
-    158e:	90 40       	sbci	r25, 0x00	; 0
-    1590:	a0 40       	sbci	r26, 0x00	; 0
-    1592:	e1 f7       	brne	.-8      	; 0x158c <main+0x84a>
-    1594:	00 c0       	rjmp	.+0      	; 0x1596 <main+0x854>
-    1596:	00 00       	nop
-    1598:	31 c0       	rjmp	.+98     	; 0x15fc <main+0x8ba>
-				Alarm = 1;
-    159a:	87 2d       	mov	r24, r7
-    159c:	98 2d       	mov	r25, r8
+    123c:	49 9b       	sbis	0x09, 1	; 9
+    123e:	9f cf       	rjmp	.-194    	; 0x117e <main+0x5be>
+    1240:	8f ef       	ldi	r24, 0xFF	; 255
+    1242:	90 e7       	ldi	r25, 0x70	; 112
+    1244:	a2 e0       	ldi	r26, 0x02	; 2
+    1246:	81 50       	subi	r24, 0x01	; 1
+    1248:	90 40       	sbci	r25, 0x00	; 0
+    124a:	a0 40       	sbci	r26, 0x00	; 0
+    124c:	e1 f7       	brne	.-8      	; 0x1246 <main+0x686>
+    124e:	00 c0       	rjmp	.+0      	; 0x1250 <main+0x690>
+    1250:	00 00       	nop
+    1252:	1b b9       	out	0x0b, r17	; 11
+    1254:	bf ef       	ldi	r27, 0xFF	; 255
+    1256:	e0 e7       	ldi	r30, 0x70	; 112
+    1258:	f2 e0       	ldi	r31, 0x02	; 2
+    125a:	b1 50       	subi	r27, 0x01	; 1
+    125c:	e0 40       	sbci	r30, 0x00	; 0
+    125e:	f0 40       	sbci	r31, 0x00	; 0
+    1260:	e1 f7       	brne	.-8      	; 0x125a <main+0x69a>
+    1262:	00 c0       	rjmp	.+0      	; 0x1264 <main+0x6a4>
+    1264:	00 00       	nop
+				Alarm = 0;
 				}
-			
-			if (PIND & 0x01){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-    159e:	48 9b       	sbis	0x09, 0	; 9
-    15a0:	16 c0       	rjmp	.+44     	; 0x15ce <main+0x88c>
-    15a2:	bf ef       	ldi	r27, 0xFF	; 255
-    15a4:	e0 e7       	ldi	r30, 0x70	; 112
-    15a6:	f2 e0       	ldi	r31, 0x02	; 2
-    15a8:	b1 50       	subi	r27, 0x01	; 1
-    15aa:	e0 40       	sbci	r30, 0x00	; 0
-    15ac:	f0 40       	sbci	r31, 0x00	; 0
-    15ae:	e1 f7       	brne	.-8      	; 0x15a8 <main+0x866>
-    15b0:	00 c0       	rjmp	.+0      	; 0x15b2 <main+0x870>
-    15b2:	00 00       	nop
-    15b4:	8b b1       	in	r24, 0x0b	; 11
-    15b6:	80 58       	subi	r24, 0x80	; 128
-    15b8:	8b b9       	out	0x0b, r24	; 11
-    15ba:	2f ef       	ldi	r18, 0xFF	; 255
-    15bc:	80 e7       	ldi	r24, 0x70	; 112
-    15be:	92 e0       	ldi	r25, 0x02	; 2
-    15c0:	21 50       	subi	r18, 0x01	; 1
-    15c2:	80 40       	sbci	r24, 0x00	; 0
-    15c4:	90 40       	sbci	r25, 0x00	; 0
-    15c6:	e1 f7       	brne	.-8      	; 0x15c0 <main+0x87e>
-    15c8:	00 c0       	rjmp	.+0      	; 0x15ca <main+0x888>
-    15ca:	00 00       	nop
-    15cc:	17 c0       	rjmp	.+46     	; 0x15fc <main+0x8ba>
-			else if (PIND & 0x02){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-    15ce:	49 9b       	sbis	0x09, 1	; 9
-    15d0:	d8 ce       	rjmp	.-592    	; 0x1382 <main+0x640>
-    15d2:	af ef       	ldi	r26, 0xFF	; 255
-    15d4:	b0 e7       	ldi	r27, 0x70	; 112
-    15d6:	e2 e0       	ldi	r30, 0x02	; 2
-    15d8:	a1 50       	subi	r26, 0x01	; 1
-    15da:	b0 40       	sbci	r27, 0x00	; 0
-    15dc:	e0 40       	sbci	r30, 0x00	; 0
-    15de:	e1 f7       	brne	.-8      	; 0x15d8 <main+0x896>
-    15e0:	00 c0       	rjmp	.+0      	; 0x15e2 <main+0x8a0>
-    15e2:	00 00       	nop
-    15e4:	8b b1       	in	r24, 0x0b	; 11
-    15e6:	80 58       	subi	r24, 0x80	; 128
-    15e8:	8b b9       	out	0x0b, r24	; 11
-    15ea:	ff ef       	ldi	r31, 0xFF	; 255
-    15ec:	20 e7       	ldi	r18, 0x70	; 112
-    15ee:	82 e0       	ldi	r24, 0x02	; 2
-    15f0:	f1 50       	subi	r31, 0x01	; 1
-    15f2:	20 40       	sbci	r18, 0x00	; 0
-    15f4:	80 40       	sbci	r24, 0x00	; 0
-    15f6:	e1 f7       	brne	.-8      	; 0x15f0 <main+0x8ae>
-    15f8:	00 c0       	rjmp	.+0      	; 0x15fa <main+0x8b8>
-    15fa:	00 00       	nop
-    15fc:	9f ef       	ldi	r25, 0xFF	; 255
-    15fe:	a0 e7       	ldi	r26, 0x70	; 112
-    1600:	b2 e0       	ldi	r27, 0x02	; 2
-    1602:	91 50       	subi	r25, 0x01	; 1
-    1604:	a0 40       	sbci	r26, 0x00	; 0
-    1606:	b0 40       	sbci	r27, 0x00	; 0
-    1608:	e1 f7       	brne	.-8      	; 0x1602 <main+0x8c0>
-    160a:	00 c0       	rjmp	.+0      	; 0x160c <main+0x8ca>
-    160c:	00 00       	nop
-		}
+		
 		_delay_ms(100);
-		alarmHours = 25;
+		alarmHours = 25; // then we say the alarm is done and it will not go off again until it is set again by the user.
 		alarmMinutes = 61;
-    160e:	0f 2e       	mov	r0, r31
-    1610:	fd e3       	ldi	r31, 0x3D	; 61
-    1612:	af 2e       	mov	r10, r31
-    1614:	f0 2d       	mov	r31, r0
-			
-			if (PIND & 0x01){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-			else if (PIND & 0x02){_delay_ms(100);PORTD ^= 0x80;_delay_ms(100);break;} 
-		}
+    1266:	0f 2e       	mov	r0, r31
+    1268:	fd e3       	ldi	r31, 0x3D	; 61
+    126a:	ef 2e       	mov	r14, r31
+    126c:	f0 2d       	mov	r31, r0
+				else if (PIND & 0x02){_delay_ms(100);PORTD = PinTracker;break;}
+				Alarm = 0;
+				}
+		
 		_delay_ms(100);
-		alarmHours = 25;
-    1616:	0f 2e       	mov	r0, r31
-    1618:	f9 e1       	ldi	r31, 0x19	; 25
-    161a:	bf 2e       	mov	r11, r31
-    161c:	f0 2d       	mov	r31, r0
+		alarmHours = 25; // then we say the alarm is done and it will not go off again until it is set again by the user.
+    126e:	0f 2e       	mov	r0, r31
+    1270:	f9 e1       	ldi	r31, 0x19	; 25
+    1272:	ff 2e       	mov	r15, r31
+    1274:	f0 2d       	mov	r31, r0
 		alarmMinutes = 61;
 	}
 	nokia_lcd_render();
-    161e:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
+    1276:	0e 94 ad 02 	call	0x55a	; 0x55a <nokia_lcd_render>
 	nokia_lcd_clear();
-    1622:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
-    1626:	ef ef       	ldi	r30, 0xFF	; 255
-    1628:	f0 e7       	ldi	r31, 0x70	; 112
-    162a:	22 e0       	ldi	r18, 0x02	; 2
-    162c:	e1 50       	subi	r30, 0x01	; 1
-    162e:	f0 40       	sbci	r31, 0x00	; 0
-    1630:	20 40       	sbci	r18, 0x00	; 0
-    1632:	e1 f7       	brne	.-8      	; 0x162c <main+0x8ea>
-    1634:	00 c0       	rjmp	.+0      	; 0x1636 <main+0x8f4>
-    1636:	00 00       	nop
-    1638:	cb cc       	rjmp	.-1642   	; 0xfd0 <main+0x28e>
+    127a:	0e 94 a9 01 	call	0x352	; 0x352 <nokia_lcd_clear>
+    127e:	2f ef       	ldi	r18, 0xFF	; 255
+    1280:	80 e7       	ldi	r24, 0x70	; 112
+    1282:	92 e0       	ldi	r25, 0x02	; 2
+    1284:	21 50       	subi	r18, 0x01	; 1
+    1286:	80 40       	sbci	r24, 0x00	; 0
+    1288:	90 40       	sbci	r25, 0x00	; 0
+    128a:	e1 f7       	brne	.-8      	; 0x1284 <main+0x6c4>
+    128c:	00 c0       	rjmp	.+0      	; 0x128e <main+0x6ce>
+    128e:	00 00       	nop
+    1290:	a5 cd       	rjmp	.-1206   	; 0xddc <main+0x21c>
 
-0000163a <__udivmodqi4>:
-    163a:	99 1b       	sub	r25, r25
-    163c:	79 e0       	ldi	r23, 0x09	; 9
-    163e:	04 c0       	rjmp	.+8      	; 0x1648 <__udivmodqi4_ep>
+00001292 <__udivmodqi4>:
+    1292:	99 1b       	sub	r25, r25
+    1294:	79 e0       	ldi	r23, 0x09	; 9
+    1296:	04 c0       	rjmp	.+8      	; 0x12a0 <__udivmodqi4_ep>
 
-00001640 <__udivmodqi4_loop>:
-    1640:	99 1f       	adc	r25, r25
-    1642:	96 17       	cp	r25, r22
-    1644:	08 f0       	brcs	.+2      	; 0x1648 <__udivmodqi4_ep>
-    1646:	96 1b       	sub	r25, r22
+00001298 <__udivmodqi4_loop>:
+    1298:	99 1f       	adc	r25, r25
+    129a:	96 17       	cp	r25, r22
+    129c:	08 f0       	brcs	.+2      	; 0x12a0 <__udivmodqi4_ep>
+    129e:	96 1b       	sub	r25, r22
 
-00001648 <__udivmodqi4_ep>:
-    1648:	88 1f       	adc	r24, r24
-    164a:	7a 95       	dec	r23
-    164c:	c9 f7       	brne	.-14     	; 0x1640 <__udivmodqi4_loop>
-    164e:	80 95       	com	r24
-    1650:	08 95       	ret
+000012a0 <__udivmodqi4_ep>:
+    12a0:	88 1f       	adc	r24, r24
+    12a2:	7a 95       	dec	r23
+    12a4:	c9 f7       	brne	.-14     	; 0x1298 <__udivmodqi4_loop>
+    12a6:	80 95       	com	r24
+    12a8:	08 95       	ret
 
-00001652 <__itoa_ncheck>:
-    1652:	bb 27       	eor	r27, r27
-    1654:	4a 30       	cpi	r20, 0x0A	; 10
-    1656:	31 f4       	brne	.+12     	; 0x1664 <__itoa_ncheck+0x12>
-    1658:	99 23       	and	r25, r25
-    165a:	22 f4       	brpl	.+8      	; 0x1664 <__itoa_ncheck+0x12>
-    165c:	bd e2       	ldi	r27, 0x2D	; 45
-    165e:	90 95       	com	r25
-    1660:	81 95       	neg	r24
-    1662:	9f 4f       	sbci	r25, 0xFF	; 255
-    1664:	0c 94 35 0b 	jmp	0x166a	; 0x166a <__utoa_common>
+000012aa <__itoa_ncheck>:
+    12aa:	bb 27       	eor	r27, r27
+    12ac:	4a 30       	cpi	r20, 0x0A	; 10
+    12ae:	31 f4       	brne	.+12     	; 0x12bc <__itoa_ncheck+0x12>
+    12b0:	99 23       	and	r25, r25
+    12b2:	22 f4       	brpl	.+8      	; 0x12bc <__itoa_ncheck+0x12>
+    12b4:	bd e2       	ldi	r27, 0x2D	; 45
+    12b6:	90 95       	com	r25
+    12b8:	81 95       	neg	r24
+    12ba:	9f 4f       	sbci	r25, 0xFF	; 255
+    12bc:	0c 94 61 09 	jmp	0x12c2	; 0x12c2 <__utoa_common>
 
-00001668 <__utoa_ncheck>:
-    1668:	bb 27       	eor	r27, r27
+000012c0 <__utoa_ncheck>:
+    12c0:	bb 27       	eor	r27, r27
 
-0000166a <__utoa_common>:
-    166a:	fb 01       	movw	r30, r22
-    166c:	55 27       	eor	r21, r21
-    166e:	aa 27       	eor	r26, r26
-    1670:	88 0f       	add	r24, r24
-    1672:	99 1f       	adc	r25, r25
-    1674:	aa 1f       	adc	r26, r26
-    1676:	a4 17       	cp	r26, r20
-    1678:	10 f0       	brcs	.+4      	; 0x167e <__utoa_common+0x14>
-    167a:	a4 1b       	sub	r26, r20
-    167c:	83 95       	inc	r24
-    167e:	50 51       	subi	r21, 0x10	; 16
-    1680:	b9 f7       	brne	.-18     	; 0x1670 <__utoa_common+0x6>
-    1682:	a0 5d       	subi	r26, 0xD0	; 208
-    1684:	aa 33       	cpi	r26, 0x3A	; 58
-    1686:	08 f0       	brcs	.+2      	; 0x168a <__utoa_common+0x20>
-    1688:	a9 5d       	subi	r26, 0xD9	; 217
-    168a:	a1 93       	st	Z+, r26
-    168c:	00 97       	sbiw	r24, 0x00	; 0
-    168e:	79 f7       	brne	.-34     	; 0x166e <__utoa_common+0x4>
-    1690:	b1 11       	cpse	r27, r1
-    1692:	b1 93       	st	Z+, r27
-    1694:	11 92       	st	Z+, r1
-    1696:	cb 01       	movw	r24, r22
-    1698:	0c 94 4e 0b 	jmp	0x169c	; 0x169c <strrev>
+000012c2 <__utoa_common>:
+    12c2:	fb 01       	movw	r30, r22
+    12c4:	55 27       	eor	r21, r21
+    12c6:	aa 27       	eor	r26, r26
+    12c8:	88 0f       	add	r24, r24
+    12ca:	99 1f       	adc	r25, r25
+    12cc:	aa 1f       	adc	r26, r26
+    12ce:	a4 17       	cp	r26, r20
+    12d0:	10 f0       	brcs	.+4      	; 0x12d6 <__utoa_common+0x14>
+    12d2:	a4 1b       	sub	r26, r20
+    12d4:	83 95       	inc	r24
+    12d6:	50 51       	subi	r21, 0x10	; 16
+    12d8:	b9 f7       	brne	.-18     	; 0x12c8 <__utoa_common+0x6>
+    12da:	a0 5d       	subi	r26, 0xD0	; 208
+    12dc:	aa 33       	cpi	r26, 0x3A	; 58
+    12de:	08 f0       	brcs	.+2      	; 0x12e2 <__utoa_common+0x20>
+    12e0:	a9 5d       	subi	r26, 0xD9	; 217
+    12e2:	a1 93       	st	Z+, r26
+    12e4:	00 97       	sbiw	r24, 0x00	; 0
+    12e6:	79 f7       	brne	.-34     	; 0x12c6 <__utoa_common+0x4>
+    12e8:	b1 11       	cpse	r27, r1
+    12ea:	b1 93       	st	Z+, r27
+    12ec:	11 92       	st	Z+, r1
+    12ee:	cb 01       	movw	r24, r22
+    12f0:	0c 94 7a 09 	jmp	0x12f4	; 0x12f4 <strrev>
 
-0000169c <strrev>:
-    169c:	dc 01       	movw	r26, r24
-    169e:	fc 01       	movw	r30, r24
-    16a0:	67 2f       	mov	r22, r23
-    16a2:	71 91       	ld	r23, Z+
-    16a4:	77 23       	and	r23, r23
-    16a6:	e1 f7       	brne	.-8      	; 0x16a0 <strrev+0x4>
-    16a8:	32 97       	sbiw	r30, 0x02	; 2
-    16aa:	04 c0       	rjmp	.+8      	; 0x16b4 <strrev+0x18>
-    16ac:	7c 91       	ld	r23, X
-    16ae:	6d 93       	st	X+, r22
-    16b0:	70 83       	st	Z, r23
-    16b2:	62 91       	ld	r22, -Z
-    16b4:	ae 17       	cp	r26, r30
-    16b6:	bf 07       	cpc	r27, r31
-    16b8:	c8 f3       	brcs	.-14     	; 0x16ac <strrev+0x10>
-    16ba:	08 95       	ret
+000012f4 <strrev>:
+    12f4:	dc 01       	movw	r26, r24
+    12f6:	fc 01       	movw	r30, r24
+    12f8:	67 2f       	mov	r22, r23
+    12fa:	71 91       	ld	r23, Z+
+    12fc:	77 23       	and	r23, r23
+    12fe:	e1 f7       	brne	.-8      	; 0x12f8 <strrev+0x4>
+    1300:	32 97       	sbiw	r30, 0x02	; 2
+    1302:	04 c0       	rjmp	.+8      	; 0x130c <strrev+0x18>
+    1304:	7c 91       	ld	r23, X
+    1306:	6d 93       	st	X+, r22
+    1308:	70 83       	st	Z, r23
+    130a:	62 91       	ld	r22, -Z
+    130c:	ae 17       	cp	r26, r30
+    130e:	bf 07       	cpc	r27, r31
+    1310:	c8 f3       	brcs	.-14     	; 0x1304 <strrev+0x10>
+    1312:	08 95       	ret
 
-000016bc <_exit>:
-    16bc:	f8 94       	cli
+00001314 <_exit>:
+    1314:	f8 94       	cli
 
-000016be <__stop_program>:
-    16be:	ff cf       	rjmp	.-2      	; 0x16be <__stop_program>
+00001316 <__stop_program>:
+    1316:	ff cf       	rjmp	.-2      	; 0x1316 <__stop_program>

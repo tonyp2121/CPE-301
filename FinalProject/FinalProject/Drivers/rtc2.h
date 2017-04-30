@@ -1,4 +1,4 @@
-// vim: foldmethod=marker
+
 #ifndef __RTC2_H__
 #define __RTC2_H__
 
